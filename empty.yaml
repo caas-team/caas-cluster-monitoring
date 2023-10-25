@@ -1,0 +1,9 @@
+kube-prometheus-stack:
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelector:
+        matchExpressions:
+          - key: release
+            operator: In
+            values:
+              - all-off
