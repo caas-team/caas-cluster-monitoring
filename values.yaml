@@ -9,9 +9,10 @@ caas:
     serviceAccount:
       create: true
       name: rancher-monitoring
-  # deploy additional nginx.conf and dashboard for Grafana
+  # deploy additional nginx.conf and dashboard for Grafana, mostly covered from Rancher
+  # beware of the defaultDashboardsEnabled in kube-prometheus-stack
   grafana:
-    configmaps: true
+    configmaps: false
   fullnameOverride: ""
   nameOverride: ""
   # overrides the default namespace for caas related resources
@@ -19,8 +20,8 @@ caas:
   #
 global:
   cattle:
-    # set clusterId for Grafana reachable via RancherProxy (not necessary in deployment via App store)
     clusterId: local
+    clusterName: local
     # projectId: &projectId p-xxxxx
     systemDefaultRegistry: "mtr.devops.telekom.de"
   imageRegistry: mtr.devops.telekom.de
@@ -28,6 +29,8 @@ global:
 kube-prometheus-stack:
   #  full set of values and pre-defined for caas
   #  ref: https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+  crds:
+    enabled: false
   nameOverride: "rancher-monitoring"
   fullnameOverride: "rancher-monitoring"
   #commonLabels:
@@ -421,7 +424,7 @@ kube-prometheus-stack:
             url: http://prometheus-operated:9090
             access: proxy
             isDefault: true
-    defaultDashboardsEnabled: false
+    defaultDashboardsEnabled: true
     defaultDashboardsTimezone: utc
     enabled: true
     extraContainers: |
@@ -549,7 +552,7 @@ kube-prometheus-stack:
             enabled: false
         provider:
           allowUiUpdates: false
-        searchNamespace: ""
+        searchNamespace: "cattle-monitoring-system"
       datasources:
         createPrometheusReplicasDatasources: false
         defaultDatasourceEnabled: false
@@ -574,7 +577,7 @@ kube-prometheus-stack:
   kubelet:
     enabled: true
   kubeControllerManager:
-    enabled: true
+    enabled: false
   coreDns:
     enabled: true
   kubeDns:
@@ -603,6 +606,9 @@ kube-prometheus-stack:
       enabled: true
   nodeExporter:
     enabled: true
+    operatingSystems:
+      darwin:
+        enabled: false
   prometheus-node-exporter:
     image:
       pullPolicy: Always
@@ -611,7 +617,7 @@ kube-prometheus-stack:
     prometheus:
       monitor:
         enabled: true
-    releaseLabel: false
+    releaseLabel: true
     rbac:
       pspEnabled: false
   prometheusOperator:
@@ -649,6 +655,7 @@ kube-prometheus-stack:
     - apiGroups:
       - ""
       resources:
+      - configmaps
       - namespaces
       - nodes
       - nodes/metrics
@@ -721,7 +728,7 @@ kube-prometheus-stack:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-          image: mtr.devops.telekom.de/caas/prometheus-auth:0.4.1
+          image: mtr.devops.telekom.de/caas/prometheus-auth:0.5.1
           name: prometheus-agent
           ports:
           - containerPort: 9091
@@ -871,3 +878,47 @@ kube-prometheus-stack:
       relabelings: []
   thanosRuler:
     enabled: false
+# refer to Rancher specific things,holding as sub charts in https://github.com/rancher/charts/tree/release-v2.7/charts/rancher-monitoring/102.0.2%2Bup40.1.2/charts
+# try to adapt from kps components, or copy the sub chart content here
+k3sServer:
+  enabled: false
+  metricsPort: 10250
+  component: k3s-server
+  clients:
+    port: 10013
+    useLocalhost: true
+    https:
+      enabled: true
+      useServiceAccountCredentials: true
+      insecureSkipVerify: true
+    rbac:
+      additionalRules:
+      - nonResourceURLs: ["/metrics/cadvisor"]
+        verbs: ["get"]
+      - apiGroups: [""]
+        resources: ["nodes/metrics"]
+        verbs: ["get"]
+    tolerations:
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
+  serviceMonitor:
+    endpoints:
+    - port: metrics
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+    - port: metrics
+      path: /metrics/cadvisor
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+    - port: metrics
+      path: /metrics/probes
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
