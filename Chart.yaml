@@ -14,9 +14,24 @@ dependencies:
   - name: kube-prometheus-stack
     version: "51.0.3"
     repository: "https://prometheus-community.github.io/helm-charts"
-#  - condition: rancher.k3sServer.enabled
-#    name: k3sServer
-#    repository: file://./k3sServer
+  - condition: k3sServer.enabled
+    name: k3sServer
+    repository: file://./charts/k3sServer
+  - condition: rkeEtcd.enabled
+    name: rkeEtcd
+    repository: file://./charts/rkeEtcd
+  - condition: rkeControllerManager.enabled
+    name: rkeControllerManager
+    repository: file://./charts/rkeControllerManager
+  - condition: rkeScheduler.enabled
+    name: rkeScheduler
+    repository: file://./charts/rkeScheduler
+  - condition: rkeIngressNginx.enabled
+    name: rkeIngressNginx
+    repository: file://./charts/rkeIngressNginx
+  - condition: rkeProxy.enabled
+    name: rkeProxy
+    repository: file://./charts/rkeProxy
 sources:
   - https://github.com/caas-team/caas-cluster-monitoring
   - https://github.com/prometheus-community/helm-charts
