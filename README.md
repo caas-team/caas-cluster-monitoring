@@ -38,6 +38,8 @@ Upgrade to the kube-prometheus-stack:
 helm -n cattle-monitoring-system upgrade -i rancher-monitoring .
 ```
 
+available config parameters:
+
 ### caas
 
 | Parameter | Type | Default | Description |
@@ -486,3 +488,100 @@ helm -n cattle-monitoring-system upgrade -i rancher-monitoring .
 | `k3sServer.serviceMonitor.endpoints[2].port` | string | `"metrics"` |  |
 | `k3sServer.serviceMonitor.endpoints[2].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
 | `k3sServer.serviceMonitor.endpoints[2].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
+
+### rkeControllerManager
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `rkeControllerManager.clients.https.enabled` | bool | `true` |  |
+| `rkeControllerManager.clients.https.insecureSkipVerify` | bool | `true` |  |
+| `rkeControllerManager.clients.https.useServiceAccountCredentials` | bool | `true` |  |
+| `rkeControllerManager.clients.nodeSelector."node-role.kubernetes.io/controlplane"` | string | `"true"` |  |
+| `rkeControllerManager.clients.port` | int | `10011` |  |
+| `rkeControllerManager.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
+| `rkeControllerManager.clients.tolerations[0].operator` | string | `"Exists"` |  |
+| `rkeControllerManager.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
+| `rkeControllerManager.clients.tolerations[1].operator` | string | `"Exists"` |  |
+| `rkeControllerManager.clients.useLocalhost` | bool | `true` |  |
+| `rkeControllerManager.component` | string | `"kube-controller-manager"` |  |
+| `rkeControllerManager.enabled` | bool | `false` |  |
+| `rkeControllerManager.kubeVersionOverrides[0].constraint` | string | `"< 1.22"` |  |
+| `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
+| `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
+| `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.useServiceAccountCredentials` | bool | `false` |  |
+| `rkeControllerManager.kubeVersionOverrides[0].values.metricsPort` | int | `10252` |  |
+| `rkeControllerManager.metricsPort` | int | `10257` |  |
+
+### rkeEtcd
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `rkeEtcd.clients.https.caCertFile` | string | `"kube-ca.pem"` |  |
+| `rkeEtcd.clients.https.certDir` | string | `"/etc/kubernetes/ssl"` |  |
+| `rkeEtcd.clients.https.certFile` | string | `"kube-etcd-*.pem"` |  |
+| `rkeEtcd.clients.https.enabled` | bool | `true` |  |
+| `rkeEtcd.clients.https.keyFile` | string | `"kube-etcd-*-key.pem"` |  |
+| `rkeEtcd.clients.https.seLinuxOptions.type` | string | `"rke_kubereader_t"` |  |
+| `rkeEtcd.clients.nodeSelector."node-role.kubernetes.io/etcd"` | string | `"true"` |  |
+| `rkeEtcd.clients.port` | int | `10014` |  |
+| `rkeEtcd.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
+| `rkeEtcd.clients.tolerations[0].operator` | string | `"Exists"` |  |
+| `rkeEtcd.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
+| `rkeEtcd.clients.tolerations[1].operator` | string | `"Exists"` |  |
+| `rkeEtcd.component` | string | `"kube-etcd"` |  |
+| `rkeEtcd.enabled` | bool | `false` |  |
+| `rkeEtcd.metricsPort` | int | `2379` |  |
+
+### rkeIngressNginx
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `rkeIngressNginx.clients.nodeSelector."node-role.kubernetes.io/worker"` | string | `"true"` |  |
+| `rkeIngressNginx.clients.port` | int | `10015` |  |
+| `rkeIngressNginx.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
+| `rkeIngressNginx.clients.tolerations[0].operator` | string | `"Exists"` |  |
+| `rkeIngressNginx.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
+| `rkeIngressNginx.clients.tolerations[1].operator` | string | `"Exists"` |  |
+| `rkeIngressNginx.clients.useLocalhost` | bool | `true` |  |
+| `rkeIngressNginx.component` | string | `"ingress-nginx"` |  |
+| `rkeIngressNginx.enabled` | bool | `false` |  |
+| `rkeIngressNginx.metricsPort` | int | `10254` |  |
+
+### rkeProxy
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `rkeProxy.clients.port` | int | `10013` |  |
+| `rkeProxy.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
+| `rkeProxy.clients.tolerations[0].operator` | string | `"Exists"` |  |
+| `rkeProxy.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
+| `rkeProxy.clients.tolerations[1].operator` | string | `"Exists"` |  |
+| `rkeProxy.clients.useLocalhost` | bool | `true` |  |
+| `rkeProxy.component` | string | `"kube-proxy"` |  |
+| `rkeProxy.enabled` | bool | `false` |  |
+| `rkeProxy.metricsPort` | int | `10249` |  |
+
+### rkeScheduler
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `rkeScheduler.clients.https.enabled` | bool | `true` |  |
+| `rkeScheduler.clients.https.insecureSkipVerify` | bool | `true` |  |
+| `rkeScheduler.clients.https.useServiceAccountCredentials` | bool | `true` |  |
+| `rkeScheduler.clients.nodeSelector."node-role.kubernetes.io/controlplane"` | string | `"true"` |  |
+| `rkeScheduler.clients.port` | int | `10012` |  |
+| `rkeScheduler.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
+| `rkeScheduler.clients.tolerations[0].operator` | string | `"Exists"` |  |
+| `rkeScheduler.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
+| `rkeScheduler.clients.tolerations[1].operator` | string | `"Exists"` |  |
+| `rkeScheduler.clients.useLocalhost` | bool | `true` |  |
+| `rkeScheduler.component` | string | `"kube-scheduler"` |  |
+| `rkeScheduler.enabled` | bool | `false` |  |
+| `rkeScheduler.kubeVersionOverrides[0].constraint` | string | `"< 1.23"` |  |
+| `rkeScheduler.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
+| `rkeScheduler.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
+| `rkeScheduler.kubeVersionOverrides[0].values.clients.https.useServiceAccountCredentials` | bool | `false` |  |
+| `rkeScheduler.kubeVersionOverrides[0].values.metricsPort` | int | `10251` |  |
+| `rkeScheduler.metricsPort` | int | `10259` |  |
+
+Autogenerated from chart metadata using [helm-docs v1.11.3](https://github.com/norwoodj/helm-docs/releases/v1.11.3)

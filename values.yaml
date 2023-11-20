@@ -922,3 +922,111 @@ k3sServer:
       relabelings:
       - sourceLabels: [__metrics_path__]
         targetLabel: metrics_path
+
+rkeControllerManager:
+  enabled: false
+  metricsPort: 10257 # default to secure port as of k8s >= 1.22
+  component: kube-controller-manager
+  clients:
+    https:
+      enabled: true
+      insecureSkipVerify: true
+      useServiceAccountCredentials: true
+    port: 10011
+    useLocalhost: true
+    nodeSelector:
+      node-role.kubernetes.io/controlplane: "true"
+    tolerations:
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
+  kubeVersionOverrides:
+  - constraint: "< 1.22"
+    values:
+      metricsPort: 10252 # default to insecure port in k8s < 1.22
+      clients:
+        https:
+          enabled: false
+          insecureSkipVerify: false
+          useServiceAccountCredentials: false
+
+rkeScheduler:
+  enabled: false
+  metricsPort: 10259
+  component: kube-scheduler
+  clients:
+    https:
+      enabled: true
+      insecureSkipVerify: true
+      useServiceAccountCredentials: true
+    port: 10012
+    useLocalhost: true
+    nodeSelector:
+      node-role.kubernetes.io/controlplane: "true"
+    tolerations:
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
+  kubeVersionOverrides:
+  - constraint: "< 1.23"
+    values:
+      metricsPort: 10251 # default to insecure port in k8s < 1.23
+      clients:
+        https:
+          enabled: false
+          insecureSkipVerify: false
+          useServiceAccountCredentials: false
+
+rkeProxy:
+  enabled: false
+  metricsPort: 10249
+  component: kube-proxy
+  clients:
+    port: 10013
+    useLocalhost: true
+    tolerations:
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
+
+rkeEtcd:
+  enabled: false
+  metricsPort: 2379
+  component: kube-etcd
+  clients:
+    port: 10014
+    https:
+      enabled: true
+      certDir: /etc/kubernetes/ssl
+      certFile: kube-etcd-*.pem
+      keyFile: kube-etcd-*-key.pem
+      caCertFile: kube-ca.pem
+      seLinuxOptions:
+        # Gives rkeEtcd permissions to read files in /etc/kubernetes/*
+        # Type is defined in https://github.com/rancher/rancher-selinux
+        type: rke_kubereader_t
+    nodeSelector:
+      node-role.kubernetes.io/etcd: "true"
+    tolerations:
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
+
+rkeIngressNginx:
+  enabled: false
+  metricsPort: 10254
+  component: ingress-nginx
+  clients:
+    port: 10015
+    useLocalhost: true
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+    nodeSelector:
+      node-role.kubernetes.io/worker: "true"
