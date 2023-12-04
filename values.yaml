@@ -620,6 +620,9 @@ kube-prometheus-stack:
     releaseLabel: true
     rbac:
       pspEnabled: false
+    service:
+      port: 9796
+      targetPort: 9796
   prometheusOperator:
     admissionWebhooks:
       patch:
