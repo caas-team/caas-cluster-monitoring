@@ -1,0 +1,14 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-prometheus-auth
+  namespace: cattle-monitoring-system
+spec:
+  ingress:
+  - ports:
+    - port: 9091
+      protocol: TCP
+  podSelector: {}
+  policyTypes:
+  - Ingress
+status: {}
