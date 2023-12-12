@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 caas:
-  # create a namespaces ServiceAccount
   rbac:
+    # -- create a namespaces ServiceAccount
     enabled: true
     serviceAccount:
       create: true
@@ -15,11 +15,11 @@ caas:
     configmaps: false
   fullnameOverride: ""
   nameOverride: ""
-  # overrides the default namespace for caas related resources
+  # -- overrides the default namespace for caas related resources
   namespaceOverride: ""
-  # whether the cluster has a dynatrace operator installed
+  # -- whether the cluster has a dynatrace operator installed
   dynatrace: true
-  # whether the cluster has kubecost installed
+  # -- whether the cluster has kubecost installed
   clusterCosts: true
 
 global:
