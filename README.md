@@ -44,11 +44,13 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `caas.clusterCosts` | bool | `true` | whether the cluster has kubecost installed |
+| `caas.dynatrace` | bool | `true` | whether the cluster has a dynatrace operator installed |
 | `caas.fullnameOverride` | string | `""` |  |
 | `caas.grafana.configmaps` | bool | `false` |  |
 | `caas.nameOverride` | string | `""` |  |
-| `caas.namespaceOverride` | string | `""` |  |
-| `caas.rbac.enabled` | bool | `true` |  |
+| `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
+| `caas.rbac.enabled` | bool | `true` | create a namespaces ServiceAccount |
 | `caas.rbac.serviceAccount.create` | bool | `true` |  |
 | `caas.rbac.serviceAccount.name` | string | `"rancher-monitoring"` |  |
 
@@ -284,6 +286,8 @@ available config parameters:
 | `kube-prometheus-stack.prometheus-node-exporter.prometheus.monitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.rbac.pspEnabled` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.releaseLabel` | bool | `true` |  |
+| `kube-prometheus-stack.prometheus-node-exporter.service.port` | int | `9796` |  |
+| `kube-prometheus-stack.prometheus-node-exporter.service.targetPort` | int | `9796` |  |
 | `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].apiGroups[0]` | string | `""` |  |
 | `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[0]` | string | `"configmaps"` |  |
 | `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[1]` | string | `"namespaces"` |  |

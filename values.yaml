@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 caas:
-  # create a namespaces ServiceAccount
   rbac:
+    # -- create a namespaces ServiceAccount
     enabled: true
     serviceAccount:
       create: true
@@ -15,9 +15,13 @@ caas:
     configmaps: false
   fullnameOverride: ""
   nameOverride: ""
-  # overrides the default namespace for caas related resources
+  # -- overrides the default namespace for caas related resources
   namespaceOverride: ""
-  #
+  # -- whether the cluster has a dynatrace operator installed
+  dynatrace: true
+  # -- whether the cluster has kubecost installed
+  clusterCosts: true
+
 global:
   cattle:
     clusterId: local
@@ -352,7 +356,7 @@ kube-prometheus-stack:
 
         {{- end -}}
     alertmanagerSpec:
-      alertmanagerConfigSelector: 
+      alertmanagerConfigSelector:
         matchExpressions:
           - key: release
             operator: In
@@ -655,56 +659,56 @@ kube-prometheus-stack:
         repository: kubeprometheusstack/prometheus-config-reloader
   prometheus:
     additionalRulesForClusterRole:
-    - apiGroups:
-      - ""
-      resources:
-      - configmaps
-      - namespaces
-      - nodes
-      - nodes/metrics
-      - services
-      - endpoints
-      - pods
-      - secrets
-      verbs:
-      - get
-      - list
-      - watch
-    - apiGroups:
-      - networking.k8s.io
-      resources:
-      - ingresses
-      verbs:
-      - get
-      - list
-      - watch
-    - nonResourceURLs:
-      - /metrics
-      - /metrics/cadvisor
-      verbs:
-      - get
-    - apiGroups:
-      - authentication.k8s.io
-      resources:
-      - tokenreviews
-      verbs:
-      - get
-      - list
-      - create
-      - update
-      - delete
-      - watch
-    - apiGroups:
-      - authorization.k8s.io
-      resources:
-      - subjectaccessreviews
-      verbs:
-      - get
-      - list
-      - create
-      - update
-      - delete
-      - watch
+      - apiGroups:
+          - ""
+        resources:
+          - configmaps
+          - namespaces
+          - nodes
+          - nodes/metrics
+          - services
+          - endpoints
+          - pods
+          - secrets
+        verbs:
+          - get
+          - list
+          - watch
+      - apiGroups:
+          - networking.k8s.io
+        resources:
+          - ingresses
+        verbs:
+          - get
+          - list
+          - watch
+      - nonResourceURLs:
+          - /metrics
+          - /metrics/cadvisor
+        verbs:
+          - get
+      - apiGroups:
+          - authentication.k8s.io
+        resources:
+          - tokenreviews
+        verbs:
+          - get
+          - list
+          - create
+          - update
+          - delete
+          - watch
+      - apiGroups:
+          - authorization.k8s.io
+        resources:
+          - subjectaccessreviews
+        verbs:
+          - get
+          - list
+          - create
+          - update
+          - delete
+          - watch
     enabled: true
     ingress:
       enabled: false
@@ -719,11 +723,11 @@ kube-prometheus-stack:
       additionalScrapeConfigs: []
       containers:
         - args:
-          - --proxy-url=http://127.0.0.1:9090
-          - --listen-address=$(POD_IP):9091
-          - --filter-reader-labels=prometheus
-          - --filter-reader-labels=prometheus_replica
-          - --log.debug=true
+            - --proxy-url=http://127.0.0.1:9090
+            - --listen-address=$(POD_IP):9091
+            - --filter-reader-labels=prometheus
+            - --filter-reader-labels=prometheus_replica
+            - --log.debug=true
           command:
             - prometheus-auth
           env:
@@ -734,9 +738,9 @@ kube-prometheus-stack:
           image: mtr.devops.telekom.de/caas/prometheus-auth:0.5.1
           name: prometheus-agent
           ports:
-          - containerPort: 9091
-            name: http-auth
-            protocol: TCP
+            - containerPort: 9091
+              name: http-auth
+              protocol: TCP
           resources:
             limits:
               cpu: 500m
@@ -896,35 +900,35 @@ k3sServer:
       insecureSkipVerify: true
     rbac:
       additionalRules:
-      - nonResourceURLs: ["/metrics/cadvisor"]
-        verbs: ["get"]
-      - apiGroups: [""]
-        resources: ["nodes/metrics"]
-        verbs: ["get"]
+        - nonResourceURLs: ["/metrics/cadvisor"]
+          verbs: ["get"]
+        - apiGroups: [""]
+          resources: ["nodes/metrics"]
+          verbs: ["get"]
     tolerations:
-    - effect: "NoExecute"
-      operator: "Exists"
-    - effect: "NoSchedule"
-      operator: "Exists"
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
   serviceMonitor:
     endpoints:
-    - port: metrics
-      honorLabels: true
-      relabelings:
-      - sourceLabels: [__metrics_path__]
-        targetLabel: metrics_path
-    - port: metrics
-      path: /metrics/cadvisor
-      honorLabels: true
-      relabelings:
-      - sourceLabels: [__metrics_path__]
-        targetLabel: metrics_path
-    - port: metrics
-      path: /metrics/probes
-      honorLabels: true
-      relabelings:
-      - sourceLabels: [__metrics_path__]
-        targetLabel: metrics_path
+      - port: metrics
+        honorLabels: true
+        relabelings:
+          - sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+      - port: metrics
+        path: /metrics/cadvisor
+        honorLabels: true
+        relabelings:
+          - sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
+      - port: metrics
+        path: /metrics/probes
+        honorLabels: true
+        relabelings:
+          - sourceLabels: [__metrics_path__]
+            targetLabel: metrics_path
 
 rkeControllerManager:
   enabled: false
@@ -940,19 +944,19 @@ rkeControllerManager:
     nodeSelector:
       node-role.kubernetes.io/controlplane: "true"
     tolerations:
-    - effect: "NoExecute"
-      operator: "Exists"
-    - effect: "NoSchedule"
-      operator: "Exists"
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
   kubeVersionOverrides:
-  - constraint: "< 1.22"
-    values:
-      metricsPort: 10252 # default to insecure port in k8s < 1.22
-      clients:
-        https:
-          enabled: false
-          insecureSkipVerify: false
-          useServiceAccountCredentials: false
+    - constraint: "< 1.22"
+      values:
+        metricsPort: 10252 # default to insecure port in k8s < 1.22
+        clients:
+          https:
+            enabled: false
+            insecureSkipVerify: false
+            useServiceAccountCredentials: false
 
 rkeScheduler:
   enabled: false
@@ -968,19 +972,19 @@ rkeScheduler:
     nodeSelector:
       node-role.kubernetes.io/controlplane: "true"
     tolerations:
-    - effect: "NoExecute"
-      operator: "Exists"
-    - effect: "NoSchedule"
-      operator: "Exists"
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
   kubeVersionOverrides:
-  - constraint: "< 1.23"
-    values:
-      metricsPort: 10251 # default to insecure port in k8s < 1.23
-      clients:
-        https:
-          enabled: false
-          insecureSkipVerify: false
-          useServiceAccountCredentials: false
+    - constraint: "< 1.23"
+      values:
+        metricsPort: 10251 # default to insecure port in k8s < 1.23
+        clients:
+          https:
+            enabled: false
+            insecureSkipVerify: false
+            useServiceAccountCredentials: false
 
 rkeProxy:
   enabled: false
@@ -990,10 +994,10 @@ rkeProxy:
     port: 10013
     useLocalhost: true
     tolerations:
-    - effect: "NoExecute"
-      operator: "Exists"
-    - effect: "NoSchedule"
-      operator: "Exists"
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
 
 rkeEtcd:
   enabled: false
@@ -1014,10 +1018,10 @@ rkeEtcd:
     nodeSelector:
       node-role.kubernetes.io/etcd: "true"
     tolerations:
-    - effect: "NoExecute"
-      operator: "Exists"
-    - effect: "NoSchedule"
-      operator: "Exists"
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
 
 rkeIngressNginx:
   enabled: false
