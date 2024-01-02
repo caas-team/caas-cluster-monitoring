@@ -21,6 +21,12 @@ caas:
   dynatrace: true
   # -- whether the cluster has kubecost installed
   clusterCosts: true
+  # -- whether the cluster has Quality Dashboard  installed
+  qualityDashboard: true
+  # -- whether the cluster has Prometheus-Auth  installed
+  prometheusAuth: true
+  # -- whether the cluster needs defaultEgress  installed
+  defaultEgress: false
 
 global:
   cattle:
