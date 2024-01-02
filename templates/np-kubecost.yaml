@@ -1,19 +1,19 @@
-
 {{- if .Values.caas.clusterCosts }}
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-    name: allow-ingress-from-cluster-costs
-    namespace: cattle-monitoring-system
+  name: allow-ingress-from-cluster-costs
+  namespace: cattle-monitoring-system
 spec:
-    ingress:
+  ingress:
     - from:
         - namespaceSelector:
-                matchLabels:
-                    field.cattle.io/projectId: cluster-costs
-    podSelector:
-        matchLabels:
-            app.kubernetes.io/name: kube-state-metrics
-    policyTypes:
+            matchLabels:
+              field.cattle.io/projectId: cluster-costs
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: kube-state-metrics
+  policyTypes:
     - Ingress
 {{- end }}
