@@ -601,7 +601,7 @@ kube-prometheus-stack:
       tag: v2.10.0
     rbac:
       create: true
-    releaseLabel: false
+    releaseLabel: true
     prometheus:
       monitor:
         enabled: true

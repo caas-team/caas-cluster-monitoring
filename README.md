@@ -267,7 +267,7 @@ available config parameters:
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.honorLabels` | bool | `false` |  |
 | `kube-prometheus-stack.kube-state-metrics.rbac.create` | bool | `true` |  |
-| `kube-prometheus-stack.kube-state-metrics.releaseLabel` | bool | `false` |  |
+| `kube-prometheus-stack.kube-state-metrics.releaseLabel` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.selfMonitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kubeApiServer.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kubeControllerManager.enabled` | bool | `false` |  |
