@@ -1,4 +1,5 @@
 {{- if .Values.caas.dynatrace }}
+---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -6,13 +7,13 @@ metadata:
   namespace: cattle-monitoring-system
 spec:
   ingress:
-  - from:
-    - namespaceSelector:
-        matchLabels:
-          field.cattle.io/projectId: dynatrace
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            field.cattle.io/projectId: dynatrace
   podSelector:
     matchLabels:
       release: rancher-monitoring
   policyTypes:
-  - Ingress
+    - Ingress
 {{- end }}
