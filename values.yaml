@@ -605,7 +605,7 @@ kube-prometheus-stack:
     prometheus:
       monitor:
         enabled: true
-        honorLabels: false
+        honorLabels: true
     selfMonitor:
       enabled: true
   nodeExporter:

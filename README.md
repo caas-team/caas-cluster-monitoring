@@ -265,7 +265,7 @@ available config parameters:
 | `kube-prometheus-stack.kube-state-metrics.image.repository` | string | `"kubeprometheusstack/kube-state-metrics"` |  |
 | `kube-prometheus-stack.kube-state-metrics.image.tag` | string | `"v2.10.0"` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.enabled` | bool | `true` |  |
-| `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.honorLabels` | bool | `false` |  |
+| `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.honorLabels` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.rbac.create` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.releaseLabel` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.selfMonitor.enabled` | bool | `true` |  |
