@@ -21,6 +21,10 @@ caas:
   dynatrace: true
   # -- whether the cluster has kubecost installed
   clusterCosts: true
+  # -- whether the cluster has Prometheus-Auth  installed
+  prometheusAuth: true
+  # -- whether the cluster needs defaultEgress  installed
+  defaultEgress: false
 
 global:
   cattle:
@@ -595,13 +599,14 @@ kube-prometheus-stack:
   kubeStateMetrics:
     enabled: true
   kube-state-metrics:
+    honorLabels: true
     image:
       registry: mtr.devops.telekom.de
       repository: kubeprometheusstack/kube-state-metrics
       tag: v2.10.0
     rbac:
       create: true
-    releaseLabel: false
+    releaseLabel: true
     prometheus:
       monitor:
         enabled: true
