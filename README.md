@@ -45,11 +45,13 @@ available config parameters:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `caas.clusterCosts` | bool | `true` | whether the cluster has kubecost installed |
+| `caas.defaultEgress` | bool | `false` | whether the cluster needs defaultEgress  installed |
 | `caas.dynatrace` | bool | `true` | whether the cluster has a dynatrace operator installed |
 | `caas.fullnameOverride` | string | `""` |  |
 | `caas.grafana.configmaps` | bool | `false` |  |
 | `caas.nameOverride` | string | `""` |  |
 | `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
+| `caas.prometheusAuth` | bool | `true` | whether the cluster has Prometheus-Auth  installed |
 | `caas.rbac.enabled` | bool | `true` | create a namespaces ServiceAccount |
 | `caas.rbac.serviceAccount.create` | bool | `true` |  |
 | `caas.rbac.serviceAccount.name` | string | `"rancher-monitoring"` |  |
@@ -261,13 +263,14 @@ available config parameters:
 | `kube-prometheus-stack.grafana.sidecar.securityContext.runAsGroup` | int | `472` |  |
 | `kube-prometheus-stack.grafana.sidecar.securityContext.runAsUser` | int | `472` |  |
 | `kube-prometheus-stack.grafana.testFramework.enabled` | bool | `false` |  |
+| `kube-prometheus-stack.kube-state-metrics.honorLabels` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.kube-state-metrics.image.repository` | string | `"kubeprometheusstack/kube-state-metrics"` |  |
 | `kube-prometheus-stack.kube-state-metrics.image.tag` | string | `"v2.10.0"` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.honorLabels` | bool | `false` |  |
 | `kube-prometheus-stack.kube-state-metrics.rbac.create` | bool | `true` |  |
-| `kube-prometheus-stack.kube-state-metrics.releaseLabel` | bool | `false` |  |
+| `kube-prometheus-stack.kube-state-metrics.releaseLabel` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.selfMonitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kubeApiServer.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kubeControllerManager.enabled` | bool | `false` |  |
@@ -341,7 +344,7 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].command[0]` | string | `"prometheus-auth"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].env[0].name` | string | `"POD_IP"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].env[0].valueFrom.fieldRef.fieldPath` | string | `"status.podIP"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].image` | string | `"mtr.devops.telekom.de/caas/prometheus-auth:0.5.1"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].image` | string | `"mtr.devops.telekom.de/caas/prometheus-auth:0.5.2"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].name` | string | `"prometheus-agent"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].containerPort` | int | `9091` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].name` | string | `"http-auth"` |  |
