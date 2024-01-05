@@ -740,7 +740,7 @@ kube-prometheus-stack:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
-          image: mtr.devops.telekom.de/caas/prometheus-auth:0.5.1
+          image: mtr.devops.telekom.de/caas/prometheus-auth:0.5.2
           name: prometheus-agent
           ports:
             - containerPort: 9091
