@@ -1,4 +1,4 @@
-{{- if .Values.caas.allowEgress }}
+{{- if .Values.caas.networkPolicies.allowAllTraffic }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

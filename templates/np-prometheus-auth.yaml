@@ -1,4 +1,4 @@
-{{- if .Values.caas.prometheusAuth }}
+{{- if .Values.caas.networkPolicies.prometheusAuth }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy

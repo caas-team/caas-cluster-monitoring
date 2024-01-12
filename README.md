@@ -44,15 +44,16 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `caas.allowAllNetworkPolicy` | bool | `false` | whether the namespace needs to explicitly allow all network traffic |
-| `caas.allowEgress` | bool | `false` | whether the namespace needs to explicitly allow egress traffic |
-| `caas.clusterCosts` | bool | `true` | whether the cluster has kubecost installed |
-| `caas.dynatrace` | bool | `true` | whether the cluster has a dynatrace operator installed |
 | `caas.fullnameOverride` | string | `""` |  |
 | `caas.grafana.configmaps` | bool | `false` |  |
 | `caas.nameOverride` | string | `""` |  |
 | `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
-| `caas.prometheusAuth` | bool | `true` | whether the cluster has Prometheus-Auth installed |
+| `caas.networkPolicies` | object | `{"allowAllTraffic":false,"allowEgress":false,"clusterCosts":true,"dynatrace":true,"prometheusAuth":true}` | whether to deploy additional network policies |
+| `caas.networkPolicies.allowAllTraffic` | bool | `false` | whether the namespace needs to explicitly allow all network traffic |
+| `caas.networkPolicies.allowEgress` | bool | `false` | whether the namespace needs to explicitly allow egress traffic |
+| `caas.networkPolicies.clusterCosts` | bool | `true` | whether to allow ingress from kubecost |
+| `caas.networkPolicies.dynatrace` | bool | `true` | whether to allow ingress from dynatrace |
+| `caas.networkPolicies.prometheusAuth` | bool | `true` | whether to allow ingress to the prometheus-auth container |
 | `caas.rbac.enabled` | bool | `true` | create a namespaces ServiceAccount |
 | `caas.rbac.serviceAccount.create` | bool | `true` |  |
 | `caas.rbac.serviceAccount.name` | string | `"rancher-monitoring"` |  |

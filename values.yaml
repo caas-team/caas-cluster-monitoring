@@ -17,16 +17,19 @@ caas:
   nameOverride: ""
   # -- overrides the default namespace for caas related resources
   namespaceOverride: ""
-  # -- whether the cluster has a dynatrace operator installed
-  dynatrace: true
-  # -- whether the cluster has kubecost installed
-  clusterCosts: true
-  # -- whether the cluster has Prometheus-Auth installed
-  prometheusAuth: true
-  # -- whether the namespace needs to explicitly allow egress traffic
-  allowEgress: false
-  # -- whether the namespace needs to explicitly allow all network traffic
-  allowAllNetworkPolicy: false
+
+  # -- whether to deploy additional network policies
+  networkPolicies:
+    # -- whether to allow ingress from dynatrace
+    dynatrace: true
+    # -- whether to allow ingress from kubecost
+    clusterCosts: true
+    # -- whether to allow ingress to the prometheus-auth container
+    prometheusAuth: true
+    # -- whether the namespace needs to explicitly allow egress traffic
+    allowEgress: false
+    # -- whether the namespace needs to explicitly allow all network traffic
+    allowAllTraffic: false
 
 global:
   cattle:
