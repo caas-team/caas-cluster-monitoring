@@ -21,10 +21,12 @@ caas:
   dynatrace: true
   # -- whether the cluster has kubecost installed
   clusterCosts: true
-  # -- whether the cluster has Prometheus-Auth  installed
+  # -- whether the cluster has Prometheus-Auth installed
   prometheusAuth: true
-  # -- whether the cluster needs defaultEgress  installed
-  defaultEgress: false
+  # -- whether the namespace needs to explicitly allow egress traffic
+  allowEgress: false
+  # -- whether the namespace needs to explicitly allow all network traffic
+  allowAllNetworkPolicy: false
 
 global:
   cattle:
@@ -664,56 +666,6 @@ kube-prometheus-stack:
         repository: kubeprometheusstack/prometheus-config-reloader
   prometheus:
     additionalRulesForClusterRole:
-      - apiGroups:
-          - ""
-        resources:
-          - configmaps
-          - namespaces
-          - nodes
-          - nodes/metrics
-          - services
-          - endpoints
-          - pods
-          - secrets
-        verbs:
-          - get
-          - list
-          - watch
-      - apiGroups:
-          - networking.k8s.io
-        resources:
-          - ingresses
-        verbs:
-          - get
-          - list
-          - watch
-      - nonResourceURLs:
-          - /metrics
-          - /metrics/cadvisor
-        verbs:
-          - get
-      - apiGroups:
-          - authentication.k8s.io
-        resources:
-          - tokenreviews
-        verbs:
-          - get
-          - list
-          - create
-          - update
-          - delete
-          - watch
-      - apiGroups:
-          - authorization.k8s.io
-        resources:
-          - subjectaccessreviews
-        verbs:
-          - get
-          - list
-          - create
-          - update
-          - delete
-          - watch
     enabled: true
     ingress:
       enabled: false

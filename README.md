@@ -44,14 +44,15 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `caas.allowAllNetworkPolicy` | bool | `false` | whether the namespace needs to explicitly allow all network traffic |
+| `caas.allowEgress` | bool | `false` | whether the namespace needs to explicitly allow egress traffic |
 | `caas.clusterCosts` | bool | `true` | whether the cluster has kubecost installed |
-| `caas.defaultEgress` | bool | `false` | whether the cluster needs defaultEgress  installed |
 | `caas.dynatrace` | bool | `true` | whether the cluster has a dynatrace operator installed |
 | `caas.fullnameOverride` | string | `""` |  |
 | `caas.grafana.configmaps` | bool | `false` |  |
 | `caas.nameOverride` | string | `""` |  |
 | `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
-| `caas.prometheusAuth` | bool | `true` | whether the cluster has Prometheus-Auth  installed |
+| `caas.prometheusAuth` | bool | `true` | whether the cluster has Prometheus-Auth installed |
 | `caas.rbac.enabled` | bool | `true` | create a namespaces ServiceAccount |
 | `caas.rbac.serviceAccount.create` | bool | `true` |  |
 | `caas.rbac.serviceAccount.name` | string | `"rancher-monitoring"` |  |
@@ -291,42 +292,7 @@ available config parameters:
 | `kube-prometheus-stack.prometheus-node-exporter.releaseLabel` | bool | `true` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.service.port` | int | `9796` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.service.targetPort` | int | `9796` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].apiGroups[0]` | string | `""` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[0]` | string | `"configmaps"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[1]` | string | `"namespaces"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[2]` | string | `"nodes"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[3]` | string | `"nodes/metrics"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[4]` | string | `"services"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[5]` | string | `"endpoints"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[6]` | string | `"pods"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].resources[7]` | string | `"secrets"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].verbs[0]` | string | `"get"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].verbs[1]` | string | `"list"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[0].verbs[2]` | string | `"watch"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[1].apiGroups[0]` | string | `"networking.k8s.io"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[1].resources[0]` | string | `"ingresses"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[1].verbs[0]` | string | `"get"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[1].verbs[1]` | string | `"list"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[1].verbs[2]` | string | `"watch"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[2].nonResourceURLs[0]` | string | `"/metrics"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[2].nonResourceURLs[1]` | string | `"/metrics/cadvisor"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[2].verbs[0]` | string | `"get"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].apiGroups[0]` | string | `"authentication.k8s.io"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].resources[0]` | string | `"tokenreviews"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].verbs[0]` | string | `"get"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].verbs[1]` | string | `"list"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].verbs[2]` | string | `"create"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].verbs[3]` | string | `"update"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].verbs[4]` | string | `"delete"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[3].verbs[5]` | string | `"watch"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].apiGroups[0]` | string | `"authorization.k8s.io"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].resources[0]` | string | `"subjectaccessreviews"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].verbs[0]` | string | `"get"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].verbs[1]` | string | `"list"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].verbs[2]` | string | `"create"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].verbs[3]` | string | `"update"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].verbs[4]` | string | `"delete"` |  |
-| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole[4].verbs[5]` | string | `"watch"` |  |
+| `kube-prometheus-stack.prometheus.additionalRulesForClusterRole` | string | `nil` |  |
 | `kube-prometheus-stack.prometheus.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.prometheus.ingress.annotations` | object | `{}` |  |
 | `kube-prometheus-stack.prometheus.ingress.enabled` | bool | `false` |  |
