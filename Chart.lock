@@ -1,6 +1,21 @@
 dependencies:
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
-  version: 51.0.3
-digest: sha256:09cdfe713d61b9671bb887d3ea87b8cf81944f5c71651b50962c08076f065655
-generated: "2023-10-25T04:52:25.0010074+02:00"
+  version: 58.4.0
+- name: rkeEtcd
+  repository: file://./charts/rkeEtcd
+  version: 0.1.6
+- name: rkeControllerManager
+  repository: file://./charts/rkeControllerManager
+  version: 0.1.6
+- name: rkeScheduler
+  repository: file://./charts/rkeScheduler
+  version: 0.1.6
+- name: rkeIngressNginx
+  repository: file://./charts/rkeIngressNginx
+  version: 0.1.6
+- name: rkeProxy
+  repository: file://./charts/rkeProxy
+  version: 0.1.6
+digest: sha256:5d76a0559f547b504fc906e3154711815f44b4a8c520ea2eca6248a60496e5aa
+generated: "2024-05-08T11:08:27.921401765+02:00"

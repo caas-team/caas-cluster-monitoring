@@ -460,42 +460,6 @@ available config parameters:
 | `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.repository` | string | `"kubeprometheusstack/prometheus-config-reloader"` |  |
 | `kube-prometheus-stack.thanosRuler.enabled` | bool | `false` |  |
 
-### k3sServer
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `k3sServer.clients.https.enabled` | bool | `true` |  |
-| `k3sServer.clients.https.insecureSkipVerify` | bool | `true` |  |
-| `k3sServer.clients.https.useServiceAccountCredentials` | bool | `true` |  |
-| `k3sServer.clients.port` | int | `10013` |  |
-| `k3sServer.clients.rbac.additionalRules[0].nonResourceURLs[0]` | string | `"/metrics/cadvisor"` |  |
-| `k3sServer.clients.rbac.additionalRules[0].verbs[0]` | string | `"get"` |  |
-| `k3sServer.clients.rbac.additionalRules[1].apiGroups[0]` | string | `""` |  |
-| `k3sServer.clients.rbac.additionalRules[1].resources[0]` | string | `"nodes/metrics"` |  |
-| `k3sServer.clients.rbac.additionalRules[1].verbs[0]` | string | `"get"` |  |
-| `k3sServer.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
-| `k3sServer.clients.tolerations[0].operator` | string | `"Exists"` |  |
-| `k3sServer.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
-| `k3sServer.clients.tolerations[1].operator` | string | `"Exists"` |  |
-| `k3sServer.clients.useLocalhost` | bool | `true` |  |
-| `k3sServer.component` | string | `"k3s-server"` |  |
-| `k3sServer.enabled` | bool | `false` |  |
-| `k3sServer.metricsPort` | int | `10250` |  |
-| `k3sServer.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
-| `k3sServer.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
-| `k3sServer.serviceMonitor.endpoints[0].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
-| `k3sServer.serviceMonitor.endpoints[0].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
-| `k3sServer.serviceMonitor.endpoints[1].honorLabels` | bool | `true` |  |
-| `k3sServer.serviceMonitor.endpoints[1].path` | string | `"/metrics/cadvisor"` |  |
-| `k3sServer.serviceMonitor.endpoints[1].port` | string | `"metrics"` |  |
-| `k3sServer.serviceMonitor.endpoints[1].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
-| `k3sServer.serviceMonitor.endpoints[1].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
-| `k3sServer.serviceMonitor.endpoints[2].honorLabels` | bool | `true` |  |
-| `k3sServer.serviceMonitor.endpoints[2].path` | string | `"/metrics/probes"` |  |
-| `k3sServer.serviceMonitor.endpoints[2].port` | string | `"metrics"` |  |
-| `k3sServer.serviceMonitor.endpoints[2].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
-| `k3sServer.serviceMonitor.endpoints[2].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
-
 ### rkeControllerManager
 
 | Parameter | Type | Default | Description |
