@@ -5,33 +5,35 @@ annotations:
   catalog.cattle.io/requests-memory: 1000Mi
 name: caas-cluster-monitoring
 description: A Helm chart for Rancher Cluster Monitoring V3
-version: "0.0.8"
-appVersion: "51.0.3"
+version: "0.0.9"
+appVersion: "58.4.0"
 icon: https://raw.githubusercontent.com/caas-team/caas-project-monitoring/main/logo.png
 keywords:
   - monitoring
 dependencies:
   - name: kube-prometheus-stack
-    version: "51.0.3"
+    version: "58.4.0"
     repository: "https://prometheus-community.github.io/helm-charts"
-  - condition: k3sServer.enabled
-    name: k3sServer
-    repository: file://./charts/k3sServer
   - condition: rkeEtcd.enabled
     name: rkeEtcd
+    version: 0.1.6
     repository: file://./charts/rkeEtcd
   - condition: rkeControllerManager.enabled
     name: rkeControllerManager
     repository: file://./charts/rkeControllerManager
+    version: 0.1.6
   - condition: rkeScheduler.enabled
     name: rkeScheduler
     repository: file://./charts/rkeScheduler
+    version: 0.1.6
   - condition: rkeIngressNginx.enabled
     name: rkeIngressNginx
     repository: file://./charts/rkeIngressNginx
+    version: 0.1.6
   - condition: rkeProxy.enabled
     name: rkeProxy
     repository: file://./charts/rkeProxy
+    version: 0.1.6
 sources:
   - https://github.com/caas-team/caas-cluster-monitoring
   - https://github.com/prometheus-community/helm-charts

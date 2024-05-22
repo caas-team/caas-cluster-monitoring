@@ -72,16 +72,6 @@ available config parameters:
   {{- end }}
 {{- end }}
 
-### k3sServer
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-{{- range .Values }}
-  {{- if (contains "k3sServer" .Key) }}
-| `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
-  {{- end }}
-{{- end }}
-
 ### rkeControllerManager
 
 | Parameter | Type | Default | Description |
