@@ -249,7 +249,7 @@ available config parameters:
 | `kube-prometheus-stack.grafana.sidecar.datasources.label` | string | `"grafana_datasource"` |  |
 | `kube-prometheus-stack.grafana.sidecar.datasources.labelValue` | string | `"1"` |  |
 | `kube-prometheus-stack.grafana.sidecar.datasources.searchNamespace` | string | `""` |  |
-| `kube-prometheus-stack.grafana.sidecar.image.repository` | string | `"mtr.devops.telekom.de/kubeprometheusstack/k8s-sidecar"` |  |
+| `kube-prometheus-stack.grafana.sidecar.image.repository` | string | `"kubeprometheusstack/k8s-sidecar"` |  |
 | `kube-prometheus-stack.grafana.sidecar.image.tag` | string | `"1.24.6"` |  |
 | `kube-prometheus-stack.grafana.sidecar.plugins.searchNamespace` | string | `""` |  |
 | `kube-prometheus-stack.grafana.sidecar.resources.limits.cpu` | string | `"100m"` |  |

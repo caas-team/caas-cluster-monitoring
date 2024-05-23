@@ -309,7 +309,7 @@ kube-prometheus-stack:
       - 472
     sidecar:
       image:
-        repository: mtr.devops.telekom.de/kubeprometheusstack/k8s-sidecar
+        repository: kubeprometheusstack/k8s-sidecar
         tag: 1.24.6
       plugins:
         searchNamespace: ""
