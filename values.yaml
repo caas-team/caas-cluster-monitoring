@@ -1000,3 +1000,9 @@ rkeIngressNginx:
         operator: "Exists"
     nodeSelector:
       node-role.kubernetes.io/worker: "true"
+
+hardenedKubelet:
+  enabled: false
+  metricsPort: 10250
+  clients:
+    useLocalhost: true

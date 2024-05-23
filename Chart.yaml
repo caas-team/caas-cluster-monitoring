@@ -34,6 +34,10 @@ dependencies:
     name: rkeProxy
     repository: file://./charts/rkeProxy
     version: 0.1.6
+  - condition: hardenedKubelet.enabled
+    name: hardenedKubelet
+    repository: file//.charts/hardenedKubelet
+    version: 0.2.0
 sources:
   - https://github.com/caas-team/caas-cluster-monitoring
   - https://github.com/prometheus-community/helm-charts
