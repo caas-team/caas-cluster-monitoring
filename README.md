@@ -210,7 +210,7 @@ available config parameters:
 | `kube-prometheus-stack.grafana.forceDeployDatasources` | bool | `true` |  |
 | `kube-prometheus-stack.grafana.fullnameOverride` | string | `"rancher-monitoring-grafana"` |  |
 | `kube-prometheus-stack.grafana.image.repository` | string | `"kubeprometheusstack/grafana"` |  |
-| `kube-prometheus-stack.grafana.image.tag` | string | `"10.1.10"` |  |
+| `kube-prometheus-stack.grafana.image.tag` | string | `"10.4.1"` |  |
 | `kube-prometheus-stack.grafana.initChownData.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.grafana.nameOverride` | string | `"rancher-monitoring-grafana"` |  |
 | `kube-prometheus-stack.grafana.namespaceOverride` | string | `""` |  |
