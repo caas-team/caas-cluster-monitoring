@@ -369,7 +369,7 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.prometheusSpec.ignoreNamespaceSelectors` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.image.repository` | string | `"kubeprometheusstack/prometheus"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.image.tag` | string | `"v2.46.0"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.image.tag` | string | `"v2.51.2"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.listenLocal` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.logFormat` | string | `"logfmt"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.logLevel` | string | `"info"` |  |
