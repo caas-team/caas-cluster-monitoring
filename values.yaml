@@ -157,7 +157,7 @@ kube-prometheus-stack:
       image:
         registry: mtr.devops.telekom.de
         repository: kubeprometheusstack/alertmanager
-        tag: v0.26.0
+        tag: v0.27.0
       listenLocal: false
       logFormat: logfmt
       logLevel: info

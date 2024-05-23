@@ -83,7 +83,7 @@ available config parameters:
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.forceEnableClusterMode` | bool | `false` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.repository` | string | `"kubeprometheusstack/alertmanager"` |  |
-| `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.tag` | string | `"v0.26.0"` |  |
+| `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.tag` | string | `"v0.27.0"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.listenLocal` | bool | `false` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.logFormat` | string | `"logfmt"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.logLevel` | string | `"info"` |  |
