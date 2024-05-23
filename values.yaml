@@ -282,7 +282,7 @@ kube-prometheus-stack:
         level: info
     image:
       repository: kubeprometheusstack/grafana
-      tag: 10.1.4
+      tag: 10.1.10
     initChownData:
       enabled: false
     namespaceOverride: ""
