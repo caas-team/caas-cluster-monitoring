@@ -485,6 +485,9 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `rkeEtcd.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
+| `rkeEtcd.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
+| `rkeEtcd.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
 | `rkeEtcd.clients.https.caCertFile` | string | `"kube-ca.pem"` |  |
 | `rkeEtcd.clients.https.certDir` | string | `"/etc/kubernetes/ssl"` |  |
 | `rkeEtcd.clients.https.certFile` | string | `"kube-etcd-*.pem"` |  |
@@ -520,6 +523,12 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `rkeProxy.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
+| `rkeProxy.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
+| `rkeProxy.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
+| `rkeProxy.clients.https.enabled` | bool | `true` |  |
+| `rkeProxy.clients.https.insecureSkipVerify` | bool | `true` |  |
+| `rkeProxy.clients.https.useServiceAccountCredentials` | bool | `true` |  |
 | `rkeProxy.clients.port` | int | `10013` |  |
 | `rkeProxy.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
 | `rkeProxy.clients.tolerations[0].operator` | string | `"Exists"` |  |
@@ -534,6 +543,9 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `rkeScheduler.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
+| `rkeScheduler.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
+| `rkeScheduler.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
 | `rkeScheduler.clients.https.enabled` | bool | `true` |  |
 | `rkeScheduler.clients.https.insecureSkipVerify` | bool | `true` |  |
 | `rkeScheduler.clients.https.useServiceAccountCredentials` | bool | `true` |  |
@@ -557,8 +569,40 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `hardenedKubelet.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
+| `hardenedKubelet.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
+| `hardenedKubelet.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
+| `hardenedKubelet.clients.https.enabled` | bool | `true` |  |
+| `hardenedKubelet.clients.https.insecureSkipVerify` | bool | `true` |  |
+| `hardenedKubelet.clients.https.useServiceAccountCredentials` | bool | `true` |  |
+| `hardenedKubelet.clients.port` | int | `10015` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[0].nonResourceURLs[0]` | string | `"/metrics/cadvisor"` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[0].verbs[0]` | string | `"get"` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[1].apiGroups[0]` | string | `""` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[1].resources[0]` | string | `"nodes/metrics"` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[1].verbs[0]` | string | `"get"` |  |
+| `hardenedKubelet.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
+| `hardenedKubelet.clients.tolerations[0].operator` | string | `"Exists"` |  |
+| `hardenedKubelet.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
+| `hardenedKubelet.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `hardenedKubelet.clients.useLocalhost` | bool | `true` |  |
-| `hardenedKubelet.enabled` | bool | `true` |  |
+| `hardenedKubelet.component` | string | `"kubelet"` |  |
+| `hardenedKubelet.enabled` | bool | `false` |  |
 | `hardenedKubelet.metricsPort` | int | `10250` |  |
+| `hardenedKubelet.serviceMonitor.bearerTokenFile` | string | `"/var/run/secrets/kubernetes.io/serviceaccount/token"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].path` | string | `"/metrics/cadvisor"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].port` | string | `"metrics"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].path` | string | `"/metrics/probes"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].port` | string | `"metrics"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
 
 Autogenerated from chart metadata using [helm-docs v1.11.3](https://github.com/norwoodj/helm-docs/releases/v1.11.3)

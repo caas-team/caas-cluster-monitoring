@@ -697,28 +697,35 @@ rkeControllerManager:
   metricsPort: 10257 # default to secure port as of k8s >= 1.22
 
 rkeEtcd:
+  enabled: false
+  metricsPort: 2379
+  component: kube-etcd
   clients:
+    port: 10014
     https:
-      caCertFile: kube-ca.pem
+      authenticationMethod:
+        authorization:
+          enabled: false
+        bearerTokenFile:
+          enabled: false
+        bearerTokenSecret:
+          enabled: false
+      enabled: true
       certDir: /etc/kubernetes/ssl
       certFile: kube-etcd-*.pem
-      enabled: true
       keyFile: kube-etcd-*-key.pem
+      caCertFile: kube-ca.pem
       seLinuxOptions:
         # Gives rkeEtcd permissions to read files in /etc/kubernetes/*
         # Type is defined in https://github.com/rancher/rancher-selinux
         type: rke_kubereader_t
     nodeSelector:
       node-role.kubernetes.io/etcd: "true"
-    port: 10014
     tolerations:
     - effect: "NoExecute"
       operator: "Exists"
     - effect: "NoSchedule"
       operator: "Exists"
-  component: kube-etcd
-  enabled: false
-  metricsPort: 2379
 
 rkeIngressNginx:
   clients:
@@ -737,6 +744,17 @@ rkeIngressNginx:
 
 rkeProxy:
   clients:
+    https:
+      enabled: true
+      useServiceAccountCredentials: true
+      insecureSkipVerify: true
+      authenticationMethod:
+        authorization:
+          enabled: false
+        bearerTokenFile:
+          enabled: false
+        bearerTokenSecret:
+          enabled: false
     port: 10013
     tolerations:
     - effect: "NoExecute"
@@ -754,6 +772,14 @@ rkeScheduler:
       enabled: true
       insecureSkipVerify: true
       useServiceAccountCredentials: true
+      authenticationMethod:
+        authorization:
+          enabled: false
+        bearerTokenFile:
+          enabled: false
+        bearerTokenSecret:
+          enabled: false
+
     nodeSelector:
       node-role.kubernetes.io/controlplane: "true"
     port: 10012
@@ -777,7 +803,52 @@ rkeScheduler:
   metricsPort: 10259
 
 hardenedKubelet:
-  enabled: true
+  enabled: false
   metricsPort: 10250
+  component: kubelet
   clients:
+    port: 10015
     useLocalhost: true
+    https:
+      enabled: true
+      useServiceAccountCredentials: true
+      insecureSkipVerify: true
+      authenticationMethod:
+        authorization:
+          enabled: false
+        bearerTokenFile:
+          enabled: false
+        bearerTokenSecret:
+          enabled: false
+    rbac:
+      additionalRules:
+      - nonResourceURLs: ["/metrics/cadvisor"]
+        verbs: ["get"]
+      - apiGroups: [""]
+        resources: ["nodes/metrics"]
+        verbs: ["get"]
+    tolerations:
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
+  serviceMonitor:
+    bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    endpoints:
+    - port: metrics
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+    - port: metrics
+      path: /metrics/cadvisor
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+    - port: metrics
+      path: /metrics/probes
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path

@@ -7,4 +7,4 @@ README.md*
 .git
 
 # ignore self if present in directory
-caas-cluster-mononitoring*.tgz
+caas-cluster-monitoring*.tgz

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# helm dependency update
+helm dependency update
 tarball=$(ls charts/kube-prometheus-stack-*.tgz)
 echo "Extracting ${tarball}"
 if [ ! -d "charts/kube-prometheus-stack/" ]; then

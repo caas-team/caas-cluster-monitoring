@@ -1,4 +1,4 @@
 charts/kube-prometheus-stack
-caas-cluster-monitoring-*.tgz
+caas-cluster-monitoring*.tgz
 rke*.tgz
 hardenedKubelet*.tgz
