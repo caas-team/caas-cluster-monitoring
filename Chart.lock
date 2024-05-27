@@ -17,5 +17,8 @@ dependencies:
 - name: rkeProxy
   repository: file://./charts/rkeProxy
   version: 0.1.6
-digest: sha256:5d76a0559f547b504fc906e3154711815f44b4a8c520ea2eca6248a60496e5aa
-generated: "2024-05-08T11:08:27.921401765+02:00"
+- name: hardenedKubelet
+  repository: file://./charts/hardenedKubelet
+  version: 0.2.0
+digest: sha256:0661d543546cdf9411e3068bed5e2fb039ea58d697720715d4ae23cce74a8758
+generated: "2024-05-27T16:21:40.503837266+02:00"
