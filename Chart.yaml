@@ -9,38 +9,38 @@ version: "0.0.9"
 appVersion: "58.4.0"
 icon: https://raw.githubusercontent.com/caas-team/caas-project-monitoring/main/logo.png
 keywords:
-  - monitoring
+- monitoring
 dependencies:
-  - name: kube-prometheus-stack
-    version: "58.4.0"
-    repository: "https://prometheus-community.github.io/helm-charts"
-  - condition: rkeEtcd.enabled
-    name: rkeEtcd
-    version: 0.1.6
-    repository: file://./charts/rkeEtcd
-  - condition: rkeControllerManager.enabled
-    name: rkeControllerManager
-    repository: file://./charts/rkeControllerManager
-    version: 0.1.6
-  - condition: rkeScheduler.enabled
-    name: rkeScheduler
-    repository: file://./charts/rkeScheduler
-    version: 0.1.6
-  - condition: rkeIngressNginx.enabled
-    name: rkeIngressNginx
-    repository: file://./charts/rkeIngressNginx
-    version: 0.1.6
-  - condition: rkeProxy.enabled
-    name: rkeProxy
-    repository: file://./charts/rkeProxy
-    version: 0.1.6
+- name: kube-prometheus-stack
+  version: "58.4.0"
+  repository: "https://prometheus-community.github.io/helm-charts"
+- condition: rkeEtcd.enabled
+  name: rkeEtcd
+  version: 0.1.6
+  repository: file://./charts/rkeEtcd
+- condition: rkeControllerManager.enabled
+  name: rkeControllerManager
+  repository: file://./charts/rkeControllerManager
+  version: 0.1.6
+- condition: rkeScheduler.enabled
+  name: rkeScheduler
+  repository: file://./charts/rkeScheduler
+  version: 0.1.6
+- condition: rkeIngressNginx.enabled
+  name: rkeIngressNginx
+  repository: file://./charts/rkeIngressNginx
+  version: 0.1.6
+- condition: rkeProxy.enabled
+  name: rkeProxy
+  repository: file://./charts/rkeProxy
+  version: 0.1.6
 sources:
-  - https://github.com/caas-team/caas-cluster-monitoring
-  - https://github.com/prometheus-community/helm-charts
+- https://github.com/caas-team/caas-cluster-monitoring
+- https://github.com/prometheus-community/helm-charts
 maintainers:
-  - name: eumel8
-    email: f.kloeker@telekom.de
-    url: https://www.telekom.com
-  - name: puffitos
-    email: bruno.bressi@telekom.de
-    url: https://www.telekom.com
+- name: eumel8
+  email: f.kloeker@telekom.de
+  url: https://www.telekom.com
+- name: puffitos
+  email: bruno.bressi@telekom.de
+  url: https://www.telekom.com
