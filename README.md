@@ -179,7 +179,7 @@ available config parameters:
 | `kube-prometheus-stack.grafana."grafana.ini".analytics.check_for_updates` | bool | `false` |  |
 | `kube-prometheus-stack.grafana."grafana.ini".auth.disable_login_form` | bool | `false` |  |
 | `kube-prometheus-stack.grafana."grafana.ini".log.level` | string | `"info"` |  |
-| `kube-prometheus-stack.grafana."grafana.ini".security.allow_embedding` | bool | `true` |  |
+| `kube-prometheus-stack.grafana."grafana.ini".security.allow_embedding` | bool | `true` | Required to embed dashboards in Rancher Cluster Overview Dashboard on Cluster Explorer |
 | `kube-prometheus-stack.grafana."grafana.ini".users.auto_assign_org_role` | string | `"Viewer"` |  |
 | `kube-prometheus-stack.grafana.adminPassword` | string | `"prom-operator"` |  |
 | `kube-prometheus-stack.grafana.containerSecurityContext.allowPrivilegeEscalation` | bool | `false` |  |
