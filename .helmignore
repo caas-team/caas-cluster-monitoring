@@ -1,2 +1,5 @@
 .pre-commit-config.yaml
 .github/*
+README.md*
+# needed else the whole git directory is packed in the chart
+.git
