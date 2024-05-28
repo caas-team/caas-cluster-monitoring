@@ -523,12 +523,6 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `rkeProxy.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
-| `rkeProxy.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
-| `rkeProxy.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
-| `rkeProxy.clients.https.enabled` | bool | `true` |  |
-| `rkeProxy.clients.https.insecureSkipVerify` | bool | `true` |  |
-| `rkeProxy.clients.https.useServiceAccountCredentials` | bool | `true` |  |
 | `rkeProxy.clients.port` | int | `10013` |  |
 | `rkeProxy.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
 | `rkeProxy.clients.tolerations[0].operator` | string | `"Exists"` |  |

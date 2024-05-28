@@ -728,6 +728,7 @@ rkeEtcd:
       operator: "Exists"
 
 rkeIngressNginx:
+  enabled: false
   clients:
     nodeSelector:
       node-role.kubernetes.io/worker: "true"
@@ -739,32 +740,21 @@ rkeIngressNginx:
       operator: "Exists"
     useLocalhost: true
   component: ingress-nginx
-  enabled: false
   metricsPort: 10254
 
 rkeProxy:
+  enabled: false
+  metricsPort: 10249
+  component: kube-proxy
   clients:
-    https:
-      enabled: true
-      useServiceAccountCredentials: true
-      insecureSkipVerify: true
-      authenticationMethod:
-        authorization:
-          enabled: false
-        bearerTokenFile:
-          enabled: false
-        bearerTokenSecret:
-          enabled: false
     port: 10013
+    useLocalhost: true
     tolerations:
     - effect: "NoExecute"
       operator: "Exists"
     - effect: "NoSchedule"
       operator: "Exists"
-    useLocalhost: true
-  component: kube-proxy
-  enabled: false
-  metricsPort: 10249
+
 
 rkeScheduler:
   clients:
