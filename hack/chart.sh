@@ -3,9 +3,6 @@
 helm dependency update
 tarball=$(ls charts/kube-prometheus-stack-*.tgz)
 echo "Extracting ${tarball}"
-if [ ! -d "charts/kube-prometheus-stack/" ]; then
-    mkdir -p charts/kube-prometheus-stack/
-fi
 tar -xzf ${tarball} -C charts/
 
 echo "Deleting CRD from kube-prometheus-stack"
