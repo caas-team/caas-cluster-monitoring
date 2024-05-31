@@ -387,7 +387,7 @@ kube-prometheus-stack:
   kubeStateMetrics:
     enabled: true
   kubelet:
-    enabled: true
+    enabled: false
   nameOverride: "rancher-monitoring"
   nodeExporter:
     enabled: true
@@ -793,7 +793,7 @@ rkeScheduler:
   metricsPort: 10259
 
 hardenedKubelet:
-  enabled: false
+  enabled: true
   metricsPort: 10250
   component: kubelet
   clients:

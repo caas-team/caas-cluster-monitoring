@@ -278,7 +278,7 @@ available config parameters:
 | `kube-prometheus-stack.kubeProxy.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.kubeScheduler.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.kubeStateMetrics.enabled` | bool | `true` |  |
-| `kube-prometheus-stack.kubelet.enabled` | bool | `true` |  |
+| `kube-prometheus-stack.kubelet.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.nameOverride` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.nodeExporter.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.nodeExporter.operatingSystems.darwin.enabled` | bool | `false` |  |
@@ -581,7 +581,7 @@ available config parameters:
 | `hardenedKubelet.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `hardenedKubelet.clients.useLocalhost` | bool | `true` |  |
 | `hardenedKubelet.component` | string | `"kubelet"` |  |
-| `hardenedKubelet.enabled` | bool | `false` |  |
+| `hardenedKubelet.enabled` | bool | `true` |  |
 | `hardenedKubelet.metricsPort` | int | `10250` |  |
 | `hardenedKubelet.serviceMonitor.bearerTokenFile` | string | `"/var/run/secrets/kubernetes.io/serviceaccount/token"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
