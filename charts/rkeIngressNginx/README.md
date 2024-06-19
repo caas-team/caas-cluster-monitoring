@@ -1,6 +1,6 @@
 # rkeIngressNginx
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx clients.
 
@@ -15,16 +15,24 @@ Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx clients.
 | clients.deployment.enabled | bool | `false` |  |
 | clients.deployment.replicas | int | `0` |  |
 | clients.enabled | bool | `true` |  |
+| clients.https.authenticationMethod.authorization.credentials.key | string | `"token"` |  |
+| clients.https.authenticationMethod.authorization.credentials.optional | bool | `false` |  |
+| clients.https.authenticationMethod.authorization.enabled | bool | `false` |  |
+| clients.https.authenticationMethod.authorization.type | string | `"bearer"` |  |
+| clients.https.authenticationMethod.bearerTokenFile.bearerTokenFilePath | string | `"/var/run/secrets/kubernetes.io/serviceaccount/token"` |  |
+| clients.https.authenticationMethod.bearerTokenFile.enabled | bool | `false` |  |
+| clients.https.authenticationMethod.bearerTokenSecret.enabled | bool | `false` |  |
 | clients.https.caCertFile | string | `""` |  |
 | clients.https.certDir | string | `""` |  |
 | clients.https.certFile | string | `""` |  |
 | clients.https.enabled | bool | `false` |  |
+| clients.https.forceHTTPSScheme | bool | `false` |  |
 | clients.https.insecureSkipVerify | bool | `false` |  |
 | clients.https.keyFile | string | `""` |  |
 | clients.https.seLinuxOptions | object | `{}` |  |
 | clients.https.useServiceAccountCredentials | bool | `false` |  |
 | clients.image.repository | string | `"rancher/pushprox-client"` |  |
-| clients.image.tag | string | `"v0.1.0-rancher2-client"` |  |
+| clients.image.tag | string | `"v0.1.3-rancher2-client"` |  |
 | clients.metrics.enabled | bool | `false` |  |
 | clients.nodeSelector | object | `{}` |  |
 | clients.port | int | `9369` |  |
@@ -43,7 +51,7 @@ Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx clients.
 | proxy.command[0] | string | `"pushprox-proxy"` |  |
 | proxy.enabled | bool | `true` |  |
 | proxy.image.repository | string | `"rancher/pushprox-proxy"` |  |
-| proxy.image.tag | string | `"v0.1.0-rancher2-proxy"` |  |
+| proxy.image.tag | string | `"v0.1.3-rancher2-proxy"` |  |
 | proxy.nodeSelector | object | `{}` |  |
 | proxy.port | int | `8080` |  |
 | proxy.resources | object | `{}` |  |

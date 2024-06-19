@@ -41,7 +41,7 @@ helm -n cattle-monitoring-system upgrade -i rancher-monitoring .
 
 available config parameters:
 
- 
+
 ### caas
 
 | Parameter | Type | Default | Description |
@@ -118,6 +118,16 @@ available config parameters:
 |-----------|------|---------|-------------|
 {{- range .Values }}
   {{- if (contains "rkeScheduler" .Key) }}
+| `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
+  {{- end }}
+{{- end }}
+
+### hardenedKubelet
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+{{- range .Values }}
+  {{- if (contains "hardenedKubelet" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
   {{- end }}
 {{- end }}

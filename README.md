@@ -139,7 +139,6 @@ available config parameters:
 | `kube-prometheus-stack.alertmanager.servicePerReplica.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.alertmanager.templateFiles."rancher_defaults.tmpl"` | string | `"{{- define \"slack.rancher.text\" -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{ template \"rancher.text_multiple\" . }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- define \"webex.text_multiple\" -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- range .Alerts }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{ template \"webex.text_single\" . }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .ExternalURL }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line AlertManager: <{{ .ExternalURL }}> #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- define \"webex.text_single\" -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Labels.alertname }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line ## [ALERT - {{ .Labels.alertname }}] #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- else }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line ## [ALERT] #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Labels.severity }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line ### Severity: `{{ .Labels.severity }}` #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Labels.cluster }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line ### Cluster:  {{ .Labels.cluster }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.summary }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line ### Summary: {{ .Annotations.summary }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.message }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line Message:  {{ .Annotations.message }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.description }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line Description:  {{ .Annotations.description }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.runbook_url }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line Runbook URL: <{{ .Annotations.runbook_url }}|:spiral_note_pad:> #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Labels }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Remove (stringSlice \"alertname\" \"severity\" \"cluster\") }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if gt (len .) 0 }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line Additional Labels: #magic___^_^___line   {{- range .SortedPairs }} #magic___^_^___line   • {{ .Name }}: `{{ .Value }}` #magic___^_^___line   {{- end }} #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Annotations }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Remove (stringSlice \"summary\" \"message\" \"description\" \"runbook_url\") }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if gt (len .) 0 }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line ## Additional Annotations:* #magic___^_^___line   {{- range .SortedPairs }} #magic___^_^___line   • {{ .Name }}: `{{ .Value }}` #magic___^_^___line   {{- end }} #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- define \"rancher.text_multiple\" -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *[GROUP - Details]*  #magic___^_^___line       #magic___^_^___line #magic___^_^___line One or more alarms in this group have triggered a notification. #magic___^_^___line       #magic___^_^___line #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if gt (len .GroupLabels.Values) 0 }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Group Labels:* #magic___^_^___line   {{- range .GroupLabels.SortedPairs }} #magic___^_^___line   • *{{ .Name }}:* `{{ .Value }}` #magic___^_^___line   {{- end }} #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .ExternalURL }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Link to AlertManager:* {{ .ExternalURL }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- range .Alerts }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{ template \"rancher.text_single\" . }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- define \"rancher.text_single\" -}} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Labels.alertname }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *[ALERT - {{ .Labels.alertname }}]* #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- else }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *[ALERT]* #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Labels.severity }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Severity:* `{{ .Labels.severity }}` #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Labels.cluster }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Cluster:*  {{ .Labels.cluster }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.summary }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Summary:* {{ .Annotations.summary }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.message }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Message:* {{ .Annotations.message }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.description }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Description:* {{ .Annotations.description }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if .Annotations.runbook_url }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Runbook URL:* <{{ .Annotations.runbook_url }}|:spiral_note_pad:> #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Labels }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Remove (stringSlice \"alertname\" \"severity\" \"cluster\") }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if gt (len .) 0 }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Additional Labels:* #magic___^_^___line   {{- range .SortedPairs }} #magic___^_^___line   • *{{ .Name }}:* `{{ .Value }}` #magic___^_^___line   {{- end }} #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Annotations }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- with .Remove (stringSlice \"summary\" \"message\" \"description\" \"runbook_url\") }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- if gt (len .) 0 }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line *Additional Annotations:* #magic___^_^___line   {{- range .SortedPairs }} #magic___^_^___line   • *{{ .Name }}:* `{{ .Value }}` #magic___^_^___line   {{- end }} #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end }} #magic___^_^___line       #magic___^_^___line #magic___^_^___line {{- end -}}"` |  |
 | `kube-prometheus-stack.coreDns.enabled` | bool | `true` |  |
-| `kube-prometheus-stack.crds.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.defaultRules.appNamespacesTarget` | string | `".*"` |  |
 | `kube-prometheus-stack.defaultRules.create` | bool | `true` |  |
 | `kube-prometheus-stack.defaultRules.rules.alertmanager` | bool | `true` |  |
@@ -179,7 +178,7 @@ available config parameters:
 | `kube-prometheus-stack.grafana."grafana.ini".analytics.check_for_updates` | bool | `false` |  |
 | `kube-prometheus-stack.grafana."grafana.ini".auth.disable_login_form` | bool | `false` |  |
 | `kube-prometheus-stack.grafana."grafana.ini".log.level` | string | `"info"` |  |
-| `kube-prometheus-stack.grafana."grafana.ini".security.allow_embedding` | bool | `true` |  |
+| `kube-prometheus-stack.grafana."grafana.ini".security.allow_embedding` | bool | `true` | Required to embed dashboards in Rancher Cluster Overview Dashboard on Cluster Explorer |
 | `kube-prometheus-stack.grafana."grafana.ini".users.auto_assign_org_role` | string | `"Viewer"` |  |
 | `kube-prometheus-stack.grafana.adminPassword` | string | `"prom-operator"` |  |
 | `kube-prometheus-stack.grafana.containerSecurityContext.allowPrivilegeEscalation` | bool | `false` |  |
@@ -279,7 +278,7 @@ available config parameters:
 | `kube-prometheus-stack.kubeProxy.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.kubeScheduler.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.kubeStateMetrics.enabled` | bool | `true` |  |
-| `kube-prometheus-stack.kubelet.enabled` | bool | `true` |  |
+| `kube-prometheus-stack.kubelet.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.nameOverride` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.nodeExporter.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.nodeExporter.operatingSystems.darwin.enabled` | bool | `false` |  |
@@ -432,7 +431,6 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.service.type` | string | `"ClusterIP"` |  |
 | `kube-prometheus-stack.prometheus.serviceAccount.create` | bool | `true` |  |
 | `kube-prometheus-stack.prometheus.serviceAccount.name` | string | `"rancher-monitoring"` |  |
-| `kube-prometheus-stack.prometheus.serviceMonitor.bearerTokenFile` | string | `nil` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.interval` | string | `"30s"` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings` | list | `[]` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.relabelings` | list | `[]` |  |
@@ -487,6 +485,9 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `rkeEtcd.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
+| `rkeEtcd.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
+| `rkeEtcd.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
 | `rkeEtcd.clients.https.caCertFile` | string | `"kube-ca.pem"` |  |
 | `rkeEtcd.clients.https.certDir` | string | `"/etc/kubernetes/ssl"` |  |
 | `rkeEtcd.clients.https.certFile` | string | `"kube-etcd-*.pem"` |  |
@@ -536,6 +537,9 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
+| `rkeScheduler.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
+| `rkeScheduler.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
+| `rkeScheduler.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
 | `rkeScheduler.clients.https.enabled` | bool | `true` |  |
 | `rkeScheduler.clients.https.insecureSkipVerify` | bool | `true` |  |
 | `rkeScheduler.clients.https.useServiceAccountCredentials` | bool | `true` |  |
@@ -554,5 +558,45 @@ available config parameters:
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.useServiceAccountCredentials` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.metricsPort` | int | `10251` |  |
 | `rkeScheduler.metricsPort` | int | `10259` |  |
+
+### hardenedKubelet
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `hardenedKubelet.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
+| `hardenedKubelet.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
+| `hardenedKubelet.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
+| `hardenedKubelet.clients.https.enabled` | bool | `true` |  |
+| `hardenedKubelet.clients.https.insecureSkipVerify` | bool | `true` |  |
+| `hardenedKubelet.clients.https.useServiceAccountCredentials` | bool | `true` |  |
+| `hardenedKubelet.clients.port` | int | `10015` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[0].nonResourceURLs[0]` | string | `"/metrics/cadvisor"` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[0].verbs[0]` | string | `"get"` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[1].apiGroups[0]` | string | `""` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[1].resources[0]` | string | `"nodes/metrics"` |  |
+| `hardenedKubelet.clients.rbac.additionalRules[1].verbs[0]` | string | `"get"` |  |
+| `hardenedKubelet.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
+| `hardenedKubelet.clients.tolerations[0].operator` | string | `"Exists"` |  |
+| `hardenedKubelet.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
+| `hardenedKubelet.clients.tolerations[1].operator` | string | `"Exists"` |  |
+| `hardenedKubelet.clients.useLocalhost` | bool | `true` |  |
+| `hardenedKubelet.component` | string | `"kubelet"` |  |
+| `hardenedKubelet.enabled` | bool | `true` |  |
+| `hardenedKubelet.metricsPort` | int | `10250` |  |
+| `hardenedKubelet.serviceMonitor.bearerTokenFile` | string | `"/var/run/secrets/kubernetes.io/serviceaccount/token"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].path` | string | `"/metrics/cadvisor"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].port` | string | `"metrics"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].path` | string | `"/metrics/probes"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].port` | string | `"metrics"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
 
 Autogenerated from chart metadata using [helm-docs v1.11.3](https://github.com/norwoodj/helm-docs/releases/v1.11.3)

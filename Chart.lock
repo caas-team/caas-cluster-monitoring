@@ -4,18 +4,21 @@ dependencies:
   version: 58.4.0
 - name: rkeEtcd
   repository: file://./charts/rkeEtcd
-  version: 0.1.6
+  version: 0.2.0
 - name: rkeControllerManager
   repository: file://./charts/rkeControllerManager
-  version: 0.1.6
+  version: 0.2.0
 - name: rkeScheduler
   repository: file://./charts/rkeScheduler
-  version: 0.1.6
+  version: 0.2.0
 - name: rkeIngressNginx
   repository: file://./charts/rkeIngressNginx
-  version: 0.1.6
+  version: 0.2.0
 - name: rkeProxy
   repository: file://./charts/rkeProxy
-  version: 0.1.6
-digest: sha256:5d76a0559f547b504fc906e3154711815f44b4a8c520ea2eca6248a60496e5aa
-generated: "2024-05-08T11:08:27.921401765+02:00"
+  version: 0.2.0
+- name: hardenedKubelet
+  repository: file://./charts/hardenedKubelet
+  version: 0.2.0
+digest: sha256:e4bc76b91f8288808a0e4384c3c058d60950ecc91499ee88cf638ad4f07b7e46
+generated: "2024-05-27T20:11:39.999510547+02:00"
