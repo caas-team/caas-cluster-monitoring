@@ -685,6 +685,7 @@ rkeControllerManager:
     useLocalhost: true
   component: kube-controller-manager
   enabled: false
+  endpoints: []
   kubeVersionOverrides:
   - constraint: "< 1.22"
     values:
@@ -698,6 +699,7 @@ rkeControllerManager:
 
 rkeEtcd:
   enabled: false
+  endpoints: []
   metricsPort: 2379
   component: kube-etcd
   clients:
@@ -729,6 +731,7 @@ rkeEtcd:
 
 rkeIngressNginx:
   enabled: false
+  endpoints: []
   clients:
     nodeSelector:
       node-role.kubernetes.io/worker: "true"
@@ -744,6 +747,7 @@ rkeIngressNginx:
 
 rkeProxy:
   enabled: false
+  endpoints: []
   metricsPort: 10249
   component: kube-proxy
   clients:
@@ -791,6 +795,7 @@ rkeScheduler:
           useServiceAccountCredentials: false
       metricsPort: 10251 # default to insecure port in k8s < 1.23
   metricsPort: 10259
+  endpoints: []
 
 hardenedKubelet:
   enabled: true

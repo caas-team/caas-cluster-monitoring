@@ -474,6 +474,7 @@ available config parameters:
 | `rkeControllerManager.clients.useLocalhost` | bool | `true` |  |
 | `rkeControllerManager.component` | string | `"kube-controller-manager"` |  |
 | `rkeControllerManager.enabled` | bool | `false` |  |
+| `rkeControllerManager.endpoints` | list | `[]` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].constraint` | string | `"< 1.22"` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
@@ -502,6 +503,7 @@ available config parameters:
 | `rkeEtcd.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeEtcd.component` | string | `"kube-etcd"` |  |
 | `rkeEtcd.enabled` | bool | `false` |  |
+| `rkeEtcd.endpoints` | list | `[]` |  |
 | `rkeEtcd.metricsPort` | int | `2379` |  |
 
 ### rkeIngressNginx
@@ -517,6 +519,7 @@ available config parameters:
 | `rkeIngressNginx.clients.useLocalhost` | bool | `true` |  |
 | `rkeIngressNginx.component` | string | `"ingress-nginx"` |  |
 | `rkeIngressNginx.enabled` | bool | `false` |  |
+| `rkeIngressNginx.endpoints` | list | `[]` |  |
 | `rkeIngressNginx.metricsPort` | int | `10254` |  |
 
 ### rkeProxy
@@ -531,6 +534,7 @@ available config parameters:
 | `rkeProxy.clients.useLocalhost` | bool | `true` |  |
 | `rkeProxy.component` | string | `"kube-proxy"` |  |
 | `rkeProxy.enabled` | bool | `false` |  |
+| `rkeProxy.endpoints` | list | `[]` |  |
 | `rkeProxy.metricsPort` | int | `10249` |  |
 
 ### rkeScheduler
@@ -552,6 +556,7 @@ available config parameters:
 | `rkeScheduler.clients.useLocalhost` | bool | `true` |  |
 | `rkeScheduler.component` | string | `"kube-scheduler"` |  |
 | `rkeScheduler.enabled` | bool | `false` |  |
+| `rkeScheduler.endpoints` | list | `[]` |  |
 | `rkeScheduler.kubeVersionOverrides[0].constraint` | string | `"< 1.23"` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
