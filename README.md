@@ -473,8 +473,7 @@ available config parameters:
 | `rkeControllerManager.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeControllerManager.clients.useLocalhost` | bool | `true` |  |
 | `rkeControllerManager.component` | string | `"kube-controller-manager"` |  |
-| `rkeControllerManager.enabled` | bool | `false` |  |
-| `rkeControllerManager.endpoints` | list | `[]` |  |
+| `rkeControllerManager.enabled` | bool | `true` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].constraint` | string | `"< 1.22"` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
@@ -502,8 +501,7 @@ available config parameters:
 | `rkeEtcd.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
 | `rkeEtcd.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeEtcd.component` | string | `"kube-etcd"` |  |
-| `rkeEtcd.enabled` | bool | `false` |  |
-| `rkeEtcd.endpoints` | list | `[]` |  |
+| `rkeEtcd.enabled` | bool | `true` |  |
 | `rkeEtcd.metricsPort` | int | `2379` |  |
 
 ### rkeIngressNginx
@@ -519,7 +517,6 @@ available config parameters:
 | `rkeIngressNginx.clients.useLocalhost` | bool | `true` |  |
 | `rkeIngressNginx.component` | string | `"ingress-nginx"` |  |
 | `rkeIngressNginx.enabled` | bool | `false` |  |
-| `rkeIngressNginx.endpoints` | list | `[]` |  |
 | `rkeIngressNginx.metricsPort` | int | `10254` |  |
 
 ### rkeProxy
@@ -533,8 +530,7 @@ available config parameters:
 | `rkeProxy.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeProxy.clients.useLocalhost` | bool | `true` |  |
 | `rkeProxy.component` | string | `"kube-proxy"` |  |
-| `rkeProxy.enabled` | bool | `false` |  |
-| `rkeProxy.endpoints` | list | `[]` |  |
+| `rkeProxy.enabled` | bool | `true` |  |
 | `rkeProxy.metricsPort` | int | `10249` |  |
 
 ### rkeScheduler
@@ -555,8 +551,7 @@ available config parameters:
 | `rkeScheduler.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeScheduler.clients.useLocalhost` | bool | `true` |  |
 | `rkeScheduler.component` | string | `"kube-scheduler"` |  |
-| `rkeScheduler.enabled` | bool | `false` |  |
-| `rkeScheduler.endpoints` | list | `[]` |  |
+| `rkeScheduler.enabled` | bool | `true` |  |
 | `rkeScheduler.kubeVersionOverrides[0].constraint` | string | `"< 1.23"` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |

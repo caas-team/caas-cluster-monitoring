@@ -684,8 +684,7 @@ rkeControllerManager:
       operator: "Exists"
     useLocalhost: true
   component: kube-controller-manager
-  enabled: false
-  endpoints: []
+  enabled: true
   kubeVersionOverrides:
   - constraint: "< 1.22"
     values:
@@ -698,8 +697,7 @@ rkeControllerManager:
   metricsPort: 10257 # default to secure port as of k8s >= 1.22
 
 rkeEtcd:
-  enabled: false
-  endpoints: []
+  enabled: true
   metricsPort: 2379
   component: kube-etcd
   clients:
@@ -731,7 +729,6 @@ rkeEtcd:
 
 rkeIngressNginx:
   enabled: false
-  endpoints: []
   clients:
     nodeSelector:
       node-role.kubernetes.io/worker: "true"
@@ -746,8 +743,7 @@ rkeIngressNginx:
   metricsPort: 10254
 
 rkeProxy:
-  enabled: false
-  endpoints: []
+  enabled: true
   metricsPort: 10249
   component: kube-proxy
   clients:
@@ -758,7 +754,6 @@ rkeProxy:
       operator: "Exists"
     - effect: "NoSchedule"
       operator: "Exists"
-
 
 rkeScheduler:
   clients:
@@ -784,7 +779,7 @@ rkeScheduler:
       operator: "Exists"
     useLocalhost: true
   component: kube-scheduler
-  enabled: false
+  enabled: true
   kubeVersionOverrides:
   - constraint: "< 1.23"
     values:
@@ -795,7 +790,6 @@ rkeScheduler:
           useServiceAccountCredentials: false
       metricsPort: 10251 # default to insecure port in k8s < 1.23
   metricsPort: 10259
-  endpoints: []
 
 hardenedKubelet:
   enabled: true

@@ -115,7 +115,8 @@ app: {{ template "pushprox.serviceMonitor.name" . }}
 {{- $_ := set . "proxyUrl" $proxyURL }}
 {{- end }}
 {{- $clusterIdRelabel := dict }}
-{{- $metricRelabelings := .metricRelabelings -}}
+{{- $mr := list -}}
+{{- $metricRelabelings := default $mr .metricRelabelings -}}
 {{- if $.Values.global.cattle.clusterId }}
 {{- $_ := set $clusterIdRelabel "action" "replace" }}
 {{- $_ := set $clusterIdRelabel "sourceLabels" (list "__address__") }}
