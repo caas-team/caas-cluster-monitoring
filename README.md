@@ -504,9 +504,7 @@ available config parameters:
 | `rkeEtcd.enabled` | bool | `true` |  |
 | `rkeEtcd.metricsPort` | int | `2379` |  |
 | `rkeEtcd.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
-| `rkeEtcd.serviceMonitor.endpoints[0].metricRelabelings[0].action` | string | `"keep"` |  |
-| `rkeEtcd.serviceMonitor.endpoints[0].metricRelabelings[0].regex` | string | `"grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals_(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes"` |  |
-| `rkeEtcd.serviceMonitor.endpoints[0].metricRelabelings[0].sourceLabels[0]` | string | `"__name__"` |  |
+| `rkeEtcd.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals_(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
 | `rkeEtcd.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### rkeIngressNginx
