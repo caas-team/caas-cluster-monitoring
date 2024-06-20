@@ -432,9 +432,7 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.serviceAccount.create` | bool | `true` |  |
 | `kube-prometheus-stack.prometheus.serviceAccount.name` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.interval` | string | `"30s"` |  |
-| `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings[0].action` | string | `"replace"` |  |
-| `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings[0].replacement` | string | `"local"` |  |
-| `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings[0].targetLabel` | string | `"cluster"` |  |
+| `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings` | list | `[{"action":"replace","replacement":"local","targetLabel":"cluster"}]` | and make the default dashboards work out of the box |
 | `kube-prometheus-stack.prometheus.serviceMonitor.relabelings` | list | `[]` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.scheme` | string | `""` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.selfMonitor` | bool | `true` |  |

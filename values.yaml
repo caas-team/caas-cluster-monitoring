@@ -598,6 +598,8 @@ kube-prometheus-stack:
       name: rancher-monitoring
     serviceMonitor:
       interval: "30s"
+      # -- Relabeling to add a name to the cluster
+      # -- and make the default dashboards work out of the box
       metricRelabelings:
       - action: replace
         targetLabel: cluster
