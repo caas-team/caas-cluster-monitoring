@@ -732,7 +732,7 @@ rkeEtcd:
       honorLabels: true
       metricRelabelings:
       - action: keep
-        regex: 'grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes'
+        regex: 'grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals_(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes'
         sourceLabels:
         - __name__
 
