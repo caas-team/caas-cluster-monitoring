@@ -31,8 +31,7 @@ global:
     # -- updated by rancher, if installed via UI / fleet
     clusterId: local
     # -- updated by rancher, if installed via UI / fleet
-    clusterName: &clusterName local
-    # projectId: &projectId p-xxxxx
+    clusterName: local
     systemDefaultRegistry: "mtr.devops.telekom.de"
   imageRegistry: mtr.devops.telekom.de
 
@@ -50,9 +49,6 @@ kube-prometheus-stack:
           operator: In
           values:
           - rancher-monitoring
-      #alertmanagerConfigNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       clusterAdvertiseAddress: false
       externalUrl:
       forceEnableClusterMode: false
@@ -510,12 +506,6 @@ kube-prometheus-stack:
       logLevel: info
       overrideHonorLabels: false
       overrideHonorTimestamps: false
-      #podMonitorNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
-      #probeNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       paused: false
       podAntiAffinityTopologyKey: kubernetes.io/hostname
       podMonitorNamespaceSelector: {}
@@ -548,9 +538,6 @@ kube-prometheus-stack:
       #retentionSize: ""
       routePrefix: /
       ruleNamespaceSelector: {}
-      #ruleNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       ruleSelector:
         matchExpressions:
         - key: release
@@ -570,9 +557,6 @@ kube-prometheus-stack:
           operator: In
           values:
           - rancher-monitoring
-      #serviceMonitorNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       shards: 1
       storageSpec: {}
       ## Using PersistentVolumeClaim
@@ -616,9 +600,8 @@ kube-prometheus-stack:
       interval: "30s"
       metricRelabelings:
       - action: replace
-        sourceLabels: [__address__]
         targetLabel: cluster
-        replacement: *clusterName
+        replacement: local
       relabelings: []
       scheme: ""
       selfMonitor: true

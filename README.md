@@ -434,7 +434,6 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.serviceMonitor.interval` | string | `"30s"` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings[0].action` | string | `"replace"` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings[0].replacement` | string | `"local"` |  |
-| `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings[0].sourceLabels[0]` | string | `"__address__"` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings[0].targetLabel` | string | `"cluster"` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.relabelings` | list | `[]` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.scheme` | string | `""` |  |
