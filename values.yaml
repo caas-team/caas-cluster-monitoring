@@ -854,7 +854,7 @@ hardenedKubelet:
         targetLabel: metrics_path
       metricRelabelings:
       - action: keep
-        regex: 'up|container_network_(transmit_bytes_total|transmit_bytes_total|receive_errors_total|receive_packets_dropped_total|receive_bytes_total|receive_packets_total|transmit_packets_dropped_total|transmit_packets_total|transmit_errors_total)|container_memory_(cache|rss|working_set_bytes|usage_bytes)|container_fs_(reads_total|writes_total|reads_bytes_total|writes_bytes_total)|container_cpu_(usage_seconds_total|cfs_periods_total|cfs_throttled_periods_total)|node_namespace_pod_container:(container_memory_working_set_bytes|container_memory_cache|container_memory_rss)|machine_(cpu_cores|memory_bytes)'
+        regex: 'up|container_network_(transmit_bytes_total|transmit_bytes_total|receive_errors_total|receive_packets_dropped_total|receive_bytes_total|receive_packets_total|transmit_packets_dropped_total|transmit_packets_total|transmit_errors_total)|container_memory_(cache|rss|working_set_bytes|usage_bytes)|container_fs_(reads_total|writes_total|reads_bytes_total|writes_bytes_total)|container_cpu_(system_seconds_total|usage_seconds_total|user_seconds_total|cfs_periods_total|cfs_throttled_periods_total|cfs_throttled_seconds_total)|node_namespace_pod_container:(container_memory_working_set_bytes|container_memory_cache|container_memory_rss)|machine_(cpu_cores|memory_bytes)'
         sourceLabels:
         - __name__
     - port: metrics
