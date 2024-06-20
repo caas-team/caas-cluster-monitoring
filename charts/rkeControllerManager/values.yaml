@@ -152,10 +152,10 @@ proxy:
   enabled: true
   # The port through which PushProx clients will communicate to the proxy
   port: 8080
-  
+
   # Resource limits
   resources: {}
-  
+
   # Options to select a node to run a single proxy deployment on
   nodeSelector: {}
   tolerations: []

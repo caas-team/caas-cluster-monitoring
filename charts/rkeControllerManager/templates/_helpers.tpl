@@ -106,7 +106,6 @@ app: {{ template "pushprox.serviceMonitor.name" . }}
 {{- $insecureSkipVerify := .Values.clients.https.insecureSkipVerify -}}
 {{- $useServiceAccountCredentials := .Values.clients.https.useServiceAccountCredentials -}}
 {{- $serviceAccountTokenName := (include "pushProxy.client.serviceAccountTokenName" . ) -}}
-{{- $metricRelabelings := list }}
 {{- $endpoints := .Values.serviceMonitor.endpoints }}
 {{- if .Values.proxy.enabled }}
 {{- $_ := set . "proxyUrl" $proxyURL }}
@@ -116,7 +115,8 @@ app: {{ template "pushprox.serviceMonitor.name" . }}
 {{- $_ := set . "proxyUrl" $proxyURL }}
 {{- end }}
 {{- $clusterIdRelabel := dict }}
-{{- $metricRelabelings := list }}
+{{- $mr := list -}}
+{{- $metricRelabelings := default $mr .metricRelabelings -}}
 {{- if $.Values.global.cattle.clusterId }}
 {{- $_ := set $clusterIdRelabel "action" "replace" }}
 {{- $_ := set $clusterIdRelabel "sourceLabels" (list "__address__") }}

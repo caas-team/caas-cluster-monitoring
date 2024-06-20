@@ -473,7 +473,7 @@ available config parameters:
 | `rkeControllerManager.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeControllerManager.clients.useLocalhost` | bool | `true` |  |
 | `rkeControllerManager.component` | string | `"kube-controller-manager"` |  |
-| `rkeControllerManager.enabled` | bool | `false` |  |
+| `rkeControllerManager.enabled` | bool | `true` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].constraint` | string | `"< 1.22"` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
@@ -501,7 +501,7 @@ available config parameters:
 | `rkeEtcd.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
 | `rkeEtcd.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeEtcd.component` | string | `"kube-etcd"` |  |
-| `rkeEtcd.enabled` | bool | `false` |  |
+| `rkeEtcd.enabled` | bool | `true` |  |
 | `rkeEtcd.metricsPort` | int | `2379` |  |
 
 ### rkeIngressNginx
@@ -530,7 +530,7 @@ available config parameters:
 | `rkeProxy.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeProxy.clients.useLocalhost` | bool | `true` |  |
 | `rkeProxy.component` | string | `"kube-proxy"` |  |
-| `rkeProxy.enabled` | bool | `false` |  |
+| `rkeProxy.enabled` | bool | `true` |  |
 | `rkeProxy.metricsPort` | int | `10249` |  |
 
 ### rkeScheduler
@@ -551,7 +551,7 @@ available config parameters:
 | `rkeScheduler.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeScheduler.clients.useLocalhost` | bool | `true` |  |
 | `rkeScheduler.component` | string | `"kube-scheduler"` |  |
-| `rkeScheduler.enabled` | bool | `false` |  |
+| `rkeScheduler.enabled` | bool | `true` |  |
 | `rkeScheduler.kubeVersionOverrides[0].constraint` | string | `"< 1.23"` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
@@ -585,15 +585,24 @@ available config parameters:
 | `hardenedKubelet.metricsPort` | int | `10250` |  |
 | `hardenedKubelet.serviceMonitor.bearerTokenFile` | string | `"/var/run/secrets/kubernetes.io/serviceaccount/token"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].metricRelabelings[0].action` | string | `"keep"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].metricRelabelings[0].regex` | string | `"up|go_goroutines|storage_operation_(duration_seconds_bucket|duration_seconds_count)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|kubelet_pod_(worker_duration_seconds_bucket|start_duration_seconds_bucket|worker_duration_seconds_count|start_duration_seconds_count)|kubelet_cgroup_manager_(duration_seconds_bucket|duration_seconds_count)|kubelet_runtime_operations_(duration_seconds_bucket|total|errors_total)|kubelet_volume_stats_(inodes_used|inodes|available_bytes|capacity_bytes|used_bytes)|kubelet_pleg_relist_(duration_seconds_bucket|interval_seconds_bucket|duration_seconds_count)|kubelet_running_(containers|pods)|kubelet_node_name|volume_manager_total_volumes"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[0].metricRelabelings[0].sourceLabels[0]` | string | `"__name__"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[0].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[0].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].metricRelabelings[0].action` | string | `"keep"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].metricRelabelings[0].regex` | string | `"up|container_network_(transmit_bytes_total|transmit_bytes_total|receive_errors_total|receive_packets_dropped_total|receive_bytes_total|receive_packets_total|transmit_packets_dropped_total|transmit_packets_total|transmit_errors_total)|container_memory_(cache|rss|working_set_bytes|usage_bytes)|container_fs_(reads_total|writes_total|reads_bytes_total|writes_bytes_total)|container_cpu_(usage_seconds_total|cfs_periods_total|cfs_throttled_periods_total)|node_namespace_pod_container:(container_memory_working_set_bytes|container_memory_cache|container_memory_rss)|machine_(cpu_cores|memory_bytes)"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].metricRelabelings[0].sourceLabels[0]` | string | `"__name__"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].path` | string | `"/metrics/cadvisor"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].port` | string | `"metrics"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[2].honorLabels` | bool | `true` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].metricRelabelings[0].action` | string | `"keep"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].metricRelabelings[0].regex` | string | `"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[2].metricRelabelings[0].sourceLabels[0]` | string | `"__name__"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[2].path` | string | `"/metrics/probes"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[2].port` | string | `"metrics"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[2].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
