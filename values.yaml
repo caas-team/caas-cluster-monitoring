@@ -28,8 +28,10 @@ caas:
 
 global:
   cattle:
+    # -- updated by rancher, if installed via UI / fleet
     clusterId: local
-    clusterName: local
+    # -- updated by rancher, if installed via UI / fleet
+    clusterName: &clusterName local
     # projectId: &projectId p-xxxxx
     systemDefaultRegistry: "mtr.devops.telekom.de"
   imageRegistry: mtr.devops.telekom.de
@@ -612,7 +614,11 @@ kube-prometheus-stack:
       name: rancher-monitoring
     serviceMonitor:
       interval: "30s"
-      metricRelabelings: []
+      metricRelabelings:
+      - action: replace
+        sourceLabels: [__address__]
+        targetLabel: cluster
+        replacement: *clusterName
       relabelings: []
       scheme: ""
       selfMonitor: true
