@@ -503,6 +503,9 @@ available config parameters:
 | `rkeEtcd.component` | string | `"kube-etcd"` |  |
 | `rkeEtcd.enabled` | bool | `true` |  |
 | `rkeEtcd.metricsPort` | int | `2379` |  |
+| `rkeEtcd.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `rkeEtcd.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals_(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
+| `rkeEtcd.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### rkeIngressNginx
 
@@ -593,7 +596,7 @@ available config parameters:
 | `hardenedKubelet.serviceMonitor.endpoints[0].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].honorLabels` | bool | `true` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].metricRelabelings[0].action` | string | `"keep"` |  |
-| `hardenedKubelet.serviceMonitor.endpoints[1].metricRelabelings[0].regex` | string | `"up|container_network_(transmit_bytes_total|transmit_bytes_total|receive_errors_total|receive_packets_dropped_total|receive_bytes_total|receive_packets_total|transmit_packets_dropped_total|transmit_packets_total|transmit_errors_total)|container_memory_(cache|rss|working_set_bytes|usage_bytes)|container_fs_(reads_total|writes_total|reads_bytes_total|writes_bytes_total)|container_cpu_(usage_seconds_total|cfs_periods_total|cfs_throttled_periods_total)|node_namespace_pod_container:(container_memory_working_set_bytes|container_memory_cache|container_memory_rss)|machine_(cpu_cores|memory_bytes)"` |  |
+| `hardenedKubelet.serviceMonitor.endpoints[1].metricRelabelings[0].regex` | string | `"up|container_network_(transmit_bytes_total|transmit_bytes_total|receive_errors_total|receive_packets_dropped_total|receive_bytes_total|receive_packets_total|transmit_packets_dropped_total|transmit_packets_total|transmit_errors_total)|container_memory_(cache|rss|working_set_bytes|usage_bytes)|container_fs_(reads_total|writes_total|reads_bytes_total|writes_bytes_total)|container_cpu_(system_seconds_total|usage_seconds_total|user_seconds_total|cfs_periods_total|cfs_throttled_periods_total|cfs_throttled_seconds_total)|node_namespace_pod_container:(container_memory_working_set_bytes|container_memory_cache|container_memory_rss)|machine_(cpu_cores|memory_bytes)"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].metricRelabelings[0].sourceLabels[0]` | string | `"__name__"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].path` | string | `"/metrics/cadvisor"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[1].port` | string | `"metrics"` |  |
