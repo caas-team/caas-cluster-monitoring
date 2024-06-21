@@ -60,8 +60,8 @@ available config parameters:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `global.cattle.clusterId` | string | `"local"` |  |
-| `global.cattle.clusterName` | string | `"local"` |  |
+| `global.cattle.clusterId` | string | `"local"` | updated by rancher, if installed via UI / fleet |
+| `global.cattle.clusterName` | string | `"local"` | updated by rancher, if installed via UI / fleet |
 | `global.cattle.systemDefaultRegistry` | string | `"mtr.devops.telekom.de"` |  |
 | `global.imageRegistry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.alertmanager.config.global.resolve_timeout` | string | `"5m"` |  |
@@ -432,7 +432,7 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.serviceAccount.create` | bool | `true` |  |
 | `kube-prometheus-stack.prometheus.serviceAccount.name` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.interval` | string | `"30s"` |  |
-| `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings` | list | `[]` |  |
+| `kube-prometheus-stack.prometheus.serviceMonitor.metricRelabelings` | list | `[{"action":"replace","replacement":"local","targetLabel":"cluster"}]` | and make the default dashboards work out of the box |
 | `kube-prometheus-stack.prometheus.serviceMonitor.relabelings` | list | `[]` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.scheme` | string | `""` |  |
 | `kube-prometheus-stack.prometheus.serviceMonitor.selfMonitor` | bool | `true` |  |

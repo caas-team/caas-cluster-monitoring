@@ -28,9 +28,10 @@ caas:
 
 global:
   cattle:
+    # -- updated by rancher, if installed via UI / fleet
     clusterId: local
+    # -- updated by rancher, if installed via UI / fleet
     clusterName: local
-    # projectId: &projectId p-xxxxx
     systemDefaultRegistry: "mtr.devops.telekom.de"
   imageRegistry: mtr.devops.telekom.de
 
@@ -48,9 +49,6 @@ kube-prometheus-stack:
           operator: In
           values:
           - rancher-monitoring
-      #alertmanagerConfigNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       clusterAdvertiseAddress: false
       externalUrl:
       forceEnableClusterMode: false
@@ -508,12 +506,6 @@ kube-prometheus-stack:
       logLevel: info
       overrideHonorLabels: false
       overrideHonorTimestamps: false
-      #podMonitorNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
-      #probeNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       paused: false
       podAntiAffinityTopologyKey: kubernetes.io/hostname
       podMonitorNamespaceSelector: {}
@@ -546,9 +538,6 @@ kube-prometheus-stack:
       #retentionSize: ""
       routePrefix: /
       ruleNamespaceSelector: {}
-      #ruleNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       ruleSelector:
         matchExpressions:
         - key: release
@@ -568,9 +557,6 @@ kube-prometheus-stack:
           operator: In
           values:
           - rancher-monitoring
-      #serviceMonitorNamespaceSelector:
-      #  matchLabels:
-      #    "field.cattle.io/projectId": *projectId
       shards: 1
       storageSpec: {}
       ## Using PersistentVolumeClaim
@@ -612,7 +598,12 @@ kube-prometheus-stack:
       name: rancher-monitoring
     serviceMonitor:
       interval: "30s"
-      metricRelabelings: []
+      # -- Relabeling to add a name to the cluster
+      # -- and make the default dashboards work out of the box
+      metricRelabelings:
+      - action: replace
+        targetLabel: cluster
+        replacement: local
       relabelings: []
       scheme: ""
       selfMonitor: true
