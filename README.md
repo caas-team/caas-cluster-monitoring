@@ -480,6 +480,9 @@ available config parameters:
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.useServiceAccountCredentials` | bool | `false` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.metricsPort` | int | `10252` |  |
 | `rkeControllerManager.metricsPort` | int | `10257` |  |
+| `rkeControllerManager.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `rkeControllerManager.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|storage_operation_duration_seconds_(bucket|count)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
+| `rkeControllerManager.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### rkeEtcd
 
