@@ -538,6 +538,9 @@ available config parameters:
 | `rkeProxy.component` | string | `"kube-proxy"` |  |
 | `rkeProxy.enabled` | bool | `true` |  |
 | `rkeProxy.metricsPort` | int | `10249` |  |
+| `rkeProxy.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `rkeProxy.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
+| `rkeProxy.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### rkeScheduler
 
@@ -564,6 +567,9 @@ available config parameters:
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.useServiceAccountCredentials` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.metricsPort` | int | `10251` |  |
 | `rkeScheduler.metricsPort` | int | `10259` |  |
+| `rkeScheduler.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `rkeScheduler.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
+| `rkeScheduler.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### hardenedKubelet
 

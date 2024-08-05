@@ -778,6 +778,18 @@ rkeProxy:
         operator: "Exists"
       - effect: "NoSchedule"
         operator: "Exists"
+  serviceMonitor:
+    endpoints:
+      - port: metrics
+        honorLabels: true
+        # -- Relabeling to keep only the needed metrics
+        # -- for the grafana dashboards. If additional metrics
+        # -- are needed, they should be added to this regex.
+        metricRelabelings:
+          - action: keep
+            regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
+            sourceLabels:
+              - __name__
 
 rkeScheduler:
   clients:
@@ -814,6 +826,18 @@ rkeScheduler:
             useServiceAccountCredentials: false
         metricsPort: 10251 # default to insecure port in k8s < 1.23
   metricsPort: 10259
+  serviceMonitor:
+    endpoints:
+      - port: metrics
+        honorLabels: true
+        # -- Relabeling to keep only the needed metrics
+        # -- for the grafana dashboards. If additional metrics
+        # -- are needed, they should be added to this regex.
+        metricRelabelings:
+          - action: keep
+            regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
+            sourceLabels:
+              - __name__
 
 hardenedKubelet:
   enabled: true
