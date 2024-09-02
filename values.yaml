@@ -44,10 +44,10 @@ kube-prometheus-stack:
       alertmanagerConfigNamespaceSelector: {}
       alertmanagerConfigSelector:
         matchExpressions:
-          - key: release
-            operator: In
-            values:
-              - rancher-monitoring
+        - key: release
+          operator: In
+          values:
+          - rancher-monitoring
       #alertmanagerConfigNamespaceSelector:
       #  matchLabels:
       #    "field.cattle.io/projectId": *projectId
@@ -83,7 +83,7 @@ kube-prometheus-stack:
       securityContext:
         fsGroup: 2000
         supplementalGroups:
-          - 1000
+        - 1000
       storage: {}
       volumeMounts: []
       volumes: []
@@ -92,28 +92,28 @@ kube-prometheus-stack:
       global:
         resolve_timeout: 5m
       inhibit_rules:
-        - equal:
-            - "namespace"
-            - "alertname"
-          source_matchers:
-            - "severity = critical"
-          target_matchers:
-            - "severity =~ warning|info"
-        - equal:
-            - "namespace"
-            - "alertname"
-          source_matchers:
-            - "severity = warning"
-          target_matchers:
-            - "severity = info"
-        - equal:
-            - "namespace"
-          source_matchers:
-            - "alertname = InfoInhibitor"
-          target_matchers:
-            - "severity = info"
+      - equal:
+        - "namespace"
+        - "alertname"
+        source_matchers:
+        - "severity = critical"
+        target_matchers:
+        - "severity =~ warning|info"
+      - equal:
+        - "namespace"
+        - "alertname"
+        source_matchers:
+        - "severity = warning"
+        target_matchers:
+        - "severity = info"
+      - equal:
+        - "namespace"
+        source_matchers:
+        - "alertname = InfoInhibitor"
+        target_matchers:
+        - "severity = info"
       receivers:
-        - name: "null"
+      - name: "null"
       route:
         group_by: ["namespace"]
         group_interval: 5m
@@ -121,11 +121,11 @@ kube-prometheus-stack:
         receiver: "null"
         repeat_interval: 12h
         routes:
-          - matchers:
-              - alertname =~ "InfoInhibitor|Watchdog"
-            receiver: "null"
+        - matchers:
+          - alertname =~ "InfoInhibitor|Watchdog"
+          receiver: "null"
       templates:
-        - "/etc/alertmanager/config/*.tmpl"
+      - "/etc/alertmanager/config/*.tmpl"
     enabled: true
     service:
       annotations: {}
@@ -194,7 +194,7 @@ kube-prometheus-stack:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-          - ALL
+        - ALL
       privileged: false
       readOnlyRootFilesystem: true
       runAsGroup: 472
@@ -204,24 +204,24 @@ kube-prometheus-stack:
       datasources.yaml:
         apiVersion: 1
         datasources:
-          - access: proxy
-            isDefault: true
-            name: Prometheus
-            type: prometheus
-            url: http://prometheus-operated:9090
+        - access: proxy
+          isDefault: true
+          name: Prometheus
+          type: prometheus
+          url: http://prometheus-operated:9090
     defaultDashboardsEnabled: true
     defaultDashboardsTimezone: utc
     enabled: true
     extraContainerVolumes:
-      - emptyDir: {}
-        name: nginx-home
-      - configMap:
-          items:
-            - key: nginx.conf
-              mode: 438
-              path: nginx.conf
-          name: nginx-proxy-config-rancher-monitoring-grafana
-        name: grafana-nginx
+    - emptyDir: {}
+      name: nginx-home
+    - configMap:
+        items:
+        - key: nginx.conf
+          mode: 438
+          path: nginx.conf
+        name: nginx-proxy-config-rancher-monitoring-grafana
+      name: grafana-nginx
     extraContainers: |
       - name: grafana-proxy
         args:
@@ -299,7 +299,7 @@ kube-prometheus-stack:
       runAsGroup: 472
       runAsUser: 472
       supplementalGroups:
-        - 472
+      - 472
     service:
       port: 80
       portName: nginx-http
@@ -350,7 +350,7 @@ kube-prometheus-stack:
         allowPrivilegeEscalation: false
         capabilities:
           drop:
-            - ALL
+          - ALL
         privileged: false
         readOnlyRootFilesystem: true
         runAsGroup: 472
@@ -396,56 +396,56 @@ kube-prometheus-stack:
         enabled: false
   prometheus:
     additionalRulesForClusterRole:
-      - apiGroups:
-          - ""
-        resources:
-          - configmaps
-          - namespaces
-          - nodes
-          - nodes/metrics
-          - services
-          - endpoints
-          - pods
-          - secrets
-        verbs:
-          - get
-          - list
-          - watch
-      - apiGroups:
-          - networking.k8s.io
-        resources:
-          - ingresses
-        verbs:
-          - get
-          - list
-          - watch
-      - nonResourceURLs:
-          - /metrics
-          - /metrics/cadvisor
-        verbs:
-          - get
-      - apiGroups:
-          - authentication.k8s.io
-        resources:
-          - tokenreviews
-        verbs:
-          - get
-          - list
-          - create
-          - update
-          - delete
-          - watch
-      - apiGroups:
-          - authorization.k8s.io
-        resources:
-          - subjectaccessreviews
-        verbs:
-          - get
-          - list
-          - create
-          - update
-          - delete
-          - watch
+    - apiGroups:
+      - ""
+      resources:
+      - configmaps
+      - namespaces
+      - nodes
+      - nodes/metrics
+      - services
+      - endpoints
+      - pods
+      - secrets
+      verbs:
+      - get
+      - list
+      - watch
+    - apiGroups:
+      - networking.k8s.io
+      resources:
+      - ingresses
+      verbs:
+      - get
+      - list
+      - watch
+    - nonResourceURLs:
+      - /metrics
+      - /metrics/cadvisor
+      verbs:
+      - get
+    - apiGroups:
+      - authentication.k8s.io
+      resources:
+      - tokenreviews
+      verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - watch
+    - apiGroups:
+      - authorization.k8s.io
+      resources:
+      - subjectaccessreviews
+      verbs:
+      - get
+      - list
+      - create
+      - update
+      - delete
+      - watch
     enabled: true
     ingress:
       annotations: {}
@@ -459,32 +459,32 @@ kube-prometheus-stack:
     prometheusSpec:
       additionalScrapeConfigs: []
       containers:
-        - args:
-            - --proxy-url=http://127.0.0.1:9090
-            - --listen-address=$(POD_IP):9091
-            - --filter-reader-labels=prometheus
-            - --filter-reader-labels=prometheus_replica
-            - --log.debug=true
-          command:
-            - prometheus-auth
-          env:
-            - name: POD_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
-          image: mtr.devops.telekom.de/caas/prometheus-auth:0.5.2
-          name: prometheus-agent
-          ports:
-            - containerPort: 9091
-              name: http-auth
-              protocol: TCP
-          resources:
-            limits:
-              cpu: 500m
-              memory: 500Mi
-            requests:
-              cpu: 100m
-              memory: 500Mi
+      - args:
+        - --proxy-url=http://127.0.0.1:9090
+        - --listen-address=$(POD_IP):9091
+        - --filter-reader-labels=prometheus
+        - --filter-reader-labels=prometheus_replica
+        - --log.debug=true
+        command:
+        - prometheus-auth
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        image: mtr.devops.telekom.de/caas/prometheus-auth:0.5.2
+        name: prometheus-agent
+        ports:
+        - containerPort: 9091
+          name: http-auth
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 500Mi
       disableCompaction: false
       enableAdminAPI: false
       enableRemoteWriteReceiver: false
@@ -519,10 +519,10 @@ kube-prometheus-stack:
       podMonitorNamespaceSelector: {}
       podMonitorSelector:
         matchExpressions:
-          - key: release
-            operator: In
-            values:
-              - rancher-monitoring
+        - key: release
+          operator: In
+          values:
+          - rancher-monitoring
       portName: "http-web"
       prometheusExternalLabelName: ""
       prometheusExternalLabelNameClear: false
@@ -551,23 +551,23 @@ kube-prometheus-stack:
       #    "field.cattle.io/projectId": *projectId
       ruleSelector:
         matchExpressions:
-          - key: release
-            operator: In
-            values:
-              - rancher-monitoring
+        - key: release
+          operator: In
+          values:
+          - rancher-monitoring
       scrapeInterval: "30s"
       scrapeTimeout: "10s"
       securityContext:
         fsGroup: 2000
         supplementalGroups:
-          - 1000
+        - 1000
       serviceMonitorNamespaceSelector: {}
       serviceMonitorSelector:
         matchExpressions:
-          - key: release
-            operator: In
-            values:
-              - rancher-monitoring
+        - key: release
+          operator: In
+          values:
+          - rancher-monitoring
       #serviceMonitorNamespaceSelector:
       #  matchLabels:
       #    "field.cattle.io/projectId": *projectId
@@ -594,10 +594,10 @@ kube-prometheus-stack:
       walCompression: true
     service:
       additionalPorts:
-        - name: http-auth
-          port: 9091
-          protocol: TCP
-          targetPort: http-auth
+      - name: http-auth
+        port: 9091
+        protocol: TCP
+        targetPort: http-auth
       annotations: {}
       clusterIP: ""
       externalIPs: []
@@ -678,35 +678,35 @@ rkeControllerManager:
       node-role.kubernetes.io/controlplane: "true"
     port: 10011
     tolerations:
-      - effect: "NoExecute"
-        operator: "Exists"
-      - effect: "NoSchedule"
-        operator: "Exists"
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
     useLocalhost: true
   component: kube-controller-manager
   enabled: true
   kubeVersionOverrides:
-    - constraint: "< 1.22"
-      values:
-        clients:
-          https:
-            enabled: false
-            insecureSkipVerify: false
-            useServiceAccountCredentials: false
-        metricsPort: 10252 # default to insecure port in k8s < 1.22
+  - constraint: "< 1.22"
+    values:
+      clients:
+        https:
+          enabled: false
+          insecureSkipVerify: false
+          useServiceAccountCredentials: false
+      metricsPort: 10252 # default to insecure port in k8s < 1.22
   metricsPort: 10257 # default to secure port as of k8s >= 1.22
   serviceMonitor:
     endpoints:
-      - port: metrics
-        honorLabels: true
-        # -- Relabeling to keep only the needed metrics
-        # -- for the grafana dashboards. If additional metrics
-        # -- are needed, they should be added to this regex.
-        metricRelabelings:
-          - action: keep
-            regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|storage_operation_duration_seconds_(bucket|count)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
-            sourceLabels:
-              - __name__
+    - port: metrics
+      honorLabels: true
+      # -- Relabeling to keep only the needed metrics
+      # -- for the grafana dashboards. If additional metrics
+      # -- are needed, they should be added to this regex.
+      metricRelabelings:
+      - action: keep
+        regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|storage_operation_duration_seconds_(bucket|count)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
+        sourceLabels:
+        - __name__
 
 rkeEtcd:
   enabled: true
@@ -734,22 +734,22 @@ rkeEtcd:
     nodeSelector:
       node-role.kubernetes.io/etcd: "true"
     tolerations:
-      - effect: "NoExecute"
-        operator: "Exists"
-      - effect: "NoSchedule"
-        operator: "Exists"
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
   serviceMonitor:
     endpoints:
-      - port: metrics
-        honorLabels: true
-        # -- Relabeling to keep only the needed metrics
-        # -- for the grafana dashboards. If additional metrics
-        # -- are needed, they should be added to this regex.
-        metricRelabelings:
-          - action: keep
-            regex: "grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals_(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes"
-            sourceLabels:
-              - __name__
+    - port: metrics
+      honorLabels: true
+      # -- Relabeling to keep only the needed metrics
+      # -- for the grafana dashboards. If additional metrics
+      # -- are needed, they should be added to this regex.
+      metricRelabelings:
+      - action: keep
+        regex: "grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals_(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes"
+        sourceLabels:
+        - __name__
 
 rkeIngressNginx:
   enabled: false
@@ -758,10 +758,10 @@ rkeIngressNginx:
       node-role.kubernetes.io/worker: "true"
     port: 10015
     tolerations:
-      - effect: "NoExecute"
-        operator: "Exists"
-      - effect: "NoSchedule"
-        operator: "Exists"
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
     useLocalhost: true
   component: ingress-nginx
   metricsPort: 10254
@@ -774,22 +774,22 @@ rkeProxy:
     port: 10013
     useLocalhost: true
     tolerations:
-      - effect: "NoExecute"
-        operator: "Exists"
-      - effect: "NoSchedule"
-        operator: "Exists"
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
   serviceMonitor:
     endpoints:
-      - port: metrics
-        honorLabels: true
-        # -- Relabeling to keep only the needed metrics
-        # -- for the grafana dashboards. If additional metrics
-        # -- are needed, they should be added to this regex.
-        metricRelabelings:
-          - action: keep
-            regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
-            sourceLabels:
-              - __name__
+    - port: metrics
+      honorLabels: true
+      # -- Relabeling to keep only the needed metrics
+      # -- for the grafana dashboards. If additional metrics
+      # -- are needed, they should be added to this regex.
+      metricRelabelings:
+      - action: keep
+        regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
+        sourceLabels:
+        - __name__
 
 rkeScheduler:
   clients:
@@ -809,35 +809,35 @@ rkeScheduler:
       node-role.kubernetes.io/controlplane: "true"
     port: 10012
     tolerations:
-      - effect: "NoExecute"
-        operator: "Exists"
-      - effect: "NoSchedule"
-        operator: "Exists"
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
     useLocalhost: true
   component: kube-scheduler
   enabled: true
   kubeVersionOverrides:
-    - constraint: "< 1.23"
-      values:
-        clients:
-          https:
-            enabled: false
-            insecureSkipVerify: false
-            useServiceAccountCredentials: false
-        metricsPort: 10251 # default to insecure port in k8s < 1.23
+  - constraint: "< 1.23"
+    values:
+      clients:
+        https:
+          enabled: false
+          insecureSkipVerify: false
+          useServiceAccountCredentials: false
+      metricsPort: 10251 # default to insecure port in k8s < 1.23
   metricsPort: 10259
   serviceMonitor:
     endpoints:
-      - port: metrics
-        honorLabels: true
-        # -- Relabeling to keep only the needed metrics
-        # -- for the grafana dashboards. If additional metrics
-        # -- are needed, they should be added to this regex.
-        metricRelabelings:
-          - action: keep
-            regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
-            sourceLabels:
-              - __name__
+    - port: metrics
+      honorLabels: true
+      # -- Relabeling to keep only the needed metrics
+      # -- for the grafana dashboards. If additional metrics
+      # -- are needed, they should be added to this regex.
+      metricRelabelings:
+      - action: keep
+        regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
+        sourceLabels:
+        - __name__
 
 hardenedKubelet:
   enabled: true
@@ -859,48 +859,48 @@ hardenedKubelet:
           enabled: false
     rbac:
       additionalRules:
-        - nonResourceURLs: ["/metrics/cadvisor"]
-          verbs: ["get"]
-        - apiGroups: [""]
-          resources: ["nodes/metrics"]
-          verbs: ["get"]
+      - nonResourceURLs: ["/metrics/cadvisor"]
+        verbs: ["get"]
+      - apiGroups: [""]
+        resources: ["nodes/metrics"]
+        verbs: ["get"]
     tolerations:
-      - effect: "NoExecute"
-        operator: "Exists"
-      - effect: "NoSchedule"
-        operator: "Exists"
+    - effect: "NoExecute"
+      operator: "Exists"
+    - effect: "NoSchedule"
+      operator: "Exists"
   serviceMonitor:
     bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     endpoints:
-      - port: metrics
-        honorLabels: true
-        relabelings:
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
-        metricRelabelings:
-          - action: keep
-            regex: "up|go_goroutines|storage_operation_(duration_seconds_bucket|duration_seconds_count)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|kubelet_pod_(worker_duration_seconds_bucket|start_duration_seconds_bucket|worker_duration_seconds_count|start_duration_seconds_count)|kubelet_cgroup_manager_(duration_seconds_bucket|duration_seconds_count)|kubelet_runtime_operations_(duration_seconds_bucket|total|errors_total)|kubelet_volume_stats_(inodes_used|inodes|available_bytes|capacity_bytes|used_bytes)|kubelet_pleg_relist_(duration_seconds_bucket|interval_seconds_bucket|duration_seconds_count)|kubelet_running_(containers|pods)|kubelet_node_name|volume_manager_total_volumes"
-            sourceLabels:
-              - __name__
-      - port: metrics
-        path: /metrics/cadvisor
-        honorLabels: true
-        relabelings:
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
-        metricRelabelings:
-          - action: keep
-            regex: "up|container_network_(transmit_bytes_total|transmit_bytes_total|receive_errors_total|receive_packets_dropped_total|receive_bytes_total|receive_packets_total|transmit_packets_dropped_total|transmit_packets_total|transmit_errors_total)|container_memory_(cache|rss|working_set_bytes|usage_bytes)|container_fs_(reads_total|writes_total|reads_bytes_total|writes_bytes_total)|container_cpu_(system_seconds_total|usage_seconds_total|user_seconds_total|cfs_periods_total|cfs_throttled_periods_total|cfs_throttled_seconds_total)|node_namespace_pod_container:(container_memory_working_set_bytes|container_memory_cache|container_memory_rss)|machine_(cpu_cores|memory_bytes)"
-            sourceLabels:
-              - __name__
-      - port: metrics
-        path: /metrics/probes
-        honorLabels: true
-        relabelings:
-          - sourceLabels: [__metrics_path__]
-            targetLabel: metrics_path
-        metricRelabelings:
-          - action: keep
-            regex: process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)
-            sourceLabels:
-              - __name__
+    - port: metrics
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+      metricRelabelings:
+      - action: keep
+        regex: "up|go_goroutines|storage_operation_(duration_seconds_bucket|duration_seconds_count)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|kubelet_pod_(worker_duration_seconds_bucket|start_duration_seconds_bucket|worker_duration_seconds_count|start_duration_seconds_count)|kubelet_cgroup_manager_(duration_seconds_bucket|duration_seconds_count)|kubelet_runtime_operations_(duration_seconds_bucket|total|errors_total)|kubelet_volume_stats_(inodes_used|inodes|available_bytes|capacity_bytes|used_bytes)|kubelet_pleg_relist_(duration_seconds_bucket|interval_seconds_bucket|duration_seconds_count)|kubelet_running_(containers|pods)|kubelet_node_name|volume_manager_total_volumes"
+        sourceLabels:
+        - __name__
+    - port: metrics
+      path: /metrics/cadvisor
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+      metricRelabelings:
+      - action: keep
+        regex: "up|container_network_(transmit_bytes_total|transmit_bytes_total|receive_errors_total|receive_packets_dropped_total|receive_bytes_total|receive_packets_total|transmit_packets_dropped_total|transmit_packets_total|transmit_errors_total)|container_memory_(cache|rss|working_set_bytes|usage_bytes)|container_fs_(reads_total|writes_total|reads_bytes_total|writes_bytes_total)|container_cpu_(system_seconds_total|usage_seconds_total|user_seconds_total|cfs_periods_total|cfs_throttled_periods_total|cfs_throttled_seconds_total)|node_namespace_pod_container:(container_memory_working_set_bytes|container_memory_cache|container_memory_rss)|machine_(cpu_cores|memory_bytes)"
+        sourceLabels:
+        - __name__
+    - port: metrics
+      path: /metrics/probes
+      honorLabels: true
+      relabelings:
+      - sourceLabels: [__metrics_path__]
+        targetLabel: metrics_path
+      metricRelabelings:
+      - action: keep
+        regex: process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)
+        sourceLabels:
+        - __name__
