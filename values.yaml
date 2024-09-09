@@ -310,9 +310,12 @@ kube-prometheus-stack:
     serviceMonitor:
       enabled: true
       interval: "30s"
+      labels:
+        release: rancher-monitoring
       path: "/metrics"
       scheme: http
       scrapeTimeout: 30s
+
     sidecar:
       dashboards:
         annotations: {}

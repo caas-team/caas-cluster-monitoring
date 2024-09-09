@@ -231,6 +231,7 @@ available config parameters:
 | `kube-prometheus-stack.grafana.serviceAccount.name` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.interval` | string | `"30s"` |  |
+| `kube-prometheus-stack.grafana.serviceMonitor.labels.release` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.path` | string | `"/metrics"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.scheme` | string | `"http"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.scrapeTimeout` | string | `"30s"` |  |
