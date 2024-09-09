@@ -150,9 +150,6 @@ kube-prometheus-stack:
   coreDns:
     enabled: true
 
-  commonLabels:
-    release: rancher-monitoring
-
   ## -- Default rules for monitoring the cluster
   defaultRules:
     appNamespacesTarget: ".*"
