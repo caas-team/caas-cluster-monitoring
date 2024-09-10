@@ -231,6 +231,7 @@ available config parameters:
 | `kube-prometheus-stack.grafana.serviceAccount.name` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.interval` | string | `"30s"` |  |
+| `kube-prometheus-stack.grafana.serviceMonitor.labels.release` | string | `"rancher-monitoring"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.path` | string | `"/metrics"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.scheme` | string | `"http"` |  |
 | `kube-prometheus-stack.grafana.serviceMonitor.scrapeTimeout` | string | `"30s"` |  |
@@ -480,6 +481,9 @@ available config parameters:
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.useServiceAccountCredentials` | bool | `false` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.metricsPort` | int | `10252` |  |
 | `rkeControllerManager.metricsPort` | int | `10257` |  |
+| `rkeControllerManager.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `rkeControllerManager.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|storage_operation_duration_seconds_(bucket|count)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
+| `rkeControllerManager.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### rkeEtcd
 
@@ -535,6 +539,9 @@ available config parameters:
 | `rkeProxy.component` | string | `"kube-proxy"` |  |
 | `rkeProxy.enabled` | bool | `true` |  |
 | `rkeProxy.metricsPort` | int | `10249` |  |
+| `rkeProxy.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `rkeProxy.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
+| `rkeProxy.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### rkeScheduler
 
@@ -561,6 +568,9 @@ available config parameters:
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.useServiceAccountCredentials` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.metricsPort` | int | `10251` |  |
 | `rkeScheduler.metricsPort` | int | `10259` |  |
+| `rkeScheduler.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
+| `rkeScheduler.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
+| `rkeScheduler.serviceMonitor.endpoints[0].port` | string | `"metrics"` |  |
 
 ### hardenedKubelet
 
