@@ -349,9 +349,9 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].containerPort` | int | `9091` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].name` | string | `"http-auth"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].protocol` | string | `"TCP"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].resources.limits.cpu` | string | `"500m"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].resources.limits.memory` | string | `"500Mi"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].resources.requests.cpu` | string | `"100m"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].resources.limits.cpu` | string | `"2000m"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].resources.limits.memory` | string | `"2000Mi"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].resources.requests.cpu` | string | `"200m"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].resources.requests.memory` | string | `"500Mi"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.disableCompaction` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.enableAdminAPI` | bool | `false` |  |
