@@ -344,7 +344,7 @@ available config parameters:
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].command[0]` | string | `"prometheus-auth"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].env[0].name` | string | `"POD_IP"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].env[0].valueFrom.fieldRef.fieldPath` | string | `"status.podIP"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].image` | string | `"mtr.devops.telekom.de/caas/prometheus-auth:0.5.2"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].image` | string | `"mtr.devops.telekom.de/caas/prometheus-auth:0.6.0"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].name` | string | `"prometheus-agent"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].containerPort` | int | `9091` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].name` | string | `"http-auth"` |  |
