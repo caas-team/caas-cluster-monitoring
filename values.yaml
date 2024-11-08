@@ -475,7 +475,7 @@ kube-prometheus-stack:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: mtr.devops.telekom.de/caas/prometheus-auth:0.5.2
+        image: mtr.devops.telekom.de/caas/prometheus-auth:0.6.0
         name: prometheus-agent
         ports:
         - containerPort: 9091
@@ -483,10 +483,10 @@ kube-prometheus-stack:
           protocol: TCP
         resources:
           limits:
-            cpu: 500m
-            memory: 500Mi
+            cpu: 2000m
+            memory: 2000Mi
           requests:
-            cpu: 100m
+            cpu: 200m
             memory: 500Mi
       disableCompaction: false
       enableAdminAPI: false
