@@ -20,9 +20,9 @@ A fork of the official [rancher cluster monitoring](https://github.com/rancher/c
 
 If you're comming from an existing rancher-monitoring installation:
 
-- you must first update the prometheus-operator CRDs separately. This chart only includes the kube-prometheus-stack *without* the CRDs.
-- you should additionally uninstall the rancher-monitoring chart before installing this one.
-- do not delete the rancher-monitoring-crds chart, as this will delete all custom resources already created (or back them up first and recreate them).
+* you must first update the prometheus-operator CRDs separately. This chart only includes the kube-prometheus-stack *without* the CRDs.
+* you should additionally uninstall the rancher-monitoring chart before installing this one.
+* do not delete the rancher-monitoring-crds chart, as this will delete all custom resources already created (or back them up first and recreate them).
 
 To install run the following command:
 
@@ -34,7 +34,7 @@ helm -n cattle-monitoring-system upgrade -i rancher-monitoring .
 
 The following table shows the compatibility between the CaaS Cluster Monitoring chart and the CaaS Project Monitoring versions:
 
-| CaaS Cluster Monitoring | compatible with CaaS Project Monitoring | deployed kube-prometheus-stack |
+| CaaS Cluster Monitoring | compatible with CaaS Project Monitoring | used kube-prometheus-stack     |
 | ----------------------- | --------------------------------------- | ------------------------------ |
 | < 0.0.6                 | < 1.0.0                                 | 51.0.3                         |
 | 0.0.6 < x < 1.0.0       | 1.0.0 <= y < 1.4.0                      | 58.4.0                         |
