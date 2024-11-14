@@ -14,6 +14,8 @@ A fork of the official [rancher cluster monitoring](https://github.com/rancher/c
 * <https://github.com/caas-team/caas-cluster-monitoring>
 * <https://github.com/prometheus-community/helm-charts>
 
+A fork of the official [rancher cluster monitoring](https://github.com/rancher/charts/tree/dev-v2.9/charts/rancher-monitoring) with more up-to-date prometheus-operator CRDs and features and [prometheus-auth](https://github.com/caas-team/prometheus-auth) to enable multi-tenancy for the proemtheus metrics.
+
 ## Installation
 
 If you're comming from an existing rancher-monitoring installation:
