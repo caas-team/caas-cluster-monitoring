@@ -1,6 +1,8 @@
 # caas-cluster-monitoring
 
-A fork of the official [rancher cluster monitoring](https://github.com/rancher/charts/tree/dev-v2.9/charts/rancher-monitoring) with more up-to-date prometheus-operator CRDs and features and [prometheus-auth](https://github.com/caas-team/prometheus-auth) to enable multi-tenancy for the proemtheus metrics.
+A fork of the official [rancher cluster monitoring](https://github.com/rancher/charts/tree/dev-v2.9/charts/rancher-monitoring)
+with more up-to-date prometheus-operator CRDs, features and a maintained fork of rancher's [prometheus-auth](https://github.com/caas-team/prometheus-auth)
+to enable multi-tenancy for the prometheus  metrics.
 
 ## Maintainers
 
@@ -14,15 +16,13 @@ A fork of the official [rancher cluster monitoring](https://github.com/rancher/c
 * <https://github.com/caas-team/caas-cluster-monitoring>
 * <https://github.com/prometheus-community/helm-charts>
 
-A fork of the official [rancher cluster monitoring](https://github.com/rancher/charts/tree/dev-v2.9/charts/rancher-monitoring) with more up-to-date prometheus-operator CRDs and features and [prometheus-auth](https://github.com/caas-team/prometheus-auth) to enable multi-tenancy for the proemtheus metrics.
-
 ## Installation
 
-If you're comming from an existing rancher-monitoring installation:
+If you're coming from an existing rancher-monitoring installation:
 
 * you must first update the prometheus-operator CRDs separately. This chart only includes the kube-prometheus-stack *without* the CRDs.
 * you should additionally uninstall the rancher-monitoring chart before installing this one.
-* do not delete the rancher-monitoring-crds chart, as this will delete all custom resources already created (or back them up first and recreate them).
+* do not delete the `rancher-monitoring-crds` chart, as this will delete all custom resources already created (or back them up first and recreate them).
 
 To install run the following command:
 
