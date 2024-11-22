@@ -1,51 +1,47 @@
-# CaaS Cluster Monitoring
+{{ template "chart.header" . }}
+
+A fork of the official [rancher cluster monitoring](https://github.com/rancher/charts/tree/dev-v2.9/charts/rancher-monitoring) 
+with more up-to-date prometheus-operator CRDs, features and a maintained fork of rancher's [prometheus-auth](https://github.com/caas-team/prometheus-auth) 
+to enable multi-tenancy for the prometheus  metrics.
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
 
 ## Installation
 
-With de-installation of the origin Rancher Monitoring and keept resources
+If you're coming from an existing rancher-monitoring installation:
 
+* you must first update the prometheus-operator CRDs separately. This chart only includes the kube-prometheus-stack *without* the CRDs.
+* you should additionally uninstall the rancher-monitoring chart before installing this one.
+* do not delete the `rancher-monitoring-crds` chart, as this will delete all custom resources already created (or back them up first and recreate them).
 
-```bash
-helm -n cattle-monitoring-system delete rancher-monitoring
-kubectl -n cattle-monitoring-system delete secret alertmanager-rancher-monitoring-alertmanager
-```
-
-Deleting of rancher-monitoring-crd would delete also all corresponding Custom Resources. We delete only the Helm release secrets and keep CRDs into the cluster
-
-```bash
-kubectl -n cattle-monitoring-system get secrets -o name --no-headers | grep sh.helm.release.v1.rancher-monitoring-crd | xargs kubectl -n cattle-monitoring-system  delete $1
-```
-
-Nevertheless we need to upgrade CRDs manually because there is no logic to do this in Helm:
-
-```bash
-cd charts
-tar xvfz kube-prometheus-stack-51.0.3.tgz
-cd kube-prometheus-stack/charts/crds
-kubectl apply -f crds/ --server-side --force-conflicts 
-```
-
-To decouple CRDs from this chart (you may have installed CRDs from another chart or logic), feature is disabled:
-
-```yaml
-kube-prometheus-stack:
-  crds:
-    enabled: false
-```
-
-Upgrade to the kube-prometheus-stack:
+To install run the following command:
 
 ```bash
 helm -n cattle-monitoring-system upgrade -i rancher-monitoring .
 ```
 
-available config parameters:
+## Compatibility matrix
 
+The following table shows the compatibility between the CaaS Cluster Monitoring chart and the CaaS Project Monitoring versions:
+
+| CaaS Cluster Monitoring | compatible with CaaS Project Monitoring | used kube-prometheus-stack     |
+| ----------------------- | --------------------------------------- | ------------------------------ |
+| < 0.0.6                 | < 1.0.0                                 | 51.0.3                         |
+| 0.0.6 < x < 1.0.0       | 1.0.0 <= y < 1.4.0                      | 58.4.0                         |
+
+where `x` is the CaaS Cluster Monitoring Version and `y` is the CaaS Project Monitoring Version.
+
+
+## Configuration
+
+The installation can be configured using the various parameters defined in the `values.yaml` file. The following tables list the configurable parameters of the CaaS Cluster Monitoring chart and their default values.
 
 ### caas
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "caas" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -55,7 +51,7 @@ available config parameters:
 ### global
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "global" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -65,7 +61,7 @@ available config parameters:
 ### kube-prometheus-stack
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "kube-prometheus-stack" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -75,7 +71,7 @@ available config parameters:
 ### rkeControllerManager
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "rkeControllerManager" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -85,7 +81,7 @@ available config parameters:
 ### rkeEtcd
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "rkeEtcd" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -95,7 +91,7 @@ available config parameters:
 ### rkeIngressNginx
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "rkeIngressNginx" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -105,7 +101,7 @@ available config parameters:
 ### rkeProxy
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "rkeProxy" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -115,7 +111,7 @@ available config parameters:
 ### rkeScheduler
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "rkeScheduler" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
@@ -125,11 +121,9 @@ available config parameters:
 ### hardenedKubelet
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 {{- range .Values }}
   {{- if (contains "hardenedKubelet" .Key) }}
 | `{{ .Key }}` | {{ .Type }} | {{ if .Default }}{{ .Default }}{{ else }}{{ .AutoDefault }}{{ end }} | {{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }} |
   {{- end }}
 {{- end }}
-
-Autogenerated from chart metadata using [helm-docs v1.11.3](https://github.com/norwoodj/helm-docs/releases/v1.11.3)

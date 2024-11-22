@@ -1,49 +1,54 @@
-# CaaS Cluster Monitoring
+# caas-cluster-monitoring
+
+A fork of the official [rancher cluster monitoring](https://github.com/rancher/charts/tree/dev-v2.9/charts/rancher-monitoring)
+with more up-to-date prometheus-operator CRDs, features and a maintained fork of rancher's [prometheus-auth](https://github.com/caas-team/prometheus-auth)
+to enable multi-tenancy for the prometheus  metrics.
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| eumel8 | <f.kloeker@telekom.de> | <https://www.telekom.com> |
+| puffitos | <bruno.bressi@telekom.de> | <https://www.telekom.com> |
+
+## Source Code
+
+* <https://github.com/caas-team/caas-cluster-monitoring>
+* <https://github.com/prometheus-community/helm-charts>
 
 ## Installation
 
-With de-installation of the origin Rancher Monitoring and keept resources
+If you're coming from an existing rancher-monitoring installation:
 
-```bash
-helm -n cattle-monitoring-system delete rancher-monitoring
-kubectl -n cattle-monitoring-system delete secret alertmanager-rancher-monitoring-alertmanager
-```
+* you must first update the prometheus-operator CRDs separately. This chart only includes the kube-prometheus-stack *without* the CRDs.
+* you should additionally uninstall the rancher-monitoring chart before installing this one.
+* do not delete the `rancher-monitoring-crds` chart, as this will delete all custom resources already created (or back them up first and recreate them).
 
-Deleting of rancher-monitoring-crd would delete also all corresponding Custom Resources. We delete only the Helm release secrets and keep CRDs into the cluster
-
-```bash
-kubectl -n cattle-monitoring-system get secrets -o name --no-headers | grep sh.helm.release.v1.rancher-monitoring-crd | xargs kubectl -n cattle-monitoring-system  delete $1
-```
-
-Nevertheless we need to upgrade CRDs manually because there is no logic to do this in Helm:
-
-```bash
-cd charts
-tar xvfz kube-prometheus-stack-51.0.3.tgz
-cd kube-prometheus-stack/charts/crds
-kubectl apply -f crds/ --server-side --force-conflicts
-```
-
-To decouple CRDs from this chart (you may have installed CRDs from another chart or logic), feature is disabled:
-
-```yaml
-kube-prometheus-stack:
-  crds:
-    enabled: false
-```
-
-Upgrade to the kube-prometheus-stack:
+To install run the following command:
 
 ```bash
 helm -n cattle-monitoring-system upgrade -i rancher-monitoring .
 ```
 
-available config parameters:
+## Compatibility matrix
+
+The following table shows the compatibility between the CaaS Cluster Monitoring chart and the CaaS Project Monitoring versions:
+
+| CaaS Cluster Monitoring | compatible with CaaS Project Monitoring | used kube-prometheus-stack     |
+| ----------------------- | --------------------------------------- | ------------------------------ |
+| < 0.0.6                 | < 1.0.0                                 | 51.0.3                         |
+| 0.0.6 < x < 1.0.0       | 1.0.0 <= y < 1.4.0                      | 58.4.0                         |
+
+where `x` is the CaaS Cluster Monitoring Version and `y` is the CaaS Project Monitoring Version.
+
+## Configuration
+
+The installation can be configured using the various parameters defined in the `values.yaml` file. The following tables list the configurable parameters of the CaaS Cluster Monitoring chart and their default values.
 
 ### caas
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `caas.clusterCosts` | bool | `true` | whether the cluster has kubecost installed |
 | `caas.defaultEgress` | bool | `false` | whether the cluster needs defaultEgress  installed |
 | `caas.dynatrace` | bool | `true` | whether the cluster has a dynatrace operator installed |
@@ -59,7 +64,7 @@ available config parameters:
 ### global
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `global.cattle.clusterId` | string | `"local"` |  |
 | `global.cattle.clusterName` | string | `"local"` |  |
 | `global.cattle.systemDefaultRegistry` | string | `"mtr.devops.telekom.de"` |  |
@@ -73,7 +78,7 @@ available config parameters:
 ### kube-prometheus-stack
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.alertmanagerConfigNamespaceSelector` | object | `{}` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.alertmanagerConfigSelector.matchExpressions[0].key` | string | `"release"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.alertmanagerConfigSelector.matchExpressions[0].operator` | string | `"In"` |  |
@@ -462,7 +467,7 @@ available config parameters:
 ### rkeControllerManager
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `rkeControllerManager.clients.https.enabled` | bool | `true` |  |
 | `rkeControllerManager.clients.https.insecureSkipVerify` | bool | `true` |  |
 | `rkeControllerManager.clients.https.useServiceAccountCredentials` | bool | `true` |  |
@@ -488,7 +493,7 @@ available config parameters:
 ### rkeEtcd
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `rkeEtcd.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
 | `rkeEtcd.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
 | `rkeEtcd.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
@@ -514,7 +519,7 @@ available config parameters:
 ### rkeIngressNginx
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `rkeIngressNginx.clients.nodeSelector."node-role.kubernetes.io/worker"` | string | `"true"` |  |
 | `rkeIngressNginx.clients.port` | int | `10015` |  |
 | `rkeIngressNginx.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
@@ -529,7 +534,7 @@ available config parameters:
 ### rkeProxy
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `rkeProxy.clients.port` | int | `10013` |  |
 | `rkeProxy.clients.tolerations[0].effect` | string | `"NoExecute"` |  |
 | `rkeProxy.clients.tolerations[0].operator` | string | `"Exists"` |  |
@@ -546,7 +551,7 @@ available config parameters:
 ### rkeScheduler
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `rkeScheduler.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
 | `rkeScheduler.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
 | `rkeScheduler.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
@@ -575,7 +580,7 @@ available config parameters:
 ### hardenedKubelet
 
 | Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
+| --------- | ---- | ------- | ----------- |
 | `hardenedKubelet.clients.https.authenticationMethod.authorization.enabled` | bool | `false` |  |
 | `hardenedKubelet.clients.https.authenticationMethod.bearerTokenFile.enabled` | bool | `false` |  |
 | `hardenedKubelet.clients.https.authenticationMethod.bearerTokenSecret.enabled` | bool | `false` |  |
@@ -620,5 +625,3 @@ available config parameters:
 | `hardenedKubelet.serviceMonitor.endpoints[2].port` | string | `"metrics"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[2].relabelings[0].sourceLabels[0]` | string | `"__metrics_path__"` |  |
 | `hardenedKubelet.serviceMonitor.endpoints[2].relabelings[0].targetLabel` | string | `"metrics_path"` |  |
-
-Autogenerated from chart metadata using [helm-docs v1.11.3](https://github.com/norwoodj/helm-docs/releases/v1.11.3)
