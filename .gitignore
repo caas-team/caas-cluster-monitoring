@@ -1,5 +1,5 @@
 charts/kube-prometheus-stack*.tgz
-charts/kube-prometheus-stack
+charts/kube-prometheus-stack/
 caas-cluster-monitoring*.tgz
 rke*.tgz
 hardenedKubelet*.tgz
