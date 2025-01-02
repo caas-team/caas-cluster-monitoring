@@ -1,3 +1,4 @@
+charts/kube-prometheus-stack*.tgz
 charts/kube-prometheus-stack
 caas-cluster-monitoring*.tgz
 rke*.tgz
