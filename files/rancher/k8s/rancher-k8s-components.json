@@ -202,7 +202,7 @@
             "uid": "$datasource"
           },
           "editorMode": "code",
-          "expr": "sum(workqueue_depth{component=\"kube-controller-manager\", name=\"deployment\"}f) by (name)",
+          "expr": "sum(workqueue_depth{component=\"kube-controller-manager\", name=\"deployment\"}) by (name)",
           "interval": "",
           "legendFormat": "Deployment Depth",
           "range": true,
