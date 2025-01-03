@@ -652,9 +652,7 @@
         "hide": 0,
         "label": "Data Source",
         "name": "datasource",
-        "options": [
-
-        ],
+        "options": [],
         "query": "prometheus",
         "refresh": 1,
         "regex": "",
