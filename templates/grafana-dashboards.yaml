@@ -1,9 +1,88 @@
 ---
+{{ if .Values.caas.grafana.dashboards.nginxIngress }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: rancher-monitoring-dashboards
+  name: dashboards-ingress-nginx
   labels:
     grafana_dashboard: "1"
 data:
-{{ (.Files.Glob "files/**").AsConfig | indent 2 }}
+{{ (.Files.Glob "files/ingress-nginx/*").AsConfig | indent 2 }}
+{{ end }}
+---
+{{ if .Values.caas.grafana.dashboards.rancherCluster }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-rancher-cluster
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/cluster/*").AsConfig | indent 2 }}
+{{ end }}
+---
+{{ if .Values.caas.grafana.dashboards.rancherHome }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-rancher-home
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/home/*").AsConfig | indent 2 }}
+{{ end }}
+---
+{{ if .Values.caas.grafana.dashboards.rancherK8sComponents }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-rancher-k8s-components
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/k8s/*").AsConfig | indent 2 }}
+{{ end }}
+---
+{{ if .Values.caas.grafana.dashboards.rancherNodes }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-rancher-nodes
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/nodes/*").AsConfig | indent 2 }}
+{{ end }}
+---
+{{ if .Values.caas.grafana.dashboards.rancherPerformance }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-rancher-performance
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/performance/*").AsConfig | indent 2 }}
+{{ end }}
+---
+{{ if .Values.caas.grafana.dashboards.rancherPods }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-rancher-pods
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/pods/*").AsConfig | indent 2 }}
+{{ end }}
+---
+{{ if .Values.caas.grafana.dashboards.rancherWorkloads }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-rancher-workloads
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/workloads/*").AsConfig | indent 2 }}
+{{ end }}
