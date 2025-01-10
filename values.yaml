@@ -12,10 +12,6 @@ caas:
   # -- whether a longhorn network egress policy is needed for longhorn monitoring
   longhorn: true
   fullnameOverride: ""
-  # deploy additional nginx.conf and dashboard for Grafana, mostly covered from Rancher
-  # beware of the defaultDashboardsEnabled in kube-prometheus-stack
-  grafana:
-    configmaps: false
   nameOverride: ""
   # -- overrides the default namespace for caas related resources
   namespaceOverride: ""
@@ -27,7 +23,26 @@ caas:
     serviceAccount:
       create: true
       name: rancher-monitoring
-
+  grafana:
+    dashboards:
+      # -- whether to deploy the nginx ingress controller dashboard
+      nginxIngress: true
+      # -- whether to deploy the rancher cluster dashboards
+      rancherCluster: true
+      # -- whether to deploy the rancher home dashboard
+      rancherHome: true
+      # -- whether to deploy the rancher k8s components dashboard
+      rancherK8sComponents: true
+      # -- whether to deploy the rancher nodes dashboard
+      rancherNodes: true
+      # -- whether to deploy the rancher performance dashboard
+      rancherPerformance: true
+      # -- whether to deploy the rancher pods dashboard
+      rancherPods: true
+      # -- whether to deploy the rancher workloads dashboard
+      rancherWorkloads: true
+      # -- whether to deploy the rancher longhorn dashboard
+      longhorn: true
 global:
   cattle:
     clusterId: local

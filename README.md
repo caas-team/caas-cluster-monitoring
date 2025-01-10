@@ -53,7 +53,15 @@ The installation can be configured using the various parameters defined in the `
 | `caas.defaultEgress` | bool | `false` | whether the cluster needs defaultEgress installed |
 | `caas.dynatrace` | bool | `true` | whether a dynatrace ingress policy for kube-state-metrics is needed |
 | `caas.fullnameOverride` | string | `""` |  |
-| `caas.grafana.configmaps` | bool | `false` |  |
+| `caas.grafana.dashboards.longhorn` | bool | `true` | whether to deploy the rancher longhorn dashboard |
+| `caas.grafana.dashboards.nginxIngress` | bool | `true` | whether to deploy the nginx ingress controller dashboard |
+| `caas.grafana.dashboards.rancherCluster` | bool | `true` | whether to deploy the rancher cluster dashboards |
+| `caas.grafana.dashboards.rancherHome` | bool | `true` | whether to deploy the rancher home dashboard |
+| `caas.grafana.dashboards.rancherK8sComponents` | bool | `true` | whether to deploy the rancher k8s components dashboard |
+| `caas.grafana.dashboards.rancherNodes` | bool | `true` | whether to deploy the rancher nodes dashboard |
+| `caas.grafana.dashboards.rancherPerformance` | bool | `true` | whether to deploy the rancher performance dashboard |
+| `caas.grafana.dashboards.rancherPods` | bool | `true` | whether to deploy the rancher pods dashboard |
+| `caas.grafana.dashboards.rancherWorkloads` | bool | `true` | whether to deploy the rancher workloads dashboard |
 | `caas.longhorn` | bool | `true` | whether a longhorn network egress policy is needed for longhorn monitoring |
 | `caas.nameOverride` | string | `""` |  |
 | `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
