@@ -86,3 +86,13 @@ metadata:
 data:
 {{ (.Files.Glob "files/rancher/workloads/*").AsConfig | indent 2 }}
 {{ end }}
+{{ if .Values.caas.grafana.dashboards.longhorn }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dashboards-longhorn
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/longhorn/*").AsConfig | indent 2 }}
+{{ end }}
