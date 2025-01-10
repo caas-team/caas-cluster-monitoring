@@ -49,11 +49,12 @@ The installation can be configured using the various parameters defined in the `
 
 | Parameter | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
-| `caas.clusterCosts` | bool | `true` | whether the cluster has kubecost installed |
-| `caas.defaultEgress` | bool | `false` | whether the cluster needs defaultEgress  installed |
-| `caas.dynatrace` | bool | `true` | whether the cluster has a dynatrace operator installed |
+| `caas.clusterCosts` | bool | `true` | whether a kubecost ingress policy for kube-state-metrics is needed |
+| `caas.defaultEgress` | bool | `false` | whether the cluster needs defaultEgress installed |
+| `caas.dynatrace` | bool | `true` | whether a dynatrace ingress policy for kube-state-metrics is needed |
 | `caas.fullnameOverride` | string | `""` |  |
 | `caas.grafana.configmaps` | bool | `false` |  |
+| `caas.longhorn` | bool | `true` | whether a longhorn network egress policy is needed for longhorn monitoring |
 | `caas.nameOverride` | string | `""` |  |
 | `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
 | `caas.prometheusAuth` | bool | `true` | whether the cluster has Prometheus-Auth  installed |

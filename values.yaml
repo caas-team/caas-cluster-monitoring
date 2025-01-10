@@ -3,12 +3,14 @@
 # Declare variables to be passed into your templates.
 
 caas:
-  # -- whether the cluster has kubecost installed
+  # -- whether a kubecost ingress policy for kube-state-metrics is needed
   clusterCosts: true
-  # -- whether the cluster needs defaultEgress  installed
+  # -- whether the cluster needs defaultEgress installed
   defaultEgress: false
-  # -- whether the cluster has a dynatrace operator installed
+  # -- whether a dynatrace ingress policy for kube-state-metrics is needed
   dynatrace: true
+  # -- whether a longhorn network egress policy is needed for longhorn monitoring
+  longhorn: true
   fullnameOverride: ""
   # deploy additional nginx.conf and dashboard for Grafana, mostly covered from Rancher
   # beware of the defaultDashboardsEnabled in kube-prometheus-stack
@@ -115,7 +117,7 @@ kube-prometheus-stack:
       receivers:
       - name: "null"
       route:
-        group_by: ["namespace"]
+        group_by: [ "namespace" ]
         group_interval: 5m
         group_wait: 30s
         receiver: "null"
@@ -862,11 +864,11 @@ hardenedKubelet:
           enabled: false
     rbac:
       additionalRules:
-      - nonResourceURLs: ["/metrics/cadvisor"]
-        verbs: ["get"]
-      - apiGroups: [""]
-        resources: ["nodes/metrics"]
-        verbs: ["get"]
+      - nonResourceURLs: [ "/metrics/cadvisor" ]
+        verbs: [ "get" ]
+      - apiGroups: [ "" ]
+        resources: [ "nodes/metrics" ]
+        verbs: [ "get" ]
     tolerations:
     - effect: "NoExecute"
       operator: "Exists"
@@ -878,7 +880,7 @@ hardenedKubelet:
     - port: metrics
       honorLabels: true
       relabelings:
-      - sourceLabels: [__metrics_path__]
+      - sourceLabels: [ __metrics_path__ ]
         targetLabel: metrics_path
       metricRelabelings:
       - action: keep
@@ -889,7 +891,7 @@ hardenedKubelet:
       path: /metrics/cadvisor
       honorLabels: true
       relabelings:
-      - sourceLabels: [__metrics_path__]
+      - sourceLabels: [ __metrics_path__ ]
         targetLabel: metrics_path
       metricRelabelings:
       - action: keep
@@ -900,7 +902,7 @@ hardenedKubelet:
       path: /metrics/probes
       honorLabels: true
       relabelings:
-      - sourceLabels: [__metrics_path__]
+      - sourceLabels: [ __metrics_path__ ]
         targetLabel: metrics_path
       metricRelabelings:
       - action: keep
