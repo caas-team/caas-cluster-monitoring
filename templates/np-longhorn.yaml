@@ -1,0 +1,18 @@
+{{- if .Values.caas.longhorn }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-to-longhorn
+spec:
+  egress:
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: longhorn-system  
+  podSelector:
+    matchLabels:
+      prometheus: {{ .Release.Name }}-prometheus
+  policyTypes:
+    - Egress
+{{- end }}
