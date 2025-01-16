@@ -1,7 +1,7 @@
 dependencies:
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
-  version: 58.4.0
+  version: 68.1.0
 - name: rkeEtcd
   repository: file://./charts/rkeEtcd
   version: 0.2.1
@@ -20,5 +20,5 @@ dependencies:
 - name: hardenedKubelet
   repository: file://./charts/hardenedKubelet
   version: 0.2.1
-digest: sha256:4635b6b3576ecd6ca7b366b93d47acf8a85efa384fefecfed2542732963c7a42
-generated: "2024-06-19T12:03:12.573586664+02:00"
+digest: sha256:1b4c199a16aa3f77c2bb110b8abc24839ebe35f1a8b0be0a1a54dfefc512c210
+generated: "2025-01-16T00:55:33.022764681+01:00"
