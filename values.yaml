@@ -17,6 +17,9 @@ caas:
   namespaceOverride: ""
   # -- whether the cluster has Prometheus-Auth  installed
   prometheusAuth: true
+  rancherMonitoring:
+    ## -- whether to monitor the rancher pod and fleet components metrics
+    enabled: true
   rbac:
     # -- create a namespaces ServiceAccount
     enabled: true
@@ -47,7 +50,6 @@ global:
   cattle:
     clusterId: local
     clusterName: local
-    # projectId: &projectId p-xxxxx
     systemDefaultRegistry: "mtr.devops.telekom.de"
   imageRegistry: mtr.devops.telekom.de
 
