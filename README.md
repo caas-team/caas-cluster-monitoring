@@ -66,7 +66,7 @@ The installation can be configured using the various parameters defined in the `
 | `caas.nameOverride` | string | `""` |  |
 | `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
 | `caas.prometheusAuth` | bool | `true` | whether the cluster has Prometheus-Auth  installed |
-| `caas.rancherMonitoring.enabled` | bool | `true` |  |
+| `caas.rancherMonitoring.enabled` | bool | `false` |  |
 | `caas.rbac.enabled` | bool | `true` | create a namespaces ServiceAccount |
 | `caas.rbac.serviceAccount.create` | bool | `true` |  |
 | `caas.rbac.serviceAccount.name` | string | `"rancher-monitoring"` |  |

@@ -19,7 +19,7 @@ caas:
   prometheusAuth: true
   rancherMonitoring:
     ## -- whether to monitor the rancher pod and fleet components metrics
-    enabled: true
+    enabled: false
   rbac:
     # -- create a namespaces ServiceAccount
     enabled: true
