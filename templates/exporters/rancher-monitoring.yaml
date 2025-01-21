@@ -24,7 +24,9 @@ spec:
         replacement: {{ .Values.global.cattle.clusterName }}
     {{- end }}
   jobLabel: rancher
-  selector: {{ (lookup "apps/v1" "Deployment" "cattle-system" "rancher") }}
+  selector: 
+    matchLabels:
+      app: rancher
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
