@@ -1,4 +1,4 @@
-{{- if .Values.rancherMonitoring.enabled }}
+{{- if .Values.caas.rancherMonitoring.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -24,7 +24,7 @@ spec:
       app: fleet-controller
 {{- end }}
 ---
-{{- if .Values.rancherMonitoring.enabled }}
+{{- if .Values.caas.rancherMonitoring.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
