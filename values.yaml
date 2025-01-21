@@ -39,7 +39,7 @@ caas:
       # -- whether to deploy the rancher nodes dashboard
       rancherNodes: true
       # -- whether to deploy the rancher performance dashboard
-      rancherPerformance: true
+      rancherPerformance: false
       # -- whether to deploy the rancher pods dashboard
       rancherPods: true
       # -- whether to deploy the rancher workloads dashboard
