@@ -469,7 +469,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheusOperator.image.pullPolicy` | string | `"Always"` |  |
 | `kube-prometheus-stack.prometheusOperator.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.prometheusOperator.image.repository` | string | `"kubeprometheusstack/prometheus-operator"` |  |
-| `kube-prometheus-stack.prometheusOperator.image.tag` | string | `"v0.68.0"` |  |
 | `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.repository` | string | `"kubeprometheusstack/prometheus-config-reloader"` |  |
 | `kube-prometheus-stack.thanosRuler.enabled` | bool | `false` |  |

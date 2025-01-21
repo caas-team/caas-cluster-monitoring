@@ -680,7 +680,6 @@ kube-prometheus-stack:
       pullPolicy: Always
       registry: mtr.devops.telekom.de
       repository: kubeprometheusstack/prometheus-operator
-      tag: v0.68.0
     prometheusConfigReloader:
       image:
         registry: mtr.devops.telekom.de
