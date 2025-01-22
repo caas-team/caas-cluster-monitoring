@@ -97,7 +97,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.forceEnableClusterMode` | bool | `false` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.repository` | string | `"kubeprometheusstack/alertmanager"` |  |
-| `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.tag` | string | `"v0.27.0"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.listenLocal` | bool | `false` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.logFormat` | string | `"logfmt"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.logLevel` | string | `"info"` |  |
@@ -223,7 +222,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.grafana.forceDeployDatasources` | bool | `true` |  |
 | `kube-prometheus-stack.grafana.fullnameOverride` | string | `"rancher-monitoring-grafana"` |  |
 | `kube-prometheus-stack.grafana.image.repository` | string | `"kubeprometheusstack/grafana"` |  |
-| `kube-prometheus-stack.grafana.image.tag` | string | `"10.4.1"` |  |
 | `kube-prometheus-stack.grafana.initChownData.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.grafana.nameOverride` | string | `"rancher-monitoring-grafana"` |  |
 | `kube-prometheus-stack.grafana.namespaceOverride` | string | `""` |  |
@@ -264,7 +262,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.grafana.sidecar.datasources.labelValue` | string | `"1"` |  |
 | `kube-prometheus-stack.grafana.sidecar.datasources.searchNamespace` | string | `""` |  |
 | `kube-prometheus-stack.grafana.sidecar.image.repository` | string | `"kubeprometheusstack/k8s-sidecar"` |  |
-| `kube-prometheus-stack.grafana.sidecar.image.tag` | string | `"1.24.6"` |  |
 | `kube-prometheus-stack.grafana.sidecar.plugins.searchNamespace` | string | `""` |  |
 | `kube-prometheus-stack.grafana.sidecar.resources.limits.cpu` | string | `"100m"` |  |
 | `kube-prometheus-stack.grafana.sidecar.resources.limits.memory` | string | `"100Mi"` |  |
@@ -280,7 +277,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.kube-state-metrics.honorLabels` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.kube-state-metrics.image.repository` | string | `"kubeprometheusstack/kube-state-metrics"` |  |
-| `kube-prometheus-stack.kube-state-metrics.image.tag` | string | `"v2.10.0"` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.honorLabels` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.rbac.create` | bool | `true` |  |
@@ -383,7 +379,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheus.prometheusSpec.ignoreNamespaceSelectors` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.image.repository` | string | `"kubeprometheusstack/prometheus"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.image.tag` | string | `"v2.51.2"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.listenLocal` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.logFormat` | string | `"logfmt"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.logLevel` | string | `"info"` |  |
@@ -456,7 +451,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.pullPolicy` | string | `"Always"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.repository` | string | `"kubeprometheusstack/kube-webhook-certgen"` |  |
-| `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.tag` | string | `"v20221220-controller-v1.5.1-58-g787ea74b6"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.resources.limits.cpu` | string | `"300m"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.resources.limits.memory` | string | `"400Mi"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.resources.requests.cpu` | string | `"100m"` |  |
@@ -468,7 +462,6 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheusOperator.image.pullPolicy` | string | `"Always"` |  |
 | `kube-prometheus-stack.prometheusOperator.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.prometheusOperator.image.repository` | string | `"kubeprometheusstack/prometheus-operator"` |  |
-| `kube-prometheus-stack.prometheusOperator.image.tag` | string | `"v0.68.0"` |  |
 | `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.registry` | string | `"mtr.devops.telekom.de"` |  |
 | `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.repository` | string | `"kubeprometheusstack/prometheus-config-reloader"` |  |
 | `kube-prometheus-stack.thanosRuler.enabled` | bool | `false` |  |
