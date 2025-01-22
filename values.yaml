@@ -47,7 +47,6 @@ global:
   cattle:
     clusterId: local
     clusterName: local
-    # projectId: &projectId p-xxxxx
     systemDefaultRegistry: "mtr.devops.telekom.de"
   imageRegistry: mtr.devops.telekom.de
 
