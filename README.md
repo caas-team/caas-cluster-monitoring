@@ -59,13 +59,14 @@ The installation can be configured using the various parameters defined in the `
 | `caas.grafana.dashboards.rancherHome` | bool | `true` | whether to deploy the rancher home dashboard |
 | `caas.grafana.dashboards.rancherK8sComponents` | bool | `true` | whether to deploy the rancher k8s components dashboard |
 | `caas.grafana.dashboards.rancherNodes` | bool | `true` | whether to deploy the rancher nodes dashboard |
-| `caas.grafana.dashboards.rancherPerformance` | bool | `true` | whether to deploy the rancher performance dashboard |
+| `caas.grafana.dashboards.rancherPerformance` | bool | `false` | whether to deploy the rancher performance dashboard |
 | `caas.grafana.dashboards.rancherPods` | bool | `true` | whether to deploy the rancher pods dashboard |
 | `caas.grafana.dashboards.rancherWorkloads` | bool | `true` | whether to deploy the rancher workloads dashboard |
 | `caas.longhorn` | bool | `true` | whether a longhorn network egress policy is needed for longhorn monitoring |
 | `caas.nameOverride` | string | `""` |  |
 | `caas.namespaceOverride` | string | `""` | overrides the default namespace for caas related resources |
 | `caas.prometheusAuth` | bool | `true` | whether the cluster has Prometheus-Auth  installed |
+| `caas.rancherMonitoring.enabled` | bool | `false` |  |
 | `caas.rbac.enabled` | bool | `true` | create a namespaces ServiceAccount |
 | `caas.rbac.serviceAccount.create` | bool | `true` |  |
 | `caas.rbac.serviceAccount.name` | string | `"rancher-monitoring"` |  |
