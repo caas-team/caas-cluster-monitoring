@@ -4,6 +4,8 @@ kind: ServiceMonitor
 metadata:
   name: rancher
   namespace: cattle-system
+  labels:
+    release: {{ .Release.Name }}
 spec:
   endpoints:
   - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
@@ -24,7 +26,7 @@ spec:
         replacement: {{ .Values.global.cattle.clusterName }}
     {{- end }}
   jobLabel: rancher
-  selector: 
+  selector:
     matchLabels:
       app: rancher
 ---
