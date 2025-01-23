@@ -47,7 +47,6 @@ global:
   cattle:
     clusterId: local
     clusterName: local
-    # projectId: &projectId p-xxxxx
     systemDefaultRegistry: "mtr.devops.telekom.de"
   imageRegistry: mtr.devops.telekom.de
 
@@ -74,7 +73,6 @@ kube-prometheus-stack:
       image:
         registry: mtr.devops.telekom.de
         repository: kubeprometheusstack/alertmanager
-        tag: v0.27.0
       listenLocal: false
       logFormat: logfmt
       logLevel: info
@@ -295,7 +293,6 @@ kube-prometheus-stack:
         auto_assign_org_role: Viewer
     image:
       repository: kubeprometheusstack/grafana
-      tag: 10.4.1
     initChownData:
       enabled: false
     nameOverride: rancher-monitoring-grafana
@@ -356,7 +353,6 @@ kube-prometheus-stack:
         searchNamespace: ""
       image:
         repository: kubeprometheusstack/k8s-sidecar
-        tag: 1.24.6
       plugins:
         searchNamespace: ""
       resources:
@@ -382,7 +378,6 @@ kube-prometheus-stack:
     image:
       registry: mtr.devops.telekom.de
       repository: kubeprometheusstack/kube-state-metrics
-      tag: v2.10.0
     prometheus:
       monitor:
         enabled: true
@@ -522,7 +517,6 @@ kube-prometheus-stack:
       image:
         registry: mtr.devops.telekom.de
         repository: kubeprometheusstack/prometheus
-        tag: v2.51.2
       listenLocal: false
       logFormat: logfmt
       logLevel: info
@@ -660,7 +654,6 @@ kube-prometheus-stack:
           pullPolicy: Always
           registry: mtr.devops.telekom.de
           repository: kubeprometheusstack/kube-webhook-certgen
-          tag: v20221220-controller-v1.5.1-58-g787ea74b6
         resources:
           limits:
             cpu: 300m
@@ -678,7 +671,6 @@ kube-prometheus-stack:
       pullPolicy: Always
       registry: mtr.devops.telekom.de
       repository: kubeprometheusstack/prometheus-operator
-      tag: v0.68.0
     prometheusConfigReloader:
       image:
         registry: mtr.devops.telekom.de

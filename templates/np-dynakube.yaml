@@ -13,7 +13,7 @@ spec:
             field.cattle.io/projectId: dynatrace
   podSelector:
     matchLabels:
-      release: rancher-monitoring
+      release: {{ .Release.Name }}
   policyTypes:
     - Ingress
 {{- end }}
