@@ -44,6 +44,8 @@ caas:
       rancherPods: true
       # -- whether to deploy the rancher workloads dashboard
       rancherWorkloads: true
+      # -- whether to deploy the rancher fleet dashboard
+      rancherFleet: true
       # -- whether to deploy the rancher longhorn dashboard
       longhorn: true
 global:

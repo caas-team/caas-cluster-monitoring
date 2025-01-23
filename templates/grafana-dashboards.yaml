@@ -96,3 +96,14 @@ metadata:
 data:
 {{ (.Files.Glob "files/longhorn/*").AsConfig | indent 2 }}
 {{ end }}
+---
+{{- if .Values.caas.grafana.dashboards.rancherFleet }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rancher-fleet-dashboards
+  labels:
+    grafana_dashboard: "1"
+data:
+{{ (.Files.Glob "files/rancher/fleet/*").AsConfig | indent 2 }}
+{{- end }}
