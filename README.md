@@ -37,7 +37,8 @@ The following table shows the compatibility between the CaaS Cluster Monitoring 
 | CaaS Cluster Monitoring | compatible with CaaS Project Monitoring | used kube-prometheus-stack     |
 | ----------------------- | --------------------------------------- | ------------------------------ |
 | < 0.0.6                 | < 1.0.0                                 | 51.0.3                         |
-| 0.0.6 < x < 1.0.0       | 1.0.0 <= y < 1.4.0                      | 58.4.0                         |
+| 0.0.6 < x < 1.0.0       | 1.0.0 <= y < 1.3.0                      | 58.4.0                         |
+| 1.0.0                   | >= 1.3.0                                | 68.1.1                         |
 
 where `x` is the CaaS Cluster Monitoring Version and `y` is the CaaS Project Monitoring Version.
 
