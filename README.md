@@ -38,6 +38,7 @@ The following table shows the compatibility between the CaaS Cluster Monitoring 
 | ----------------------- | --------------------------------------- | ------------------------------ |
 | < 0.0.6                 | < 1.0.0                                 | 51.0.3                         |
 | 0.0.6 < x < 1.0.0       | 1.0.0 <= y < 1.4.0                      | 58.4.0                         |
+| 1.0.0                   | 1.4.0 <= y < 1.5.0                      | 68.1.1                         |
 
 where `x` is the CaaS Cluster Monitoring Version and `y` is the CaaS Project Monitoring Version.
 
