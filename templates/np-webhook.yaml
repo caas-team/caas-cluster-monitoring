@@ -8,7 +8,7 @@ metadata:
 spec:
   ingress:
     - ports:
-        - port: 443
+        - port: {{ index .Values "kube-prometheus-stack" "prometheusOperator" "tls" "internalPort" }}
           protocol: TCP
   podSelector:
     matchLabels:
