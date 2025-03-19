@@ -1,0 +1,19 @@
+{{- if .Values.caas.clusterCosts }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-webhook-ingress
+  namespace: cattle-monitoring-system
+spec:
+  ingress:
+    - ports:
+        - port: 443
+          protocol: TCP
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: prometheus-operator
+      app: {{ .Release.Name }}-operator
+  policyTypes:
+    - Ingress
+{{- end }}
