@@ -1,0 +1,17 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-webhook-ingress
+  namespace: cattle-monitoring-system
+spec:
+  ingress:
+    - ports:
+        - port: {{ index .Values "kube-prometheus-stack" "prometheusOperator" "tls" "internalPort" }}
+          protocol: TCP
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/component: prometheus-operator
+      app: {{ .Release.Name }}-operator
+  policyTypes:
+    - Ingress
