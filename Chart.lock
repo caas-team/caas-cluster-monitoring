@@ -22,18 +22,18 @@ dependencies:
   version: 0.2.1
 - name: rke2ControllerManager
   repository: file://./charts/rke2ControllerManager
-  version: 0.1.6
+  version: 0.2.0
 - name: rke2Etcd
   repository: file://./charts/rke2Etcd
-  version: 0.1.6
+  version: 0.2.0
 - name: rke2IngressNginx
   repository: file://./charts/rke2IngressNginx
-  version: 0.1.6
+  version: 0.2.0
 - name: rke2Proxy
   repository: file://./charts/rke2Proxy
-  version: 0.1.6
+  version: 0.2.0
 - name: rke2Scheduler
   repository: file://./charts/rke2Scheduler
-  version: 0.1.6
-digest: sha256:b6bbaa26896cde025e490c99d17ebd7eb1917969782fd47696d703b3f7331ec9
-generated: "2025-05-28T22:46:30.531424+02:00"
+  version: 0.2.0
+digest: sha256:b92aedfa27a2c6a725ccd4ac520c3527a55853f4ffb6d701ca517edb60bef00a
+generated: "2025-06-16T17:21:09.277335257+02:00"
