@@ -48,6 +48,7 @@ Sets up a deployment of the PushProx proxy and a DaemonSet of PushProx clients.
 | kubeVersionOverrides | list | `[]` |  |
 | metricsPort | int | `2739` |  |
 | namespaceOverride | string | `""` |  |
+| networkPolicy.enabled | bool | `true` |  |
 | proxy.command[0] | string | `"pushprox-proxy"` |  |
 | proxy.enabled | bool | `true` |  |
 | proxy.image.repository | string | `"rancher/pushprox-proxy"` |  |
