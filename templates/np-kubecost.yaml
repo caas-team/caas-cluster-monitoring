@@ -3,7 +3,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-ingress-from-cluster-costs
+  name: allow-ingress-ksm-from-cluster-costs
   namespace: cattle-monitoring-system
 spec:
   ingress:
@@ -14,6 +14,23 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: kube-state-metrics
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-node-exporter-from-cluster-costs
+  namespace: cattle-monitoring-system
+spec:
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              field.cattle.io/projectId: cluster-costs
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-node-exporter
   policyTypes:
     - Ingress
 {{- end }}
