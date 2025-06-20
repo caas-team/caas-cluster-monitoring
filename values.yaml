@@ -497,7 +497,10 @@ kube-prometheus-stack:
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
-        image: mtr.devops.telekom.de/caas/prometheus-auth:0.6.0
+        - name: CLUSTER_NAME
+          # replace with name of the cluster, if you want OIDC authentication to work
+          value: local 
+        image: mtr.devops.telekom.de/caas/prometheus-auth:0.7.1
         name: prometheus-agent
         ports:
         - containerPort: 9091
