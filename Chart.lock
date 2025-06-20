@@ -20,5 +20,20 @@ dependencies:
 - name: hardenedKubelet
   repository: file://./charts/hardenedKubelet
   version: 0.2.1
-digest: sha256:961acbe7257c48de7c8b8dd2e9b90deb51ab031f28c13696aecb1a64ca4d44ce
-generated: "2025-01-22T19:07:24.450831813+01:00"
+- name: rke2ControllerManager
+  repository: file://./charts/rke2ControllerManager
+  version: 0.1.6
+- name: rke2Etcd
+  repository: file://./charts/rke2Etcd
+  version: 0.1.6
+- name: rke2IngressNginx
+  repository: file://./charts/rke2IngressNginx
+  version: 0.1.6
+- name: rke2Proxy
+  repository: file://./charts/rke2Proxy
+  version: 0.1.6
+- name: rke2Scheduler
+  repository: file://./charts/rke2Scheduler
+  version: 0.1.6
+digest: sha256:b6bbaa26896cde025e490c99d17ebd7eb1917969782fd47696d703b3f7331ec9
+generated: "2025-06-20T15:52:40.89062399+02:00"
