@@ -5,6 +5,11 @@
 caas:
   # -- whether a kubecost ingress policy for kube-state-metrics is needed
   clusterCosts: true
+  # -- whether the default hardened egress policy is needed
+  # -- to allow scraping of only the standard k8s components
+  defaultInternalEgress: true
+  # -- whether egress to the microservices namespace is needed
+  egressMicroservices: false
   # -- whether the cluster needs defaultEgress installed
   defaultEgress: false
   # -- whether a dynatrace ingress policy for kube-state-metrics is needed

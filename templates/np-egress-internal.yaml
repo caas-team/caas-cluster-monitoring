@@ -1,0 +1,38 @@
+{{- if .Values.caas.defaultInternalEgress }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: prometheus-egress-internal
+spec:
+  egress:
+  - ports:
+    - port: 8080 # push-proxy proxy
+      protocol: TCP
+    - port: 8081 # kube-state-metrics
+      protocol: TCP
+    - port: 8888 # opa
+      protocol: TCP
+    - port: 9091 # kepler
+      protocol: TCP
+    - port: 9093 # alertmanager
+      protocol: TCP
+    - port: 9102
+      protocol: TCP
+    - port: 9796 # node-exporter
+      protocol: TCP
+    - port: 10249 # kube-proxy
+      protocol: TCP
+    - port: 10250 # operator, kubelet
+      protocol: TCP
+    - port: 10254 # nginx
+      protocol: TCP
+    to:
+    - ipBlock:
+        cidr: 10.0.0.0/8
+  podSelector:
+    matchLabels:
+      prometheus: "{{ .Release.Name }}-prometheus"
+  policyTypes:
+  - Egress
+{{- end }}

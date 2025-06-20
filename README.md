@@ -52,7 +52,9 @@ The installation can be configured using the various parameters defined in the `
 | --------- | ---- | ------- | ----------- |
 | `caas.clusterCosts` | bool | `true` | whether a kubecost ingress policy for kube-state-metrics is needed |
 | `caas.defaultEgress` | bool | `false` | whether the cluster needs defaultEgress installed |
+| `caas.defaultInternalEgress` | bool | `true` | to allow scraping of only the standard k8s components |
 | `caas.dynatrace` | bool | `true` | whether a dynatrace ingress policy for kube-state-metrics is needed |
+| `caas.egressMicroservices` | bool | `false` | whether egress to the microservices namespace is needed |
 | `caas.fullnameOverride` | string | `""` |  |
 | `caas.grafana.dashboards.longhorn` | bool | `true` | whether to deploy the rancher longhorn dashboard |
 | `caas.grafana.dashboards.nginxIngress` | bool | `true` | whether to deploy the nginx ingress controller dashboard |

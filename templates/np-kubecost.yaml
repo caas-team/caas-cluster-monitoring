@@ -3,8 +3,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-ingress-ksm-from-cluster-costs
-  namespace: cattle-monitoring-system
+  name: allow-ingress-from-cluster-costs
 spec:
   ingress:
     - from:
@@ -21,7 +20,6 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-ingress-node-exporter-from-cluster-costs
-  namespace: cattle-monitoring-system
 spec:
   ingress:
     - from:
