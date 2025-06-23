@@ -36,4 +36,4 @@ dependencies:
   repository: file://./charts/rke2Scheduler
   version: 0.1.7
 digest: sha256:46cb908ea4fbd81d485cd7871f0fe694f7b9d16438838d29b68f081fd0a18105
-generated: "2025-06-20T16:22:51.64372013+02:00"
+generated: "2025-06-23T08:56:29.07300368+02:00"
