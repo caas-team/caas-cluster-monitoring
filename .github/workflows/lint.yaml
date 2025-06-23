@@ -13,6 +13,5 @@ jobs:
     - name: Helm lint
       run: |
         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-        helm version
         helm dependency update
-        helm lint .
+        make lint
