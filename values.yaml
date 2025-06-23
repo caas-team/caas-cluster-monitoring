@@ -858,6 +858,112 @@ rkeScheduler:
         regex: "process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines"
         sourceLabels:
         - __name__
+rke2ControllerManager:
+  enabled: false
+  metricsPort: 10257 # default to secure port as of k8s >= 1.22
+  component: kube-controller-manager
+  clients:
+    https:
+      enabled: true
+      insecureSkipVerify: true
+      useServiceAccountCredentials: true
+    port: 10011
+    useLocalhost: true
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+  kubeVersionOverrides:
+  - constraint: "< 1.22"
+    values:
+      metricsPort: 10252 # default to insecure port in k8s < 1.22
+      clients:
+        https:
+          enabled: false
+          insecureSkipVerify: false
+          useServiceAccountCredentials: false
+
+rke2Scheduler:
+  enabled: false
+  metricsPort: 10259 # default to secure port as of k8s >= 1.22
+  component: kube-scheduler
+  clients:
+    https:
+      enabled: true
+      insecureSkipVerify: true
+      useServiceAccountCredentials: true
+    port: 10012
+    useLocalhost: true
+    nodeSelector:
+      node-role.kubernetes.io/master: "true"
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+  kubeVersionOverrides:
+  - constraint: "< 1.22"
+    values:
+      metricsPort: 10251 # default to insecure port in k8s < 1.22
+      clients:
+        https:
+          enabled: false
+          insecureSkipVerify: false
+          useServiceAccountCredentials: false
+
+rke2Proxy:
+  enabled: false
+  metricsPort: 10249
+  component: kube-proxy
+  clients:
+    port: 10013
+    useLocalhost: true
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+
+rke2Etcd:
+  enabled: false
+  metricsPort: 2381
+  component: kube-etcd
+  clients:
+    port: 10014
+    useLocalhost: true
+    nodeSelector:
+      node-role.kubernetes.io/etcd: "true"
+    tolerations:
+      - effect: "NoExecute"
+        operator: "Exists"
+      - effect: "NoSchedule"
+        operator: "Exists"
+
+rke2IngressNginx:
+  enabled: false
+  metricsPort: 10254
+  component: ingress-nginx
+  networkPolicy:
+    enabled: false
+  # in the RKE2 cluster, the ingress-nginx-controller is deployed
+  # as a non-hostNetwork workload starting at the following versions
+  # - >= v1.22.12+rke2r1 < 1.23.0-0
+  # - >= v1.23.9+rke2r1 < 1.24.0-0
+  # - >= v1.24.3+rke2r1 < 1.25.0-0
+  # - >= v1.25.0+rke2r1
+  # As a result we do not need clients and proxies as we can directly create
+  # a service that targets the workload with the given app name
+  namespaceOverride: kube-system
+  clients:
+    enabled: false
+  proxy:
+    enabled: false
+  service:
+    selector:
+      app.kubernetes.io/name: rke2-ingress-nginx
 
 hardenedKubelet:
   enabled: true
