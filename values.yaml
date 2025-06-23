@@ -696,7 +696,7 @@ kube-prometheus-stack:
 rkeControllerManager:
   clients:
     https:
-      enabled: true
+      enabled: false
       insecureSkipVerify: true
       useServiceAccountCredentials: true
     nodeSelector:
@@ -709,7 +709,7 @@ rkeControllerManager:
       operator: "Exists"
     useLocalhost: true
   component: kube-controller-manager
-  enabled: true
+  enabled: false
   kubeVersionOverrides:
   - constraint: "< 1.22"
     values:
@@ -734,7 +734,7 @@ rkeControllerManager:
         - __name__
 
 rkeEtcd:
-  enabled: true
+  enabled: false
   metricsPort: 2379
   component: kube-etcd
   clients:
@@ -792,7 +792,7 @@ rkeIngressNginx:
   metricsPort: 10254
 
 rkeProxy:
-  enabled: true
+  enabled: false
   metricsPort: 10249
   component: kube-proxy
   clients:
@@ -840,7 +840,7 @@ rkeScheduler:
       operator: "Exists"
     useLocalhost: true
   component: kube-scheduler
-  enabled: true
+  enabled: false
   kubeVersionOverrides:
   - constraint: "< 1.23"
     values:
@@ -864,7 +864,7 @@ rkeScheduler:
         sourceLabels:
         - __name__
 rke2ControllerManager:
-  enabled: false
+  enabled: true
   metricsPort: 10257 # default to secure port as of k8s >= 1.22
   component: kube-controller-manager
   clients:
@@ -892,7 +892,7 @@ rke2ControllerManager:
           useServiceAccountCredentials: false
 
 rke2Scheduler:
-  enabled: false
+  enabled: true
   metricsPort: 10259 # default to secure port as of k8s >= 1.22
   component: kube-scheduler
   clients:
@@ -920,7 +920,7 @@ rke2Scheduler:
           useServiceAccountCredentials: false
 
 rke2Proxy:
-  enabled: false
+  enabled: true
   metricsPort: 10249
   component: kube-proxy
   clients:
@@ -933,7 +933,7 @@ rke2Proxy:
         operator: "Exists"
 
 rke2Etcd:
-  enabled: false
+  enabled: true
   metricsPort: 2381
   component: kube-etcd
   clients:
@@ -948,7 +948,7 @@ rke2Etcd:
         operator: "Exists"
 
 rke2IngressNginx:
-  enabled: false
+  enabled: true
   metricsPort: 10254
   component: ingress-nginx
   networkPolicy:
