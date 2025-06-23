@@ -477,7 +477,7 @@ The installation can be configured using the various parameters defined in the `
 
 | Parameter | Type | Default | Description |
 | --------- | ---- | ------- | ----------- |
-| `rkeControllerManager.clients.https.enabled` | bool | `true` |  |
+| `rkeControllerManager.clients.https.enabled` | bool | `false` |  |
 | `rkeControllerManager.clients.https.insecureSkipVerify` | bool | `true` |  |
 | `rkeControllerManager.clients.https.useServiceAccountCredentials` | bool | `true` |  |
 | `rkeControllerManager.clients.nodeSelector."node-role.kubernetes.io/controlplane"` | string | `"true"` |  |
@@ -488,7 +488,7 @@ The installation can be configured using the various parameters defined in the `
 | `rkeControllerManager.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeControllerManager.clients.useLocalhost` | bool | `true` |  |
 | `rkeControllerManager.component` | string | `"kube-controller-manager"` |  |
-| `rkeControllerManager.enabled` | bool | `true` |  |
+| `rkeControllerManager.enabled` | bool | `false` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].constraint` | string | `"< 1.22"` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeControllerManager.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
@@ -519,7 +519,7 @@ The installation can be configured using the various parameters defined in the `
 | `rkeEtcd.clients.tolerations[1].effect` | string | `"NoSchedule"` |  |
 | `rkeEtcd.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeEtcd.component` | string | `"kube-etcd"` |  |
-| `rkeEtcd.enabled` | bool | `true` |  |
+| `rkeEtcd.enabled` | bool | `false` |  |
 | `rkeEtcd.metricsPort` | int | `2379` |  |
 | `rkeEtcd.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
 | `rkeEtcd.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"grpc_server_(handled_total|started_total)|up|process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|go_goroutines|etcd_disk_(backend_commit_duration_seconds_bucket|wal_fsync_duration_seconds_bucket)|etcd_server_proposals_(pending|failed_total|applied_total|committed_total)|etcd_network_client_grpc_(sent_bytes_total|received_bytes_total)|etcd_mvcc_db_total_size_in_bytes","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
@@ -551,7 +551,7 @@ The installation can be configured using the various parameters defined in the `
 | `rkeProxy.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeProxy.clients.useLocalhost` | bool | `true` |  |
 | `rkeProxy.component` | string | `"kube-proxy"` |  |
-| `rkeProxy.enabled` | bool | `true` |  |
+| `rkeProxy.enabled` | bool | `false` |  |
 | `rkeProxy.metricsPort` | int | `10249` |  |
 | `rkeProxy.serviceMonitor.endpoints[0].honorLabels` | bool | `true` |  |
 | `rkeProxy.serviceMonitor.endpoints[0].metricRelabelings` | list | `[{"action":"keep","regex":"process_(start_time_seconds|cpu_seconds_total|resident_memory_bytes)|rest_client_(request_duration_seconds_bucket|requests_total)|workqueue_(queue_duration_seconds_bucket|depth|adds_total)|up|go_goroutines","sourceLabels":["__name__"]}]` | are needed, they should be added to this regex. |
@@ -575,7 +575,7 @@ The installation can be configured using the various parameters defined in the `
 | `rkeScheduler.clients.tolerations[1].operator` | string | `"Exists"` |  |
 | `rkeScheduler.clients.useLocalhost` | bool | `true` |  |
 | `rkeScheduler.component` | string | `"kube-scheduler"` |  |
-| `rkeScheduler.enabled` | bool | `true` |  |
+| `rkeScheduler.enabled` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].constraint` | string | `"< 1.23"` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.enabled` | bool | `false` |  |
 | `rkeScheduler.kubeVersionOverrides[0].values.clients.https.insecureSkipVerify` | bool | `false` |  |
