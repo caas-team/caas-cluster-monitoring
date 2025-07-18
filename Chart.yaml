@@ -3,7 +3,7 @@ annotations:
   catalog.cattle.io/display-name: CaaS Cluster Monitoring V3
 name: caas-cluster-monitoring
 description: A Helm chart for Rancher Cluster Monitoring V3
-version: "1.0.4"
+version: "1.0.5-rc0"
 appVersion: "68.1.1"
 icon: https://raw.githubusercontent.com/caas-team/caas-project-monitoring/main/logo.png
 keywords:
@@ -35,7 +35,7 @@ dependencies:
 - condition: hardenedKubelet.enabled
   name: hardenedKubelet
   repository: file://./charts/hardenedKubelet
-  version: 0.2.1
+  version: 0.2.2
 - condition: rke2ControllerManager.enabled
   name: rke2ControllerManager
   repository: file://./charts/rke2ControllerManager
