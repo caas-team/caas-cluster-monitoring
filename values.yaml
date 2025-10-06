@@ -953,6 +953,18 @@ rke2IngressNginx:
   component: ingress-nginx
   networkPolicy:
     enabled: false
+  serviceMonitor:
+    endpoints:
+    - port: metrics
+      honorLabels: true
+      # -- Relabeling to keep only the needed metrics
+      # -- for the grafana dashboards. If additional metrics
+      # -- are needed, they should be added to this regex.
+      metricRelabelings:
+      - action: keep
+        regex: "nginx_ingress_controller_(config_last_reload_successful(?:_timestamp_seconds)?|nginx_process_(connections|cpu_seconds_total|resident_memory_bytes)|request_size_sum|request_duration_seconds_(count|bucket)|requests|response_size_(sum|count|bucket)|response_duration_seconds_(bucket|sum)|ssl_expire_time_seconds|success|orphan_ingress)"
+        sourceLabels:
+        - __name__
   # in the RKE2 cluster, the ingress-nginx-controller is deployed
   # as a non-hostNetwork workload starting at the following versions
   # - >= v1.22.12+rke2r1 < 1.23.0-0
