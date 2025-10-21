@@ -1,0 +1,90 @@
+{{- if .Values.caas.customRules.projectFiltering.enabled }}
+# Kubernetes storage alerting rules with Rancher project ID filtering
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "caas-cluster-monitoring.fullname" . }}-kubernetes-storage-alerts
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "caas-cluster-monitoring.name" . }}
+    release: {{ .Release.Name }}
+spec:
+  groups:
+  - name: kubernetes-storage.rules_labeled
+    rules:
+    - alert: KubePersistentVolumeFillingUp
+                    annotations:
+                      description: |
+                        The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }}
+                        in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free.
+                      runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepersistentvolumefillingup
+                      summary: PersistentVolume is filling up.
+                    expr: |-
+                      (
+                        kubelet_volume_stats_available_bytes{job="kubelet", metrics_path="/metrics"}
+                        /
+                        kubelet_volume_stats_capacity_bytes{job="kubelet", metrics_path="/metrics"}
+                      ) < 0.03
+                      and
+                      kubelet_volume_stats_used_bytes{job="kubelet", metrics_path="/metrics"} > 0
+                      * on (namespace) group_left() (
+                        (
+                          kube_namespace_labels{
+                            label_{
+                              .Values.caas.customRules.projectFiltering.labelKey
+                              | replace "." "_" | replace "/" "_" | replace "-" "_"
+                            }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                          }
+                          {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                          or on (namespace) (
+                            kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                          )
+                          {{- end }}
+                        )
+                      )
+                      unless on (namespace, persistentvolumeclaim)
+                      kube_persistentvolumeclaim_access_mode{ access_mode="ReadOnlyMany"} == 1
+                      unless on (namespace, persistentvolumeclaim)
+                      kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
+                    for: 1m
+                    labels:
+                      severity: critical
+
+    - alert: KubePersistentVolumeInodesFillingUp
+                    annotations:
+                      description: |
+                        The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }}
+                        in Namespace {{ $labels.namespace }} only has {{ $value | humanizePercentage }} free inodes.
+                      runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepersistentvolumeinodesfillingup
+                      summary: PersistentVolume is running out of inodes.
+                    expr: |-
+                      (
+                        kubelet_volume_stats_inodes_free{job="kubelet", metrics_path="/metrics"}
+                        /
+                        kubelet_volume_stats_inodes{job="kubelet", metrics_path="/metrics"}
+                      ) < 0.03
+                      and
+                      kubelet_volume_stats_inodes_used{job="kubelet", metrics_path="/metrics"} > 0
+                      * on (namespace) group_left() (
+                        (
+                          kube_namespace_labels{
+                            label_{
+                              .Values.caas.customRules.projectFiltering.labelKey
+                              | replace "." "_" | replace "/" "_" | replace "-" "_"
+                            }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                          }
+                          {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                          or on (namespace) (
+                            kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                          )
+                          {{- end }}
+                        )
+                      )
+                      unless on (namespace, persistentvolumeclaim)
+                      kube_persistentvolumeclaim_access_mode{ access_mode="ReadOnlyMany"} == 1
+                      unless on (namespace, persistentvolumeclaim)
+                      kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
+                    for: 1m
+                    labels:
+                      severity: critical
+{{- end }}

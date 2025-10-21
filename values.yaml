@@ -22,6 +22,38 @@ caas:
   namespaceOverride: ""
   # -- whether the cluster has Prometheus-Auth  installed
   prometheusAuth: true
+  # -- Custom rules configuration
+  customRules:
+    # Project-based namespace filtering for all k8s monitoring rules
+    projectFiltering:
+      enabled: true
+      # Namespace label key to filter on (Rancher project ID)
+      labelKey: "field.cattle.io/projectId"
+      # List of project IDs to monitor (from specified namespaces)
+      labelValues:
+        - "caas-diagnostic"        # diag
+        - "caas-logging"           # caas-logging-system, cattle-logging-system
+        - "caas-monitoring"        # caas-icinga2-monitoring, caas-sparrow, check-kubectl-time, monitoring-mtr-reachability
+        - "caas-operations"        # caas-cert-manager, caas-keda, caas-operations-monitoring, cattle-gatekeeper-system, cluster-autoscaler, cosignwebhook, crossplane-system, namespace-provisioner-system, navlinkswebhook, ranchertoicinga2, vpa-system, wellknoprox
+        - "caas-services"          # microservices
+        - "caas-storage"           # longhorn-system
+        - "cattle-monitoring"      # cattle-monitoring-system
+        - "cis-benchmarks"         # cis-operator-system
+        - "cluster-costs"          # cluster-costs
+        - "dynatrace"              # dynatrace
+        - "kube-downscaler"        # kube-downscaler
+        - "neuvector"              # cattle-neuvector-system
+        - "strimzi"                # kafka-operator
+      # Additional namespaces to monitor (by name, regardless of project ID)
+      additionalNamespaces:
+        - "caas-eck-operator"      # No project ID assigned
+        - "nginx"                  # No project ID assigned
+        # Namespaces with cluster-specific project ID 
+        - "kube-system"            # Core Kubernetes system
+        - "calico-system"          # Calico CNI
+        - "cattle-fleet-system"    # Rancher Fleet
+        - "cattle-system"          # Rancher core system
+        # Add other namespaces that should be monitored
   rancherMonitoring:
     ## -- whether to monitor the rancher pod and fleet components metrics
     enabled: false
@@ -184,22 +216,22 @@ kube-prometheus-stack:
       configReloaders: true
       etcd: false
       general: true
-      k8s: true
-      kubeApiserverAvailability: true
-      kubeApiserverBurnrate: true
-      kubeApiserverHistogram: true
-      kubeApiserverSlos: true
-      kubeControllerManager: true
-      kubePrometheusGeneral: true
-      kubePrometheusNodeRecording: true
-      kubeProxy: true
-      kubeScheduler: true
-      kubeStateMetrics: true
-      kubelet: true
-      kubernetesApps: true
-      kubernetesResources: true
-      kubernetesStorage: true
-      kubernetesSystem: true
+      k8s: false  # Disable default k8s rules to use custom filtered ones
+      kubeApiserverAvailability: true  # Cluster-level, no namespace filtering needed
+      kubeApiserverBurnrate: false     # Has namespace filtering - use custom version
+      kubeApiserverHistogram: true     # Cluster-level, no namespace filtering needed
+      kubeApiserverSlos: true          # Cluster-level, no namespace filtering needed
+      kubeControllerManager: true      # Node-level, no namespace filtering needed
+      kubePrometheusGeneral: true      # Prometheus-specific, no namespace filtering needed
+      kubePrometheusNodeRecording: true # Node-level, no namespace filtering needed
+      kubeProxy: true                  # Node-level, no namespace filtering needed
+      kubeScheduler: true              # Node-level, no namespace filtering needed
+      kubeStateMetrics: true           # kube-state-metrics health, no namespace filtering needed
+      kubelet: true                    # Node-level, no namespace filtering needed
+      kubernetesApps: false            # Many namespace rules - use custom version
+      kubernetesResources: false       # Some namespace rules - use custom version
+      kubernetesStorage: false         # Many namespace rules - use custom version
+      kubernetesSystem: true           # System-level, no namespace filtering needed
       network: true
       node: true
       nodeExporterAlerting: true

@@ -1,0 +1,110 @@
+{{- if .Values.caas.customRules.projectFiltering.enabled }}
+# Kubernetes apps alerting rules with Rancher project ID filtering
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "caas-cluster-monitoring.fullname" . }}-kubernetes-apps-alerts
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "caas-cluster-monitoring.name" . }}
+    release: {{ .Release.Name }}
+spec:
+  groups:
+  - name: kubernetes-apps.rules_labeled
+    rules:
+    - alert: KubePodCrashLooping
+                    annotations:
+                      description: |
+                        Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }})
+                        is in waiting state (reason: "CrashLoopBackOff").
+                      runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodcrashlooping
+                      summary: Pod is crash looping.
+                    expr: |-
+                      max_over_time(
+                        kube_pod_container_status_waiting_reason{
+                          reason="CrashLoopBackOff",
+                          job="kube-state-metrics"
+                        }[5m]
+                      ) * on (namespace) group_left() (
+                        (
+                   kube_namespace_labels{
+                     label_{
+                       .Values.caas.customRules.projectFiltering.labelKey
+                       | replace "." "_" | replace "/" "_" | replace "-" "_"
+                     }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                   }
+                   {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                   or on (namespace) (
+                     kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                   )
+                   {{- end }}
+   )
+ ) >= 1
+                    for: 15m
+                    labels:
+                      severity: warning
+
+    - alert: KubePodNotReady
+                    annotations:
+                      description: |
+                        Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state
+                        for longer than 15 minutes.
+                      runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubepodnotready
+                      summary: Pod has been in a non-ready state for more than 15 minutes.
+                    expr: |-
+                      sum by (namespace, pod, cluster) (
+                        max by (namespace, pod, cluster) (
+                          kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown|Failed"}
+                        ) * on (namespace, pod, cluster)
+                        group_left(owner_kind) topk by (namespace, pod, cluster) (
+                          1, max by (namespace, pod, cluster, owner_kind) (kube_pod_owner{owner_kind!="Job"})
+                        )
+                      ) * on (namespace) group_left() (
+                        (
+                   kube_namespace_labels{
+                     label_{
+                       .Values.caas.customRules.projectFiltering.labelKey
+                       | replace "." "_" | replace "/" "_" | replace "-" "_"
+                     }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                   }
+                   {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                   or on (namespace) (
+                     kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                   )
+                   {{- end }}
+   )
+ ) > 0
+                    for: 15m
+                    labels:
+                      severity: warning
+
+    - alert: KubeDeploymentGenerationMismatch
+                    annotations:
+                      description: |
+                        Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment }} does not match,
+                        this indicates that the Deployment has failed but has not been rolled back.
+                      runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubedeploymentgenerationmismatch
+                      summary: Deployment generation mismatch due to possible roll-back
+                    expr: |-
+                      kube_deployment_status_observed_generation{job="kube-state-metrics"}
+                      !=
+                      kube_deployment_metadata_generation{job="kube-state-metrics"}
+                      * on (namespace) group_left() (
+                        (
+                          kube_namespace_labels{
+                            label_{
+                              .Values.caas.customRules.projectFiltering.labelKey
+                              | replace "." "_" | replace "/" "_" | replace "-" "_"
+                            }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                          }
+                          {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                          or on (namespace) (
+                            kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                          )
+                          {{- end }}
+                        )
+                      )
+                    for: 15m
+                    labels:
+                      severity: warning
+{{- end }}

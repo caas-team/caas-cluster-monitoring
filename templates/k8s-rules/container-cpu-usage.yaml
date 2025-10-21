@@ -1,0 +1,69 @@
+{{- if .Values.caas.customRules.projectFiltering.enabled }}
+# Container CPU usage recording rules with Rancher project ID filtering
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "caas-cluster-monitoring.fullname" . }}-container-cpu-usage
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "caas-cluster-monitoring.name" . }}
+    release: {{ .Release.Name }}
+spec:
+  groups:
+  - name: k8s.rules.container_cpu_usage_seconds_total_labeled
+    rules:
+    - expr: |-
+                      sum by (cluster, namespace, pod, container) (
+                        irate(
+                          container_cpu_usage_seconds_total{
+                            job="kubelet",
+                            metrics_path="/metrics/cadvisor",
+                            image!=""
+                          }[5m]
+                        )
+                      ) * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
+                        1, max by (cluster, namespace, pod, node) (kube_pod_info{node!=""})
+                      ) * on (namespace) group_left() (
+                        (
+                          kube_namespace_labels{
+                            label_{{
+                              .Values.caas.customRules.projectFiltering.labelKey
+                              | replace "." "_" | replace "/" "_" | replace "-" "_"
+                            }}=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                          }
+                          {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                          or on (namespace) (
+                            kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                          )
+                          {{- end }}
+                        )
+                      )
+                    record: node_namespace_pod_container:container_cpu_usage_seconds_total:sum_irate_labeled
+    - expr: |-
+                      sum by (cluster, namespace, pod, container) (
+                        rate(
+                          container_cpu_usage_seconds_total{
+                            job="kubelet",
+                            metrics_path="/metrics/cadvisor",
+                            image!=""
+                          }[5m]
+                        )
+                      ) * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
+                        1, max by (cluster, namespace, pod, node) (kube_pod_info{node!=""})
+                      ) * on (namespace) group_left() (
+                        (
+                          kube_namespace_labels{
+                            label_{{
+                              .Values.caas.customRules.projectFiltering.labelKey
+                              | replace "." "_" | replace "/" "_" | replace "-" "_"
+                            }}=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                          }
+                          {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                          or on (namespace) (
+                            kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                          )
+                          {{- end }}
+                        )
+                      )
+                    record: node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m_labeled
+{{- end }}

@@ -1,0 +1,116 @@
+{{- if .Values.caas.customRules.projectFiltering.enabled }}
+# Container memory recording rules with Rancher project ID filtering
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "caas-cluster-monitoring.fullname" . }}-container-memory
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "caas-cluster-monitoring.name" . }}
+    release: {{ .Release.Name }}
+spec:
+  groups:
+  - name: k8s.rules.container_memory_cache_labeled
+    rules:
+    - expr: |-
+                      container_memory_cache{
+                        job="kubelet",
+                        metrics_path="/metrics/cadvisor",
+                        image!=""
+                      } * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
+                        1, max by (cluster, namespace, pod, node) (kube_pod_info{node!=""})
+                      ) * on (namespace) group_left() (
+                        (
+                          kube_namespace_labels{
+                            label_{{
+                              .Values.caas.customRules.projectFiltering.labelKey
+                              | replace "." "_" | replace "/" "_" | replace "-" "_"
+                            }}=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                          }
+                          {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                          or on (namespace) (
+                            kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                          )
+                          {{- end }}
+                        )
+                      )
+                    record: node_namespace_pod_container:container_memory_cache_labeled
+
+  - name: k8s.rules.container_memory_rss_labeled
+    rules:
+    - expr: |-
+                      container_memory_rss{
+                        job="kubelet",
+                        metrics_path="/metrics/cadvisor",
+                        image!=""
+                      } * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
+                        1, max by (cluster, namespace, pod, node) (kube_pod_info{node!=""})
+                      ) * on (namespace) group_left() (
+                        (
+                   kube_namespace_labels{
+                     label_{
+                       .Values.caas.customRules.projectFiltering.labelKey
+                       | replace "." "_" | replace "/" "_" | replace "-" "_"
+                     }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                   }
+                   {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                   or on (namespace) (
+                     kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                   )
+                   {{- end }}
+   )
+        )
+                    record: node_namespace_pod_container:container_memory_rss_labeled
+
+  - name: k8s.rules.container_memory_swap_labeled
+    rules:
+    - expr: |-
+                      container_memory_swap{
+                        job="kubelet",
+                        metrics_path="/metrics/cadvisor",
+                        image!=""
+                      } * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
+                        1, max by (cluster, namespace, pod, node) (kube_pod_info{node!=""})
+                      ) * on (namespace) group_left() (
+                        (
+                   kube_namespace_labels{
+                     label_{
+                       .Values.caas.customRules.projectFiltering.labelKey
+                       | replace "." "_" | replace "/" "_" | replace "-" "_"
+                     }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                   }
+                   {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                   or on (namespace) (
+                     kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                   )
+                   {{- end }}
+   )
+        )
+                    record: node_namespace_pod_container:container_memory_swap_labeled
+
+  - name: k8s.rules.container_memory_working_set_bytes_labeled
+    rules:
+    - expr: |-
+                      container_memory_working_set_bytes{
+                        job="kubelet",
+                        metrics_path="/metrics/cadvisor",
+                        image!=""
+                      } * on (cluster, namespace, pod) group_left(node) topk by (cluster, namespace, pod) (
+                        1, max by (cluster, namespace, pod, node) (kube_pod_info{node!=""})
+                      ) * on (namespace) group_left() (
+                        (
+                   kube_namespace_labels{
+                     label_{
+                       .Values.caas.customRules.projectFiltering.labelKey
+                       | replace "." "_" | replace "/" "_" | replace "-" "_"
+                     }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                   }
+                   {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                   or on (namespace) (
+                     kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                   )
+                   {{- end }}
+   )
+        )
+                    record: node_namespace_pod_container:container_memory_working_set_bytes_labeled
+{{- end }}

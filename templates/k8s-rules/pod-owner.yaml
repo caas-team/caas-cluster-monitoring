@@ -1,0 +1,47 @@
+{{- if .Values.caas.customRules.projectFiltering.enabled }}
+# Pod owner recording rules with Rancher project ID filtering
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "caas-cluster-monitoring.fullname" . }}-pod-owner
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "caas-cluster-monitoring.name" . }}
+    release: {{ .Release.Name }}
+spec:
+  groups:
+  - name: k8s.rules.pod_owner_labeled
+    rules:
+    - expr: |-
+                      max by (cluster, namespace, workload, pod) (
+                        label_replace(
+                          label_replace(
+                            kube_pod_owner{
+                              job="kube-state-metrics",
+                              owner_kind="ReplicaSet"
+                            } * on (namespace) group_left() (
+                        (
+                   kube_namespace_labels{
+                     label_{
+                       .Values.caas.customRules.projectFiltering.labelKey
+                       | replace "." "_" | replace "/" "_" | replace "-" "_"
+                     }=~"{{ .Values.caas.customRules.projectFiltering.labelValues | join "|" }}"
+                   }
+                   {{- if .Values.caas.customRules.projectFiltering.additionalNamespaces }}
+                   or on (namespace) (
+                     kube_namespace_created{namespace=~"{{ .Values.caas.customRules.projectFiltering.additionalNamespaces | join "|" }}"}
+                   )
+                   {{- end }}
+   )
+ ),
+                            "replicaset", "$1", "owner_name", "(.*)"
+                          ) * on (replicaset, namespace) group_left(owner_name) topk by (replicaset, namespace) (
+                            1, max by (replicaset, namespace, owner_name) (
+                              kube_replicaset_owner{job="kube-state-metrics"}
+                            )
+                          ),
+                          "workload", "$1", "owner_name", "(.*)"
+                        )
+                      )
+                    record: namespace_workload_pod:kube_pod_owner:relabel_labeled
+{{- end }}
