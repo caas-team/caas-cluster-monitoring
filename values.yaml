@@ -57,8 +57,13 @@ global:
   cattle:
     clusterId: local
     clusterName: local
-    systemDefaultRegistry: "mtr.devops.telekom.de"
-  imageRegistry: mtr.devops.telekom.de
+    # -- Registry prefix for the rancher pushprox images (rancher/* on Docker Hub)
+    systemDefaultRegistry: "trusted.artifactory.devops.telekom.de/hub.docker.com"
+  # -- Not set globally: kube-prometheus-stack images come from different upstream
+  # registries (quay.io, docker.io, registry.k8s.io), so each component sets its own image.registry below.
+  # A global value would also override the prometheus-config-reloader image, which the operator
+  # injects into every Prometheus/Alertmanager on the cluster (including caas-project-monitoring).
+  imageRegistry: ""
 
 kube-prometheus-stack:
   ## -- Provide custom recording or alerting rules to be deployed into the cluster.
@@ -81,8 +86,7 @@ kube-prometheus-stack:
       externalUrl:
       forceEnableClusterMode: false
       image:
-        registry: mtr.devops.telekom.de
-        repository: kubeprometheusstack/alertmanager
+        registry: trusted.artifactory.devops.telekom.de/quay.io
       listenLocal: false
       logFormat: logfmt
       logLevel: info
@@ -255,7 +259,7 @@ kube-prometheus-stack:
         - daemon off;
         - -c
         - /nginx/nginx.conf
-        image: mtr.devops.telekom.de/kubeprometheusstack/nginx:1.23.2-alpine
+        image: trusted.artifactory.devops.telekom.de/hub.docker.com/nginx:1.23.2-alpine
         ports:
         - containerPort: 8080
           name: nginx-http
@@ -302,7 +306,8 @@ kube-prometheus-stack:
       users:
         auto_assign_org_role: Viewer
     image:
-      repository: kubeprometheusstack/grafana
+      # -- grafana/grafana is only published to Docker Hub, not quay.io
+      registry: trusted.artifactory.devops.telekom.de/hub.docker.com
     initChownData:
       enabled: false
     nameOverride: rancher-monitoring-grafana
@@ -362,7 +367,7 @@ kube-prometheus-stack:
         labelValue: "1"
         searchNamespace: ""
       image:
-        repository: kubeprometheusstack/k8s-sidecar
+        registry: trusted.artifactory.devops.telekom.de/quay.io
       plugins:
         searchNamespace: ""
       resources:
@@ -386,8 +391,7 @@ kube-prometheus-stack:
   kube-state-metrics:
     honorLabels: true
     image:
-      registry: mtr.devops.telekom.de
-      repository: kubeprometheusstack/kube-state-metrics
+      registry: trusted.artifactory.devops.telekom.de/registry.k8s.io
     prometheus:
       monitor:
         enabled: true
@@ -500,7 +504,7 @@ kube-prometheus-stack:
         - name: CLUSTER_NAME
           # replace with name of the cluster, if you want OIDC authentication to work
           value: local 
-        image: mtr.devops.telekom.de/caas/prometheus-auth:0.7.1
+        image: trusted.artifactory.devops.telekom.de/ghcr.io.docker/caas-team/prometheus-auth/prometheus-auth:0.7.1
         name: prometheus-agent
         ports:
         - containerPort: 9091
@@ -528,8 +532,7 @@ kube-prometheus-stack:
       externalUrl: ""
       ignoreNamespaceSelectors: false
       image:
-        registry: mtr.devops.telekom.de
-        repository: kubeprometheusstack/prometheus
+        registry: trusted.artifactory.devops.telekom.de/quay.io
       listenLocal: false
       logFormat: logfmt
       logLevel: info
@@ -649,8 +652,7 @@ kube-prometheus-stack:
   prometheus-node-exporter:
     image:
       pullPolicy: Always
-      registry: mtr.devops.telekom.de
-      repository: kubeprometheusstack/node-exporter
+      registry: trusted.artifactory.devops.telekom.de/quay.io
     prometheus:
       monitor:
         enabled: true
@@ -665,8 +667,7 @@ kube-prometheus-stack:
       patch:
         image:
           pullPolicy: Always
-          registry: mtr.devops.telekom.de
-          repository: kubeprometheusstack/kube-webhook-certgen
+          registry: trusted.artifactory.devops.telekom.de/registry.k8s.io
         resources:
           limits:
             cpu: 300m
@@ -682,12 +683,14 @@ kube-prometheus-stack:
             type: RuntimeDefault
     image:
       pullPolicy: Always
-      registry: mtr.devops.telekom.de
-      repository: kubeprometheusstack/prometheus-operator
+      registry: trusted.artifactory.devops.telekom.de/quay.io
     prometheusConfigReloader:
       image:
-        registry: mtr.devops.telekom.de
-        repository: kubeprometheusstack/prometheus-config-reloader
+        # -- Injected by the operator as sidecar into every Prometheus/Alertmanager it manages,
+        # including customer caas-project-monitoring instances.
+        registry: trusted.artifactory.devops.telekom.de/quay.io
+    thanosImage:
+      registry: trusted.artifactory.devops.telekom.de/quay.io
   thanosRuler:
     enabled: false
 
