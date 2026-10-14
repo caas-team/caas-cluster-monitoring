@@ -81,8 +81,8 @@ The installation can be configured using the various parameters defined in the `
 | --------- | ---- | ------- | ----------- |
 | `global.cattle.clusterId` | string | `"local"` |  |
 | `global.cattle.clusterName` | string | `"local"` |  |
-| `global.cattle.systemDefaultRegistry` | string | `"mtr.devops.telekom.de"` |  |
-| `global.imageRegistry` | string | `"mtr.devops.telekom.de"` |  |
+| `global.cattle.systemDefaultRegistry` | string | `"trusted.artifactory.devops.telekom.de/hub.docker.com"` | Registry prefix for the rancher pushprox images (rancher/* on Docker Hub) |
+| `global.imageRegistry` | string | `""` | Not set globally: kube-prometheus-stack images come from different upstream registries (quay.io, docker.io, registry.k8s.io), so each component sets its own image.registry below. A global value would also override the prometheus-config-reloader image, which the operator injects into every Prometheus/Alertmanager on the cluster (including caas-project-monitoring). |
 | `kube-prometheus-stack.alertmanager.config.global.resolve_timeout` | string | `"5m"` |  |
 | `kube-prometheus-stack.global.rbac.create` | bool | `true` |  |
 | `kube-prometheus-stack.global.rbac.createAggregateClusterRoles` | bool | `false` |  |
@@ -100,8 +100,7 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.clusterAdvertiseAddress` | bool | `false` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.externalUrl` | string | `nil` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.forceEnableClusterMode` | bool | `false` |  |
-| `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.registry` | string | `"mtr.devops.telekom.de"` |  |
-| `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.repository` | string | `"kubeprometheusstack/alertmanager"` |  |
+| `kube-prometheus-stack.alertmanager.alertmanagerSpec.image.registry` | string | `"trusted.artifactory.devops.telekom.de/quay.io"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.listenLocal` | bool | `false` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.logFormat` | string | `"logfmt"` |  |
 | `kube-prometheus-stack.alertmanager.alertmanagerSpec.logLevel` | string | `"info"` |  |
@@ -222,11 +221,11 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.grafana.extraContainerVolumes[1].configMap.items[0].path` | string | `"nginx.conf"` |  |
 | `kube-prometheus-stack.grafana.extraContainerVolumes[1].configMap.name` | string | `"nginx-proxy-config-rancher-monitoring-grafana"` |  |
 | `kube-prometheus-stack.grafana.extraContainerVolumes[1].name` | string | `"grafana-nginx"` |  |
-| `kube-prometheus-stack.grafana.extraContainers` | string | `"- name: grafana-proxy\n  args:\n  - nginx\n  - -g\n  - daemon off;\n  - -c\n  - /nginx/nginx.conf\n  image: mtr.devops.telekom.de/kubeprometheusstack/nginx:1.23.2-alpine\n  ports:\n  - containerPort: 8080\n    name: nginx-http\n    protocol: TCP\n  resources:\n    limits:\n      cpu: 100m\n      memory: 100Mi\n    requests:\n      cpu: 50m\n      memory: 50Mi\n  securityContext:\n    allowPrivilegeEscalation: false\n    capabilities:\n      drop:\n      - ALL\n    privileged: false\n    runAsUser: 101\n    runAsGroup: 101\n    readOnlyRootFilesystem: true\n  volumeMounts:\n  - mountPath: /nginx\n    name: grafana-nginx\n  - mountPath: /var/cache/nginx\n    name: nginx-home\n"` |  |
+| `kube-prometheus-stack.grafana.extraContainers` | string | `"- name: grafana-proxy\n  args:\n  - nginx\n  - -g\n  - daemon off;\n  - -c\n  - /nginx/nginx.conf\n  image: trusted.artifactory.devops.telekom.de/hub.docker.com/nginx:1.23.2-alpine\n  ports:\n  - containerPort: 8080\n    name: nginx-http\n    protocol: TCP\n  resources:\n    limits:\n      cpu: 100m\n      memory: 100Mi\n    requests:\n      cpu: 50m\n      memory: 50Mi\n  securityContext:\n    allowPrivilegeEscalation: false\n    capabilities:\n      drop:\n      - ALL\n    privileged: false\n    runAsUser: 101\n    runAsGroup: 101\n    readOnlyRootFilesystem: true\n  volumeMounts:\n  - mountPath: /nginx\n    name: grafana-nginx\n  - mountPath: /var/cache/nginx\n    name: nginx-home\n"` |  |
 | `kube-prometheus-stack.grafana.forceDeployDashboards` | bool | `true` |  |
 | `kube-prometheus-stack.grafana.forceDeployDatasources` | bool | `true` |  |
 | `kube-prometheus-stack.grafana.fullnameOverride` | string | `"rancher-monitoring-grafana"` |  |
-| `kube-prometheus-stack.grafana.image.repository` | string | `"kubeprometheusstack/grafana"` |  |
+| `kube-prometheus-stack.grafana.image.registry` | string | `"trusted.artifactory.devops.telekom.de/hub.docker.com"` | grafana/grafana is only published to Docker Hub, not quay.io |
 | `kube-prometheus-stack.grafana.initChownData.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.grafana.nameOverride` | string | `"rancher-monitoring-grafana"` |  |
 | `kube-prometheus-stack.grafana.namespaceOverride` | string | `""` |  |
@@ -266,7 +265,7 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.grafana.sidecar.datasources.label` | string | `"grafana_datasource"` |  |
 | `kube-prometheus-stack.grafana.sidecar.datasources.labelValue` | string | `"1"` |  |
 | `kube-prometheus-stack.grafana.sidecar.datasources.searchNamespace` | string | `""` |  |
-| `kube-prometheus-stack.grafana.sidecar.image.repository` | string | `"kubeprometheusstack/k8s-sidecar"` |  |
+| `kube-prometheus-stack.grafana.sidecar.image.registry` | string | `"trusted.artifactory.devops.telekom.de/quay.io"` |  |
 | `kube-prometheus-stack.grafana.sidecar.plugins.searchNamespace` | string | `""` |  |
 | `kube-prometheus-stack.grafana.sidecar.resources.limits.cpu` | string | `"100m"` |  |
 | `kube-prometheus-stack.grafana.sidecar.resources.limits.memory` | string | `"100Mi"` |  |
@@ -280,8 +279,7 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.grafana.sidecar.securityContext.runAsUser` | int | `472` |  |
 | `kube-prometheus-stack.grafana.testFramework.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.kube-state-metrics.honorLabels` | bool | `true` |  |
-| `kube-prometheus-stack.kube-state-metrics.image.registry` | string | `"mtr.devops.telekom.de"` |  |
-| `kube-prometheus-stack.kube-state-metrics.image.repository` | string | `"kubeprometheusstack/kube-state-metrics"` |  |
+| `kube-prometheus-stack.kube-state-metrics.image.registry` | string | `"trusted.artifactory.devops.telekom.de/registry.k8s.io"` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.prometheus.monitor.honorLabels` | bool | `true` |  |
 | `kube-prometheus-stack.kube-state-metrics.rbac.create` | bool | `true` |  |
@@ -299,8 +297,7 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.nodeExporter.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.nodeExporter.operatingSystems.darwin.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.image.pullPolicy` | string | `"Always"` |  |
-| `kube-prometheus-stack.prometheus-node-exporter.image.registry` | string | `"mtr.devops.telekom.de"` |  |
-| `kube-prometheus-stack.prometheus-node-exporter.image.repository` | string | `"kubeprometheusstack/node-exporter"` |  |
+| `kube-prometheus-stack.prometheus-node-exporter.image.registry` | string | `"trusted.artifactory.devops.telekom.de/quay.io"` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.prometheus.monitor.enabled` | bool | `true` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.rbac.pspEnabled` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus-node-exporter.releaseLabel` | bool | `true` |  |
@@ -361,7 +358,7 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].env[0].valueFrom.fieldRef.fieldPath` | string | `"status.podIP"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].env[1].name` | string | `"CLUSTER_NAME"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].env[1].value` | string | `"local"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].image` | string | `"mtr.devops.telekom.de/caas/prometheus-auth:0.7.1"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].image` | string | `"trusted.artifactory.devops.telekom.de/ghcr.io.docker/caas-team/prometheus-auth/prometheus-auth:0.7.1"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].name` | string | `"prometheus-agent"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].containerPort` | int | `9091` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.containers[0].ports[0].name` | string | `"http-auth"` |  |
@@ -384,8 +381,7 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheus.prometheusSpec.externalLabels` | object | `{}` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.externalUrl` | string | `""` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.ignoreNamespaceSelectors` | bool | `false` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.image.registry` | string | `"mtr.devops.telekom.de"` |  |
-| `kube-prometheus-stack.prometheus.prometheusSpec.image.repository` | string | `"kubeprometheusstack/prometheus"` |  |
+| `kube-prometheus-stack.prometheus.prometheusSpec.image.registry` | string | `"trusted.artifactory.devops.telekom.de/quay.io"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.listenLocal` | bool | `false` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.logFormat` | string | `"logfmt"` |  |
 | `kube-prometheus-stack.prometheus.prometheusSpec.logLevel` | string | `"info"` |  |
@@ -456,8 +452,7 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheus.serviceMonitor.tlsConfig` | object | `{}` |  |
 | `kube-prometheus-stack.prometheus.servicePerReplica.enabled` | bool | `false` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.pullPolicy` | string | `"Always"` |  |
-| `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.registry` | string | `"mtr.devops.telekom.de"` |  |
-| `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.repository` | string | `"kubeprometheusstack/kube-webhook-certgen"` |  |
+| `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.image.registry` | string | `"trusted.artifactory.devops.telekom.de/registry.k8s.io"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.resources.limits.cpu` | string | `"300m"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.resources.limits.memory` | string | `"400Mi"` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.resources.requests.cpu` | string | `"100m"` |  |
@@ -467,10 +462,9 @@ The installation can be configured using the various parameters defined in the `
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.securityContext.runAsUser` | int | `2000` |  |
 | `kube-prometheus-stack.prometheusOperator.admissionWebhooks.patch.securityContext.seccompProfile.type` | string | `"RuntimeDefault"` |  |
 | `kube-prometheus-stack.prometheusOperator.image.pullPolicy` | string | `"Always"` |  |
-| `kube-prometheus-stack.prometheusOperator.image.registry` | string | `"mtr.devops.telekom.de"` |  |
-| `kube-prometheus-stack.prometheusOperator.image.repository` | string | `"kubeprometheusstack/prometheus-operator"` |  |
-| `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.registry` | string | `"mtr.devops.telekom.de"` |  |
-| `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.repository` | string | `"kubeprometheusstack/prometheus-config-reloader"` |  |
+| `kube-prometheus-stack.prometheusOperator.image.registry` | string | `"trusted.artifactory.devops.telekom.de/quay.io"` |  |
+| `kube-prometheus-stack.prometheusOperator.prometheusConfigReloader.image.registry` | string | `"trusted.artifactory.devops.telekom.de/quay.io"` | Injected by the operator as sidecar into every Prometheus/Alertmanager it manages, including customer caas-project-monitoring instances. |
+| `kube-prometheus-stack.prometheusOperator.thanosImage.registry` | string | `"trusted.artifactory.devops.telekom.de/quay.io"` |  |
 | `kube-prometheus-stack.thanosRuler.enabled` | bool | `false` |  |
 
 ### rkeControllerManager
